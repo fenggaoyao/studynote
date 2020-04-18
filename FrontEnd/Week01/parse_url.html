@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">  
+    <title>Parse_url</title>
+
+    <style>
+ div{
+     margin: 20px;
+ }
+  .container{
+    display:flex;   
+  }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+<div>
+    url:
+    <input type="text" id="url"  style="width: 300px;"  height="50px" value="http://www.ora.com:80/goodparts?q#fragment" />
+    <input type="submit" onclick="parseUrl()"/>
+    
+    <ul id="message"></ul>
+
+</div>    
+
+<div>
+
+    <code>
+        var parse_url = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+      </code>
+    
+    
+        <img src="20200417113207.jpg" />
+</div>
+
+</div>
+    
+
+    <script>
+   var parse_url = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
+     function parseUrl(){
+     
+     var url = document.getElementById("url").value; 
+    
+    var result = parse_url.exec(url); 
+
+    
+    var names = ['url', 'scheme', 'slash', 'host', 'port', 
+       'path', 'query', 'hash']; 
+    
+
+    var i; 
+
+   
+    var ul = document.getElementById("message");  
+while(ul.hasChildNodes()){
+ul.removeChild(ul.firstChild);
+}
+
+    for (i = 0; i < names.length; i += 1) {  
+        var li= document.createElement("li")   
+        li.innerText=   names[i] + ':' + result[i];
+        ul.appendChild(li) ;
+    } 
+
+ 
+
+
+     }
+     
+
+    </script>
+
+ 
+
+
+    
+</body>
+</html>
