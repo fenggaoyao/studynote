@@ -1,4 +1,7 @@
-# 0418 - JavaScript
+
+# [编程语言通识](Language.md)
+ 
+# JavaScript
 
 ## JS 词法、类型
 
