@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Tag</title>
+</head>
+
+<body>
+    <h1>HTML Tag List</h1>
+    https://html.spec.whatwg.org/multipage/#toc-semantics
+
+    <pre>
+      <code>
+        [
+          ...new Set(
+            Array.from($$('#toc-semantics code')).map((o) =>
+              o.innerHTML.includes('type=') ? '' : o.innerHTML
+            )
+          )
+        ] + ''
+      </code>
+    </pre>
+
+    <p>count: <span id="count"></span></p>
+
+    <div>html</div>
+    <div>head</div>
+    <div>title</div>
+    <div>base</div>
+    <div>link</div>
+    <div>media</div>
+    <div>type</div>
+    <div>Link</div>
+    <div>meta</div>
+    <div>style</div>
+    <div>body</div>
+    <div>article</div>
+    <div>section</div>
+    <div>nav</div>
+    <div>aside</div>
+    <div>h1</div>
+    <div>h2</div>
+    <div>h3</div>
+    <div>h4</div>
+    <div>h5</div>
+    <div>h6</div>
+    <div>hgroup</div>
+    <div>header</div>
+    <div>footer</div>
+    <div>address</div>
+    <div>div</div>
+    <div>hr</div>
+    <div>pre</div>
+    <div>blockquote</div>
+    <div>ol</div>
+    <div>ul</div>
+    <div>menu</div>
+    <div>li</div>
+    <div>dl</div>
+    <div>dt</div>
+    <div>dd</div>
+    <div>figure</div>
+    <div>figcaption</div>
+    <div>main</div>
+    <div>div</div>
+    <div>a</div>
+    <div>em</div>
+    <div>strong</div>
+    <div>small</div>
+    <div>s</div>
+    <div>cite</div>
+    <div>q</div>
+    <div>dfn</div>
+    <div>abbr</div>
+    <div>ruby</div>
+    <div>rt</div>
+    <div>rp</div>
+    <div>data</div>
+    <div>time</div>
+    <div>code</div>
+    <div>var</div>
+    <div>samp</div>
+    <div>kbd</div>
+    <div>sub</div>
+    <div>sup</div>
+    <div>i</div>
+    <div>b</div>
+    <div>u</div>
+    <div>mark</div>
+    <div>bdi</div>
+    <div>bdo</div>
+    <div>span</div>
+    <div>br</div>
+    <div>wbr</div>
+    <div>area</div>
+    <div>alternate</div>
+    <div>author</div>
+    <div>bookmark</div>
+    <div>canonical</div>
+    <div>dns-prefetch</div>
+    <div>external</div>
+    <div>help</div>
+    <div>icon</div>
+    <div>license</div>
+    <div>modulepreload</div>
+    <div>nofollow</div>
+    <div>noopener</div>
+    <div>noreferrer</div>
+    <div>opener</div>
+    <div>pingback</div>
+    <div>preconnect</div>
+    <div>prefetch</div>
+    <div>preload</div>
+    <div>prerender</div>
+    <div>search</div>
+    <div>stylesheet</div>
+    <div>tag</div>
+    <div>next</div>
+    <div>prev</div>
+    <div>ins</div>
+    <div>del</div>
+    <div>picture</div>
+    <div>source</div>
+    <div>img</div>
+    <div>iframe</div>
+    <div>embed</div>
+    <div>object</div>
+    <div>param</div>
+    <div>video</div>
+    <div>audio</div>
+    <div>track</div>
+    <div>AudioTrackList</div>
+    <div>VideoTrackList</div>
+    <div>TrackEvent</div>
+    <div>map</div>
+    <div>table</div>
+    <div>caption</div>
+    <div>colgroup</div>
+    <div>col</div>
+    <div>tbody</div>
+    <div>thead</div>
+    <div>tfoot</div>
+    <div>tr</div>
+    <div>td</div>
+    <div>th</div>
+    <div>form</div>
+    <div>label</div>
+    <div>input</div>
+    <div></div>
+    <div>div</div>
+    <div>minlength</div>
+    <div>size</div>
+    <div>readonly</div>
+    <div>required</div>
+    <div>multiple</div>
+    <div>pattern</div>
+    <div>min</div>
+    <div>max</div>
+    <div>step</div>
+    <div>list</div>
+    <div>placeholder</div>
+    <div>button</div>
+    <div>select</div>
+    <div>datalist</div>
+    <div>optgroup</div>
+    <div>option</div>
+    <div>textarea</div>
+    <div>output</div>
+    <div>progress</div>
+    <div>meter</div>
+    <div>fieldset</div>
+    <div>legend</div>
+    <div>name</div>
+    <div>dirname</div>
+    <div>disabled</div>
+    <div>autocomplete</div>
+    <div>SubmitEvent</div>
+    <div>FormDataEvent</div>
+    <div>details</div>
+    <div>summary</div>
+    <div>accesskey</div>
+    <div>dialog</div>
+    <div>script</div>
+    <div>noscript</div>
+    <div>template</div>
+    <div>slot</div>
+    <div>canvas</div>
+    <div>Path2D</div>
+    <div>ImageBitmap</div>
+    <div>ImageBitmapRenderingContext</div>
+    <div>OffscreenCanvas</div>
+    <div>CustomElementRegistry</div>
+    <div>ElementInternals</div>
+
+    <script>
+        const len = document.querySelectorAll('div').length
+        document.querySelector('#count').innerHTML = len
+
+    </script>
+</body>
+
+</html>
