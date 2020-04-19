@@ -18,6 +18,12 @@
 * 为什么不要用中文做变量名, 如何更安全使用中文作为变量名
 * "厉".codePointAt(0).toString(16)
 
+```js
+var \u5389\u5389=1
+console.log('厉害')
+```
+
+
 
   - 0 ~ U+007F：常用拉丁字符
     - `String.fromCharCode(num)`
@@ -46,9 +52,10 @@
   - Tab：制表符（打字机时代：制表时隔开数字很方便）
   - VT：纵向制表符
   - FF: FormFeed
-  - SP: Space
+  - SP: Space （推荐）
   - NBSP: NO-BREAK SPACE（和 SP 的区别在于不会断开、不会合并）
   - ...
+
 
 - LineTerminator 换行符
 
@@ -74,18 +81,25 @@
 
   * Type
     - Number
+      - DecimalLiteral
+      - BinaryIntegerLiteral
+      - OctalIntergerLiteral
+      - HexIntergerLiteral
+
       - 存储 Uint8Array、Float64Array
       - 各种进制的写法
         - 二进制0b
         - 八进制0o
         - 十进制0x
       - 实践
+        - Number.MAX_SAFE_INTEGER.toString(16) "1fffffffffffff"
         - 比较浮点是否相等：Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
         - 如何快捷查看一个数字的二进制：(97).toString(2)
+
     - String
-      - Character
-      - Code Point
-      - Encoding
+      - Character 字符
+      - Code Point 码点
+      - Encoding  
         - unicode编码 - utf
           - utf-8 可变长度 （控制位的用处）
       - Grammar
