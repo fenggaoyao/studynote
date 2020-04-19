@@ -5,9 +5,11 @@
 
 ## JS 词法、类型
 
-### 预备知识：[unicode](https://www.fileformat.info/info/unicode/) 字符集
-[中文字符](https://www.fileformat.info/info/unicode/block/cjk_unified_ideographs/index.htm)
-- [Blocks](https://www.fileformat.info/info/unicode/block/index.htm) 编码组
+### 预备知识：
+ - [Unicode与JavaScript详解](http://www.ruanyifeng.com/blog/2014/12/unicode.html)
+ - [unicode](https://www.fileformat.info/info/unicode/) 字符集
+ - [中文字符](https://www.fileformat.info/info/unicode/block/cjk_unified_ideographs/index.htm)
+ - [Blocks](https://www.fileformat.info/info/unicode/block/index.htm) 编码组
 
 可用 `String.fromCharCode(num)` `'\t'.codePointAt()` 进行打印
 

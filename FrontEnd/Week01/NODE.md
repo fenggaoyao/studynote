@@ -1,18 +1,18 @@
 # 知识体系与工程体系
 
-## [预习作业](WarmingUp.md)
+## 1: [预习作业](WarmingUp.md)
 
-## 把面向对象这个概念用追溯法写一篇博文
+## 2: 把面向对象这个概念用追溯法写一篇博文
 
 
-## 把课上老师的脑图里的这些实体补全
+## 3: 把课上老师的脑图里的这些实体补全
 - [entity链接](entity.html)
+- [etity例子](entityDemo.md)
 - [Tag](tag.html)
 - [JS知识](Js.md)
 
 
-
-## Q2:你能不能在 ECMA 中找到所有的类型（Type）
+## 4: 你能不能在 ECMA 中找到所有的类型（Type）
 - 基础类型(7种)  String number null underfine object bool symbol 
 - 语言类型7种
   - List 和 Record： 用于描述函数传参过程。
@@ -23,13 +23,13 @@
   - Lexical Environment 和 Environment Record：用于描述变量和作用域。
   - Data Block：用于描述二进制数据。 
 
-## 作业3：把库里边的 URL 解析代码写一下
+## 5：把库里边的 URL 解析代码写一下
 ```js
    var parse_url = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]-))?(?:\?([^#]-))?(?:#(.-))?$/;
 
 ```
 
-#3 如果你要写一本关于整个前端开发的书，请你列出你的目录。
+## 5：如果你要写一本关于整个前端开发的书，请你列出你的目录。
 
 - 前端发展史
 - 前端基础——HTML、CSS
@@ -46,7 +46,7 @@
 - web安全及前端集成
 
 
-## 如何在互联网上获取信息
+## 6：如何在互联网上获取信息
 ```js
 
 Array.prototype.map.call(document.querySelectorAll(".element"), e=>e.innerText);
@@ -86,7 +86,7 @@ async function start(){
 start();
 
 ```
-## 4.6. 扩展学习
+## 扩展学习
 - ["编译系统透视：图解编译原理"](https://weread.qq.com/web/reader/9c632ee05ce2c79c6f5eaadkc81322c012c81e728d9d180)
 - https://www.w3.org/
 - http://w3school.com/
@@ -100,7 +100,7 @@ start();
 - https://www.ecma-international.org/
 
 
-## 4.2. 参考链接：
+## 参考链接：
 - https://fed.taobao.org/blog/taofed/do71ct/fed-learning-quizzes-apply/?spm=taofed.blogs.blog-list.9.44fe5ac8p6qg66
 - https://tools.ietf.org/html/rfc3986
 - https://svn.apache.org/repos/asf/labs/webarch/trunk/uri/rev-2002/issues.html
