@@ -4,7 +4,7 @@
 
 ## 把面向对象这个概念用追溯法写一篇博文
 
-![avatar](17171eaecdd2da88.jpg)
+![object](/17171eaecdd2da88.jpg)
 
 ## 把课上老师的脑图里的这些实体补全
 - [entity链接](entity.html)
