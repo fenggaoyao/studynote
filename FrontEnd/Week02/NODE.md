@@ -14,7 +14,7 @@
 
 ```javascript
 '冯'.codePointAt(); \\20911  能够正确处理 4 个字节储存的字符，返回一个字符的码点,用for...of循环，因为它会正确识别 32 位的 UTF-16 字符
-'冯'.charCodeAt(0); \\20911  返回前两个字节和后两个字节的值  
+'冯'.charCodeAt(0); \\20911  返回前两个字节和后两个字节的值，针对UTF16编码
 可用 `String.fromCharCode(20911)` \\冯 
 转十六进制 使用20911 .toString(16) \\51af
 HTML Entity (decimal)  	&#20911;
@@ -94,25 +94,32 @@ console.log('厉害')
   - Literal: 直接量
       * NumericLiteral
       * StringLiteral
-      * Template
+      * Template `` 
 
 
   * Type
     - Number
       - DecimalLiteral
+        - 0
+        - 0.
+        - .2
+        - 1e3
       - BinaryIntegerLiteral
+        - 0b111
       - OctalIntergerLiteral
+        - 0o10
       - HexIntergerLiteral
+        - 0xFF
 
-      - 存储 Uint8Array、Float64Array
-      - 各种进制的写法
-        - 二进制0b
-        - 八进制0o
-        - 十进制0x
-      - 实践
-        - Number.MAX_SAFE_INTEGER.toString(16) "1fffffffffffff"
-        - 比较浮点是否相等：Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
-        - 如何快捷查看一个数字的二进制：(97).toString(2)
+    - 存储 Uint8Array、Float64Array
+     
+    - 实践
+      - 关于浮点数表示[计算例子](Decial.md)
+      - Number.MAX_SAFE_INTEGER.toString(16) "1fffffffffffff"
+      - 比较浮点是否相等：Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
+      - 如何快捷查看一个数字的二进制：(97).toString(2)
+      - Sign(1)  Exponent(11)  Fraction(52)
+      
 
     - String
       - Character 字符
@@ -236,6 +243,10 @@ Console.WriteLine(content);  // 打印 ab热cd!
 
 
 - 写一个正则表达式来匹配字符串
+
+```javascript
+'(?:[^'\n\\\r\u2028\u2029]|\\(?:['"\\bfnrtv\n\r\u2028\u2029]|\r\n)|\\x[0-9a-fA-F]{2}|\\u[0-9a-fA-F]{4}|\\[^0-9ux'"\\bfnrtv\n\\\r\u2028\u2029])*'
+```
 
 
 - 讲师提供：

@@ -37,6 +37,40 @@
         var content = decodeUtf8(array);
         console.log(content); // 打印 ab热cd!
 
+
+        function eachBinaryFloatPartToDecimal(binaryFloatPartArr) {
+            return binaryFloatPartArr.map((currentValue, index) => {
+                return Number(currentValue) * Math.pow(2, (-(index + 1)))
+            })
+        }
+        /**
+         * 将二进制小数（包含整数部分和小数部分）转换为十进制数
+         * @param binaryNum 二进制数（可能是整数，也可能是小数）
+         */
+        function binaryFloatToDecimal(binaryNum) {
+            // 如果该二进制只有整数部分则直接用 parseInt(string, radix) 处理
+            if (Number.isInteger(binaryNum)) {
+                return parseInt(binaryNum, 2)
+            } else {
+                const binaryFloatNumArr = binaryNum.toString().split(".")
+
+                // 将二进制整数转换为十进制数
+                const binaryIntParStr = binaryFloatNumArr[0]
+                const decimalIntPartNum = parseInt(binaryIntParStr, 2)
+
+                // 将二进制小数部分转换为十进制数
+                const binaryFloatPartArr = binaryFloatNumArr[1].split("")
+                const eachDecimalFloatPartNum = eachBinaryFloatPartToDecimal(binaryFloatPartArr)
+                const deciamlFloatPartNum = eachDecimalFloatPartNum.reduce((accumulator, currentValue) => {
+                    return accumulator +
+                        currentValue
+                })
+                return decimalIntPartNum + deciamlFloatPartNum
+            }
+        }
+
+        console.log(binaryFloatToDecimal('10100100010.001000011010001101101110001011101011000111'))
+
     </script>
 
 </body>
