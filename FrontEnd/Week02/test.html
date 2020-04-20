@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    &#x51af;&#20911;&#x1F9D9;
+    <script>
+        function encodeUtf8(text) {
+            const code = encodeURIComponent(text);
+            const bytes = [];
+            for (var i = 0; i < code.length; i++) {
+                const c = code.charAt(i);
+                if (c === '%') {
+                    const hex = code.charAt(i + 1) + code.charAt(i + 2);
+                    const hexVal = parseInt(hex, 16);
+                    bytes.push(hexVal);
+                    i += 2;
+                } else bytes.push(c.charCodeAt(0));
+            }
+            return bytes;
+        }
+
+        function decodeUtf8(bytes) {
+            var encoded = "";
+            for (var i = 0; i < bytes.length; i++) {
+                encoded += '%' + bytes[i].toString(16);
+            }
+            return decodeURIComponent(encoded);
+        }
+        var array = encodeUtf8('ab热cd!');
+        console.log(array); // 打印 [97, 98, 231, 131, 173, 99, 100, 33] 
+        var content = decodeUtf8(array);
+        console.log(content); // 打印 ab热cd!
+
+    </script>
+
+</body>
+
+</html>
