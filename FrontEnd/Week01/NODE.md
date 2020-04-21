@@ -1,6 +1,8 @@
-# 知识体系与工程体系 [首页](../../README.md)
+# 知识体系与工程体系 [返回](../../README.md)
 
 ## 1: [预习作业](WarmingUp.md)
+
+- [读ECMA规范](ecma.md)
 
 ## 2: 把面向对象这个概念用追溯法写一篇博文
 
@@ -98,7 +100,7 @@ start();
 - QCon：全球软件开发大会（ https://qcon.infoq.cn/2020/beijing/）
 - Closure：闭包（ https://en.wikipedia.org/wiki/Closure_(computer_programming) ）
 - https://www.ecma-international.org/
-
+- [前端考点](https://github.com/gnosis23/hello-world-blog/issues/33)
 
 ## 参考链接：
 - https://fed.taobao.org/blog/taofed/do71ct/fed-learning-quizzes-apply/?spm=taofed.blogs.blog-list.9.44fe5ac8p6qg66

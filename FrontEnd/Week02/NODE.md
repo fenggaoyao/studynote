@@ -1,7 +1,12 @@
 
-# 编程语言通识与词法类型   [首页](../../README.md)
+# 编程语言通识与词法类型   [返回](../../README.md)
  
-## 1、[编程语言通识](Language.md)
+## 1、编程语言通识  [详细](Language.md)
+
+因为对于任何计算机语言来说，必定是“用规定的文法，去表达特定语义，最终操作运行时的”一个过程。  
+文法可以分成词法和语法，这来自编译原理的划分，同样是完备的。语义则跟语法具有一一对应关系，这里暂时不区分。  
+对于运行时部分，这个划分保持了完备性，我们都知道：程序 = 算法 + 数据结构，那么，对运行时来说，类型就是数据结构，执行过程就是算法。
+
 
 - 语言分类：
   * 0型（无限制文法） ::= "c"
@@ -17,13 +22,11 @@
 
 | Grammer | Runtime |
 | --- | --- | 
-|   Whitespace  | Types   |
+|   Whitespace  | Types <br /> - String number null underfine object bool symbol   |
 |   Comment  |  Excecution Context     |
 |   Line Termiator  |     |
-|     Punctuator    |     |
-|    IdentifierName   |     |
-|   Keywords   |     |
-|   Literal     |     |
+|  Token <br /> Punctuator、IdentifierName、Keywords、Literal  <br />  |     |
+
 
 
 
