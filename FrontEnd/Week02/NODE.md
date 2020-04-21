@@ -18,7 +18,7 @@
 - 类型系统
 
 
-### 2、Atom 词
+### 2、JavaScript词法
 
 | Grammer | Runtime |
 | --- | --- | 
@@ -66,7 +66,7 @@
       * Template `` 
 
   * Type
-    - Number  ***参考匹配[正则表达式](number.js),[测试用例](number.test.js) ***
+    - Number  参考匹配[正则表达式](number.js),[测试用例](number.test.js)
       - DecimalLiteral
         - 0
         - 0.
@@ -78,7 +78,7 @@
         - 0o10
       - HexIntergerLiteral
         - 0xFF
-
+    - Sign(1)  Exponent(11)  Fraction(52)
     - 存储 Uint8Array、Float64Array
      
     - 实践
@@ -86,10 +86,10 @@
       - Number.MAX_SAFE_INTEGER.toString(16) "1fffffffffffff"
       - 比较浮点是否相等：Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
       - 如何快捷查看一个数字的二进制：(97).toString(2)
-      - Sign(1)  Exponent(11)  Fraction(52)
+      
       
 
-    - String *** 参考匹配[正则表达式](string.js),[测试用例](string.test.js) ***
+    - String 参考匹配[正则表达式](string.js),[测试用例](string.test.js) 
       - Character 字符
       - Code Point 码点
       - Encoding  
