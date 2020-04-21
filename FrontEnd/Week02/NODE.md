@@ -9,7 +9,6 @@
 
 | Grammer | Runtime |
 | --- | --- | 
-
 |  - Whitespace  | Types   |
 |  - Comment  |  Excecution Context     |
 |  - Line Termiator  |     |
