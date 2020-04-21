@@ -57,7 +57,7 @@ console.log('厉害')
 
 
 - 作业：完成 UTF8__Encoding 的函数：
-   ** [标准答案](utf.js),[测试用例](uft.test.js),以下只是一些其它方面参考 **
+   *** [标准答案](utf8.js),[测试用例](uft8.test.js),以下只是一些其它方面参考 ***
 
 
 ```js

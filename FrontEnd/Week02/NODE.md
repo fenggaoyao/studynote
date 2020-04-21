@@ -1,5 +1,5 @@
 
-# 编程语言通识与词法类型   [返回首页](../../README.md)
+# 编程语言通识与词法类型   [首页](../../README.md)
  
 ## [编程语言通识](Language.md)
 
@@ -44,7 +44,7 @@
       * Template `` 
 
   * Type
-    - Number 参考匹配[正则表达式](number.js),[测试用例](number.test.js)
+    - Number  ***参考匹配[正则表达式](number.js),[测试用例](number.test.js) ***
       - DecimalLiteral
         - 0
         - 0.
@@ -67,7 +67,7 @@
       - Sign(1)  Exponent(11)  Fraction(52)
       
 
-    - String  参考匹配[正则表达式](string.js),[测试用例](string.test.js)
+    - String *** 参考匹配[正则表达式](string.js),[测试用例](string.test.js) ***
       - Character 字符
       - Code Point 码点
       - Encoding  
