@@ -1,10 +1,10 @@
 
-# 编程语言通识与词法类型   返回首页(../README.md)
+# 编程语言通识与词法类型   [返回首页](../README.md)
  
-## 编程语言通识(Language.md)
+## [编程语言通识](Language.md)
 
 ## JS 词法、类型
- - [UniCode知识](UniCode.md)
+ - [UniCode知识及UTF转码](UniCode.md)
 
 ### Atom 词
 
@@ -44,7 +44,7 @@
       * Template `` 
 
   * Type
-    - Number
+    - Number 参考匹配[正则表达式](number.js),[测试用例](number.test.js)
       - DecimalLiteral
         - 0
         - 0.
@@ -67,7 +67,7 @@
       - Sign(1)  Exponent(11)  Fraction(52)
       
 
-    - String
+    - String  参考匹配[正则表达式](string.js),[测试用例](string.test.js)
       - Character 字符
       - Code Point 码点
       - Encoding  
@@ -82,13 +82,7 @@
 小作业
 
 - 写一个正则 匹配所有Number直接量
-
-
 - 写一个正则表达式来匹配字符串
-
-```javascript
-'(?:[^'\n\\\r\u2028\u2029]|\\(?:['"\\bfnrtv\n\r\u2028\u2029]|\r\n)|\\x[0-9a-fA-F]{2}|\\u[0-9a-fA-F]{4}|\\[^0-9ux'"\\bfnrtv\n\\\r\u2028\u2029])*'
-```
 
 
 - 讲师提供：

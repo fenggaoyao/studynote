@@ -18,6 +18,10 @@ JavaScript 中所有数字包括整数和小数都只有一种类型 — Number�
 
 ![avatar](https://user-images.githubusercontent.com/948896/31601584-f65ed43e-b21f-11e7-8755-c99b48e5134c.png)
 
+
+[标准例子](float.js),[测试](float.test.js)，涉及关于判断大小端
+以下作为其它练习参考
+
 ```js
 var num = 0.1,
     result = [];
@@ -63,8 +67,5 @@ function binaryFloatToDecimal(binaryNum) {
 
 console.log(binaryFloatToDecimal('10100100010.001000011010001101101110001011101011000111'))  
 
-
 ```
 
-
-作业：[ float number to binary](https://github.com/gnosis23/Frontend-01-Template/blob/master/week02/float.js)

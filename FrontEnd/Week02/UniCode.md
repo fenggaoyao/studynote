@@ -56,7 +56,10 @@ console.log('厉害')
 
 
 
-- 完成 UTF8__Encoding 的函数
+- 作业：完成 UTF8__Encoding 的函数：
+   ** [标准答案](utf.js),[测试用例](uft.test.js),以下只是一些其它方面参考 **
+
+
 ```js
 
 var code='严'.charCodeAt(0).toString(2);
@@ -161,5 +164,3 @@ var content = System.Text.Encoding.UTF8.GetString(bytes);
 Console.WriteLine(content);  // 打印 ab热cd!
 ````
 
-
-作业：[utf8.js ](https://github.com/gnosis23/Frontend-01-Template/blob/master/week02/utf8.js)
