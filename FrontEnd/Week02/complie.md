@@ -10,10 +10,10 @@ int main()
 }
 ```
 
-![avatar][https://static001.geekbang.org/resource/image/45/09/45a51ccfeba212d1ccda8c669d317509.png]
+![avatar](https://static001.geekbang.org/resource/image/45/09/45a51ccfeba212d1ccda8c669d317509.png)
 
 
-[https://static001.geekbang.org/resource/image/81/b3/81f37939dc9920c1e0e261c7f345ceb3.jpg]
+![avatar](https://static001.geekbang.org/resource/image/81/b3/81f37939dc9920c1e0e261c7f345ceb3.jpg)
 
 bp 寄存器通常是用来存放栈帧指针的，rsp 寄存器用来存放栈顶指针的，PC 寄存器用来存放下一条要执行的指令等。  
 
