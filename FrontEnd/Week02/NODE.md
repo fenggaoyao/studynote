@@ -1,12 +1,25 @@
 
 # 编程语言通识与词法类型   [首页](../../README.md)
  
-## [编程语言通识](Language.md)
+## 1、[编程语言通识](Language.md)
 
-## JS 词法、类型
- - [UniCode知识及UTF转码](UniCode.md)
 
-### Atom 词
+
+### 2、Atom 词
+
+| Grammer | Runtime |
+| --- | --- | 
+
+|  - Whitespace  | Types   |
+|  - Comment  |  Excecution Context     |
+|  - Line Termiator  |     |
+|  - Token   |     |
+|    - Punctuator    |     |
+|     - IdentifierName   |     |
+|    - Keywords   |     |
+|    - Literal     |     |
+
+
 
 #### InputElement
 
@@ -78,6 +91,9 @@
     - Boolean
     - Null
     - Undefind
+
+## Unicode
+ - [UniCode知识及UTF转码](UniCode.md)
 
 小作业
 
