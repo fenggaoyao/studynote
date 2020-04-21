@@ -77,6 +77,7 @@
 * 子类型
   * 逆变/协变
 
+## 机器语言
 
 ![avatar](https://static001.geekbang.org/resource/image/a2/a2/a20dec9ec8a84c8519dd1c4a18c2dda2.jpg)
-  - [编译](complie.md)
+  - [二进制编译](complie.md)

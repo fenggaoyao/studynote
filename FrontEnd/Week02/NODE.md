@@ -3,20 +3,27 @@
  
 ## 1、[编程语言通识](Language.md)
 
+- 语言分类：
+  * 0型（无限制文法） ::= "c"
+  * 1型（上下文有关） "a""c"::="a""x""c"
+  * 2型（上下文无关）
+  * 3型（正则文法）
+- 产生式（BNF） ::=  numer  () * + | 非终结符 
+- 图灵完备性
+- 类型系统
 
 
 ### 2、Atom 词
 
 | Grammer | Runtime |
 | --- | --- | 
-|  - Whitespace  | Types   |
-|  - Comment  |  Excecution Context     |
-|  - Line Termiator  |     |
-|  - Token   |     |
-|    - Punctuator    |     |
-|     - IdentifierName   |     |
-|    - Keywords   |     |
-|    - Literal     |     |
+|   Whitespace  | Types   |
+|   Comment  |  Excecution Context     |
+|   Line Termiator  |     |
+|     Punctuator    |     |
+|    IdentifierName   |     |
+|   Keywords   |     |
+|   Literal     |     |
 
 
 
