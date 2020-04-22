@@ -6,8 +6,9 @@
 ![avatar](https://static001.geekbang.org/resource/image/6a/9b/6aec0a09381a2f74014ec604ef99c19b.png)
 
 执行过程我们则需要按照从大结构到小结构的角度讲解，从最顶层的程序与模块、事件循环和微任务，到函数、再到语句级的执行。  
-我们从粗到细地了解执行过程。实例部分，对 JavaScript 来说类似基础库，JavaScipt 的内置对象多达 150 以上，  
-所以我们会从应用和机制的角度，挑选其中几个体系来讲解。  
+我们从粗到细地了解执行过程。实例部分，对 JavaScript 来说类似基础库，JavaScipt 的内置对象多达 150 以上， 
+![avatar][https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png] 
+所以我们会从应用和机制的角度，文本处理（String、Regex）,数字与日期(number和string),索引集合（Array TypeArray等）、映射对象（map set workmap）、结构数据、控制对象（promise） 
 
 
    ### HTML
@@ -147,7 +148,7 @@ V8 实现对象存储时，并没有完全采用字典的存储方式，这主�
 - [entity链接](entity.html)
 - [etity例子](entityDemo.md)
 - [Tag](tag.html)
-- [JS知识](Js.md)
+- [JS](Js.md)
 
 
 ###  4: 你能不能在 ECMA 中找到所有的类型（Type）

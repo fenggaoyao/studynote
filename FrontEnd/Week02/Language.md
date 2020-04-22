@@ -56,6 +56,10 @@
 终结符, 如: "+"
 非终结符: 如:  <LogicalExpression>
 
+
+// 例子：2*(1+2)||2  测试地址 https://pegjs.org/online
+
+
 正则的回溯指的是什么
 
 ## 图灵完备性

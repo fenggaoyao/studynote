@@ -55,14 +55,62 @@
 - Token 记号：一切有效的东西
 
   - Punctuator: 符号 用于构成代码结构 比如 `> = < }`
+
+| {    | （)  | !=   | .    | ...  |
+| ---- | ---- | ---- | ---- | ---- |
+| ;    | ,    | <    | >    | <=   |
+| >=   | ==   | ===  | !==  | +    |
+| -    | *    | %    | **   | ++   |
+| --   | <<   | >>   | >>>  | &    |
+| \|   | ^    | !    | ~    | &&   |
+| \|\| | ?    | :    | =    | +=   |
+| -=   | *=   | %=   | **=  | <<=  |
+
   - Keywords：比如 `await`、`break`... 不能用作变量名，但像 getter 里的 `get`就是个例外
     - Future reserved Keywords: `eum`
+| abstract | arguments | boolean    | break     | byte         |
+| -------- | --------- | ---------- | --------- | ------------ |
+| case     | catch     | char       | class*    | const        |
+| continue | debugger  | default    | delete    | do           |
+| double   | else      | enum*      | eval      | export*      |
+| extends* | false     | final      | finally   | float        |
+| for      | function  | goto       | if        | implements   |
+| import*  | in        | instanceof | int       | interface    |
+| let      | long      | native     | new       | null         |
+| package  | private   | protected  | public    | return       |
+| short    | static    | super*     | switch    | synchronized |
+| this     | throw     | throws     | transient | true         |
+| try      | typeof    | var        | void      | volatile     |
+| while    | with      | yield      |           |              |
+
   - IdentifierName：标识符，可以以字母、_ 或者 $ 开头，代码中用来标识**[变量](https://developer.mozilla.org/en-US/docs/Glossary/variable)、[函数](https://developer.mozilla.org/en-US/docs/Glossary/function)、或[属性](https://developer.mozilla.org/en-US/docs/Glossary/property)**的字符序列
     - 变量名：不能用 Keywords
     - 属性：可以用 Keywords
   - Literal: 直接量
       * NumericLiteral
       * StringLiteral
+
+单双引号的区别仅仅在于写法，在双引号字符串直面量中，双引号必须转义，在单引号字符串直面量中，单引号必须转义。字符串中其他必须转义的字符是 `\` 和所有换行符。
+JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，但是大部分实现都支持的八进制转义。
+第一种是单字符转义。 即一个反斜杠 `\` 后面跟一个字符这种形式。
+
+有特别意义的字符包括有SingleEscapeCharacter所定义的 9 种，见下表：
+
+| **转义字符** | **转义Unicode** | **产生字符** |
+| ------------ | --------------- | ------------ |
+| '            | U+0022          | "            |
+| "            | U+0027          | '            |
+| \            | U+005C          | \            |
+| b            | U+0008          | <BS>         |
+| f            | U+000C          | <FF>         |
+| n            | U+000A          | <LF>         |
+| r            | U+000D          | <CR>         |
+| t            | U+0009          | <HT>         |
+| v            | U+000B          | <VT>         |
+
+除了这 9 种字符、数字、x 和 u 以及所有的换行符之外，其它字符经过 `\` 转义后都是自身。
+
+
       * Template `` 
 
   * Type
@@ -80,7 +128,35 @@
         - 0xFF
     - Sign(1)  Exponent(11)  Fraction(52)
     - 存储 Uint8Array、Float64Array
-     
+ typedArray是内存视图, 是计算机中一片连续的内存区域, typedArray采用的是小端字节序  
+  - typedArray指的是:    
+      * Int8Array(); 
+      * Uint8Array(); 
+      * Uint8ClampedArray();
+      * Int16Array(); 
+      * Uint16Array();
+      * Int32Array(); 
+      * Uint32Array(); 
+      * Float32Array(); 
+      * Float64Array();
+  - 使用ArrayBuffer构造函数可以生成一片连续的内存空间, 但是不能进行操作
+  - 使用typedArray构造函数对内存进行操作
+  例子: 
+```
+      定义一个拥有8个字节的内存空间
+      var x = new ArrayBuffer(8)  
+      var y = new Int8Array(x)
+      给内存中的数组下标为0 2 7的元素赋值
+      Int8Array(8) [1, 0, 4, 0, 0, 0, 0, 4]
+      拷贝y到m
+      var m = new Int16Array(y)
+      Int16Array(8) [1, 0, 4, 0, 0, 0, 0, 4]
+      创建一个新的类型化视图数组, 如果buffer里面已经有值, 按照小端字序的规则存储
+      *** 分析: 16位的整数由2个字节组成, buffer是8个字节的内存, 所以16位整数需要4个字节来存储
+      *** 0000000100000000 0000010000000000 0000000000000000  0000000000000100
+      var m = new Int16Array(x)
+      Int16Array(4) [1, 4, 0, 1024]
+```   
     - 实践
       - 关于浮点数表示[计算例子](Decial.md)
       - Number.MAX_SAFE_INTEGER.toString(16) "1fffffffffffff"
