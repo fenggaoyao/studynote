@@ -1,12 +1,10 @@
-
 # 编程语言通识与词法类型   [返回](../../README.md)
  
 ## 1、编程语言通识  [详细](Language.md)
 
-因为对于任何计算机语言来说，必定是“用规定的文法，去表达特定语义，最终操作运行时的”一个过程。  
+因为对于任何计算机语言来说，必定是**用规定的文法，去表达特定语义，最终操作运行时的”一个过程**。  
 文法可以分成词法和语法，这来自编译原理的划分，同样是完备的。语义则跟语法具有一一对应关系，这里暂时不区分。  
 对于运行时部分，这个划分保持了完备性，我们都知道：程序 = 算法 + 数据结构，那么，对运行时来说，类型就是数据结构，执行过程就是算法。
-
 
 - 语言分类：
   * 0型（无限制文法） ::= "c"
@@ -16,6 +14,9 @@
 - 产生式（BNF） ::=  numer  () * + | 非终结符 
 - 图灵完备性
 - 类型系统
+
+编译原理方面的练习[compiler.md]  
+
 
 
 ### 2、JavaScript词法
@@ -67,7 +68,8 @@
 | -=   | *=   | %=   | **=  | <<=  |
 
   - Keywords：比如 `await`、`break`... 不能用作变量名，但像 getter 里的 `get`就是个例外
-    - Future reserved Keywords: `eum`
+    - Future reserved Keywords: `eum`  
+
 | abstract | arguments | boolean    | break     | byte         |
 | -------- | --------- | ---------- | --------- | ------------ |
 | case     | catch     | char       | class*    | const        |
@@ -88,9 +90,9 @@
     - 属性：可以用 Keywords
   - Literal: 直接量
       * NumericLiteral
-      * StringLiteral
+      * StringLiteral  
 
-单双引号的区别仅仅在于写法，在双引号字符串直面量中，双引号必须转义，在单引号字符串直面量中，单引号必须转义。字符串中其他必须转义的字符是 `\` 和所有换行符。
+单双引号的区别仅仅在于写法，在双引号字符串直面量中，双引号必须转义，在单引号字符串直面量中，单引号必须转义。字符串中其他必须转义的字符是 `\` 和所有换行符。  
 JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，但是大部分实现都支持的八进制转义。
 第一种是单字符转义。 即一个反斜杠 `\` 后面跟一个字符这种形式。
 
@@ -161,11 +163,9 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
       - 关于浮点数表示[计算例子](Decial.md)
       - Number.MAX_SAFE_INTEGER.toString(16) "1fffffffffffff"
       - 比较浮点是否相等：Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
-      - 如何快捷查看一个数字的二进制：(97).toString(2)
-      
-      
+      - 如何快捷查看一个数字的二进制：(97).toString(2) 
 
-    - String 参考匹配[正则表达式](string.js),[测试用例](string.test.js) 
+    - String 
       - Character 字符
       - Code Point 码点
       - Encoding  
@@ -176,13 +176,13 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
     - Boolean
     - Null
     - Undefind
-
+参考匹配[正则表达式](string.js),[测试用例](string.test.js) 
 ## Unicode
  - [UniCode知识及UTF转码](UniCode.md)
 
 
 ## 正则表达式
-  [相关总结](regex.md)
+  [正则表达式的相关总结](regex.md)
 
 小作业
 

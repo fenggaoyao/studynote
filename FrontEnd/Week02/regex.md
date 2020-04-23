@@ -52,6 +52,10 @@ console.log(regex.test("abcdEF234"));// true三者都有
 以使用非捕获括号(?:p)和(?:p1|p2|p3)，
 
 
+命名分组相关的有三种语法，分别是 ?<name>、\k<name>、$<name>，相同点是都用尖括号包裹着分组名。  
+命名捕获分组自身的语法是 (?<name>...)，比普通的分组多了一个 ?<name> 字样，其中 name 的起法就和你平时起变量名一样即可（不过在这里关键字也可用）。  
+
+
 ## 回溯法
 
 
@@ -67,6 +71,6 @@ console.log(regex.test("abcdEF234"));// true三者都有
 | 管道符（竖杠）  | "|" | 5 |
 
 [正则表达式学习](https://regexr.com)
-[正则表达式可视化]： [https://regexper.com]
+[正则表达式可视化](https://regexper.com)
 
 作业  [number.test.js ](https://github.com/gnosis23/Frontend-01-Template/blob/master/week02/number.test.js)

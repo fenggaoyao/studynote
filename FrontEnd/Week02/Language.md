@@ -28,9 +28,9 @@
 整数连加
 "+"
 <Number>: "0" | "1" ... "9"
-<Deciamal>: "0" | (("1" ~ "9") <Number>+)
-<Expression>: <Deciamal> ("+" <Deciamal>)+
-<Expression>: Deciamal | (<Expression> "+" <Deciamal>)
+<Decimal>: "0" | (("1" ~ "9") <Number>+)
+<Expression>: <Decimal> ("+" <Decimal>)+
+<Expression>: Deciamal | (<Expression> "+" <Decimal>)
 
 四则运算
 <PrimaryExpression> = <DecimalNumber> |
