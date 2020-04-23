@@ -5,9 +5,9 @@
 **编程语言的一般规律：用一定的词法和语法，表达一定语义，从而操作运行时。**  
 ![avatar](https://static001.geekbang.org/resource/image/6a/9b/6aec0a09381a2f74014ec604ef99c19b.png)
 
-执行过程我们则需要按照从大结构到小结构的角度讲解，从最顶层的程序与模块、事件循环和微任务，到函数、再到语句级的执行。  
+[JS](Js.md)执行过程我们则需要按照从大结构到小结构的角度讲解，从最顶层的程序与模块、事件循环和微任务，到函数、再到语句级的执行。  
 我们从粗到细地了解执行过程。实例部分，对 JavaScript 来说类似基础库，JavaScipt 的内置对象多达 150 以上， 
-![avatar][https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png] 
+![avatar](ttps://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png])
 所以我们会从应用和机制的角度，文本处理（String、Regex）,数字与日期(number和string),索引集合（Array TypeArray等）、映射对象（map set workmap）、结构数据、控制对象（promise） 
 
 
@@ -153,7 +153,7 @@ JavaScript 用对象模拟函数的设计代替了一般编程语言中的函数
 - [entity链接](entity.html)
 - [etity例子](entityDemo.md)
 - [Tag](tag.html)
-- [JS](Js.md)
+
 
 
 ###  4: 你能不能在 ECMA 中找到所有的类型（Type）
