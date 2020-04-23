@@ -66,5 +66,7 @@ console.log(regex.test("abcdEF234"));// true三者都有
 | 位置和序列  | ^、$、\元字符、一般字符 | 4 |
 | 管道符（竖杠）  | "|" | 5 |
 
+[正则表达式学习](https://regexr.com)
+[正则表达式可视化]： [https://regexper.com]
 
 作业  [number.test.js ](https://github.com/gnosis23/Frontend-01-Template/blob/master/week02/number.test.js)

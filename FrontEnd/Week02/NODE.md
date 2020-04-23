@@ -111,7 +111,7 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
 除了这 9 种字符、数字、x 和 u 以及所有的换行符之外，其它字符经过 `\` 转义后都是自身。
 
 
-      * Template `` 
+ * Template `` 
 
   * Type
     - Number  参考匹配[正则表达式](number.js),[测试用例](number.test.js)
@@ -179,6 +179,10 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
 
 ## Unicode
  - [UniCode知识及UTF转码](UniCode.md)
+
+
+## 正则表达式
+  [相关总结](regex.md)
 
 小作业
 
