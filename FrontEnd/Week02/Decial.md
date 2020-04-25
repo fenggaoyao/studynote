@@ -68,4 +68,31 @@ function binaryFloatToDecimal(binaryNum) {
 console.log(binaryFloatToDecimal('10100100010.001000011010001101101110001011101011000111'))  
 
 ```
+  - typedArray指的是:    
+      * Int8Array(); 
+      * Uint8Array(); 
+      * Uint8ClampedArray();
+      * Int16Array(); 
+      * Uint16Array();
+      * Int32Array(); 
+      * Uint32Array(); 
+      * Float32Array(); 
+      * Float64Array();
+
+  例子: 
+```javascript
+      定义一个拥有8个字节的内存空间
+      var x = new ArrayBuffer(8)  
+      var y = new Int8Array(x)
+      给内存中的数组下标为0 2 7的元素赋值
+      Int8Array(8) [1, 0, 4, 0, 0, 0, 0, 4]
+      拷贝y到m
+      var m = new Int16Array(y)
+      Int16Array(8) [1, 0, 4, 0, 0, 0, 0, 4]
+      创建一个新的类型化视图数组, 如果buffer里面已经有值, 按照小端字序的规则存储
+      *** 分析: 16位的整数由2个字节组成, buffer是8个字节的内存, 所以16位整数需要4个字节来存储
+      *** 0000000100000000 0000010000000000 0000000000000000  0000000000000100
+      var m = new Int16Array(x)
+      Int16Array(4) [1, 4, 0, 1024]
+```
 

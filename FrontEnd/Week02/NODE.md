@@ -98,7 +98,7 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
 
 有特别意义的字符包括有SingleEscapeCharacter所定义的 9 种，见下表：
 
-| **转义字符** | **转义Unicode** | **产生字符** |
+|转义字符 | 转义Unicode| 产生字符 |
 | ------------ | --------------- | ------------ |
 | '            | U+0022          | "            |
 | "            | U+0027          | '            |
@@ -113,7 +113,7 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
 除了这 9 种字符、数字、x 和 u 以及所有的换行符之外，其它字符经过 `\` 转义后都是自身。
 
 
- * Template `` 
+ * Template  
 
   * Type
     - Number  参考匹配[正则表达式](number.js),[测试用例](number.test.js)
@@ -129,36 +129,10 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
       - HexIntergerLiteral
         - 0xFF
     - Sign(1)  Exponent(11)  Fraction(52)
-    - 存储 Uint8Array、Float64Array
- typedArray是内存视图, 是计算机中一片连续的内存区域, typedArray采用的是小端字节序  
-  - typedArray指的是:    
-      * Int8Array(); 
-      * Uint8Array(); 
-      * Uint8ClampedArray();
-      * Int16Array(); 
-      * Uint16Array();
-      * Int32Array(); 
-      * Uint32Array(); 
-      * Float32Array(); 
-      * Float64Array();
-  - 使用ArrayBuffer构造函数可以生成一片连续的内存空间, 但是不能进行操作
-  - 使用typedArray构造函数对内存进行操作
-  例子: 
-```
-      定义一个拥有8个字节的内存空间
-      var x = new ArrayBuffer(8)  
-      var y = new Int8Array(x)
-      给内存中的数组下标为0 2 7的元素赋值
-      Int8Array(8) [1, 0, 4, 0, 0, 0, 0, 4]
-      拷贝y到m
-      var m = new Int16Array(y)
-      Int16Array(8) [1, 0, 4, 0, 0, 0, 0, 4]
-      创建一个新的类型化视图数组, 如果buffer里面已经有值, 按照小端字序的规则存储
-      *** 分析: 16位的整数由2个字节组成, buffer是8个字节的内存, 所以16位整数需要4个字节来存储
-      *** 0000000100000000 0000010000000000 0000000000000000  0000000000000100
-      var m = new Int16Array(x)
-      Int16Array(4) [1, 4, 0, 1024]
-```   
+    - 存储 Uint8Array、Float64Array  typedArray是内存视图, 是计算机中一片连续的内存区域, typedArray采用的是小端字节序  
+    - 使用ArrayBuffer构造函数可以生成一片连续的内存空间, 但是不能进行操作
+    - 使用typedArray构造函数对内存进行操作
+
     - 实践
       - 关于浮点数表示[计算例子](Decial.md)
       - Number.MAX_SAFE_INTEGER.toString(16) "1fffffffffffff"
