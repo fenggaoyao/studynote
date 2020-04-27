@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        function sleep(d) {
+            return new Promise(resolve => setTimeout(resolve, d));
+        }
+        async function* foo() {
+            var i = 0;
+            while (true) {
+                yield i++;
+                await sleep(1000);
+            }
+        }
+        void async function () {
+            var g = foo();
+            for await (let e of g) {
+                console.log(e)
+            };
+        }()
+
+        var x = 0;
+
+        // function foo() {
+        //     var o = {
+        //         x: 1
+        //     };
+        //     x = 2;
+        //     with(o) {
+        //         var x = 3
+        //     }
+        //     if (false) {
+        //         var x = 1
+        //     }
+
+        //     console.log(x);
+        //     console.log(o);
+        // }
+        // foo();
+        // console.log(x);
+
+    </script>
+</body>
+
+</html>

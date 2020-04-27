@@ -12,7 +12,7 @@
 | Memeber |  a.b <br /> a[b] <br /> foo`string` <br /> super.b <br /> super["b"] <br /> new target <br /> new foo() |
 |Call| foo() <br /> super() <br /> foo()['b'] <br /> foo().b <br /> foo()`abc`|
 | Update  |  a++ <br /> a--<br />  --a <br /> ++a  |
-| Unary  |  delete a.b<br /> void foo()<br /> typeof a<br /> +a<br /> <br />a<br /> ~a<br /> !a<br /> await a   |
+| Unary  |  delete a.b<br /> void foo()<br /> typeof a<br /> +a <br />a<br /> ~a<br /> !a<br /> await a   |
 | Exponental  | **   |
 | Multiplicative  |  * / %   |
 | Additive  |  +-  |
@@ -31,10 +31,25 @@
 |Iteration|  while(); <br />do while( );<br /> for( ; ;)<br /> for(  in ) <br /> for(  of )<br /> for await (of) |  in(eumerable; of(Symbol.Iterator))  |
 |标签 循环 break continue| label;iteration;continue;break  |  [[type]]:break continue; value:--;  target:label  |   |
 |Try| try{}catch{变量} finally{} | 除了throw语句还有产生throw效果(type:throw): 运行时错误  ExpressionStatement   |
-|声明| function ;function**; aysnc function ; async function**; class ,var let const import export||
+|声明| function ;function*; aysnc function ; async function*; class ,var let const import export||
 ## Type Convertion
 ![avatar](https://static001.geekbang.org/resource/image/71/20/71bafbd2404dc3ffa5ccf5d0ba077720.jpg)
 
+## 对象
+ 我们不应该到语言描述干扰，在设计对象的状态和行为时，我们总是遵循“行为改变状态”的原则
+
+ K-V：Symbol String  -> Data(数据属性 value writeable enumrable configuration )
+  Accessor（访问器属性 get set enumerable configurable）
+### Object API/Grammar
+  - {}.[]  Object.defineProperty
+  - Object.create/ Object.setPrototypeOf / Object.getPrototypeOf
+  - new /class /extends
+  - new /function /prototype
+
+### Function Object
+   Object.prototype , call(函数对象), constructor(构造器对象)
+### Special Object
+  [盘点JavaScript中对象内部属性和方法](JavaScript_Object.md)
 
 ## 课后作业：
 
