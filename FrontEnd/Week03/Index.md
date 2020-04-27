@@ -4,6 +4,7 @@
 | --- | --- | 
 | Grammer Tree VS Priority | Type Convertion |
 | Left hand Side & Right Hand Side |  |
+| 简单语句 <br/> 组合语句 <br/> 声明  | Completion Record(type:normal break,continue,return throw；<br /> value: <br /> target) <br /> Lexical Environment  |
 
 ## 表达式
 | Category | Content |
@@ -22,8 +23,14 @@
 |Logical |  && &#124;&#124; |
 |Conditional | ?: |
 
-
-
+## 语句
+| Category | Content | | Describe |
+|简单语句 | a= 1+2;<br /> ; <br /> debugger; <br />throw a; <br />continue label;<br /> break label;<br/> return 1+2;| |
+|块Block语句| {  } | 与对象区别；作用域； type:normal，顺序执行  当执行到非normal语句（break,continue,return throw）就不执行下去了  |
+|Iteration|  while(); <br />do while( );<br /> for( ; ;)<br /> for(  in ) <br /> for(  of )<br /> for await (of) |  in(eumerable; of(Symbol.Iterator))  |
+|标签 循环 break continue| label;iteration;continue;break  |  [[type]]:break continue; value:--;  target:label  |   |
+|Try| try{}catch{变量} finally{} | 除了throw语句还有产生throw效果(type:throw): 运行时错误  ExpressionStatement   |
+|声明| function ;function**; aysnc function ; async function**; class ,var let const import export||
 ## Type Convertion
 ![avatar](https://static001.geekbang.org/resource/image/71/20/71bafbd2404dc3ffa5ccf5d0ba077720.jpg)
 
