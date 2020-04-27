@@ -1,71 +1,27 @@
-# 表达式
+# 表达式、语句与对象
 
 | Grammer | Runtime |
 | --- | --- | 
 | Grammer Tree VS Priority | Type Convertion |
 | Left hand Side & Right Hand Side |  |
 
+## 表达式
+| Category | Content |
+| --- | --- | 
+| Memeber |  a.b <br /> a[b] <br /> foo`string` <br /> super.b <br /> super["b"] <br /> new target <br /> new foo() |
+|Call| foo() <br /> super() <br /> foo()['b'] <br /> foo().b <br /> foo()`abc`|
+| Update  |  a++ <br /> a--<br />  --a <br /> ++a  |
+| Unary  |  delete a.b<br /> void foo()<br /> typeof a<br /> +a<br /> <br />a<br /> ~a<br /> !a<br /> await a   |
+| Exponental  | **   |
+| Multiplicative  |  * / %   |
+| Additive  |  +-  |
+| Shift  | >> <<  >>>   |
+| RelationShip  |  <> <=  >=  instanceof in   | 
+|Equality | == != === !== |
+|Bitwise | &(按位与运算)  ^(按位异或运算) | (按位或运算)|
+|Logical |  && || |
+|Conditional | ?: |
 
-## Memeber
-- a.b
-- a[b]
-- foo`string`
-- super.b
-- super["b"]
-- new target
-- new foo()
-
-## Call
-- foo()
-- super()
-- foo()['b']
-- foo().b
-- foo()`abc`
-
-## update
-- a++
-- a--
-- --a
-- ++a
-  
-## Unary
-
-- delete a.b
-- void foo()
-- typeof a
-- +a
-- -a
-- ~a
-- !a
-- await a
-
-# Exponental
-
-- **
-
-## Multiplicative
-"*" / %
-  
-
-## Additive
-+-
-
-## Shift
- >> <<  >>>
-
-## RelationShip
-<> <=  >=  instanceof in 
-
-## Equality
-== != === !==
-## Bitwise
-&(按位与运算)  ^(按位异或运算) | (按位或运算)
-
-## Logical
-&& ||
-
-## Conditional
-?:
 
 
 ## Type Convertion
