@@ -18,8 +18,8 @@
 | Shift  | >> <<  >>>   |
 | RelationShip  |  <> <=  >=  instanceof in   | 
 |Equality | == != === !== |
-|Bitwise | &(按位与运算)  ^(按位异或运算) | (按位或运算)|
-|Logical |  && || |
+|Bitwise | &(按位与运算)  ^(按位异或运算) &#124; (按位或运算)|
+|Logical |  && &#124;&#124; |
 |Conditional | ?: |
 
 
