@@ -6,6 +6,13 @@
  - [中文字符](https://www.fileformat.info/info/unicode/block/cjk_unified_ideographs/index.htm)
  - [Blocks](https://www.fileformat.info/info/unicode/block/index.htm) 编码组
 
+```javascript
+//打印出 JavaScript中的所有 unicode
+for (let i = 0; i < 128; i++) {
+        const element = `<div style='color:red; display:inline-block; padding:10px'>${String.fromCharCode(i)}(${i})</div>`
+            document.write(element)
+        }
+```
 
 ```javascript
 '冯'.codePointAt(); \\20911  能够正确处理 4 个字节储存的字符，返回一个字符的码点,用for...of循环，因为它会正确识别 32 位的 UTF-16 字符

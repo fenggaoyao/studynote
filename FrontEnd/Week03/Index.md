@@ -34,7 +34,7 @@
 |声明| function ;function*; aysnc function ; async function*; class ,var let const import export||
 ## Type Convertion
 ![avatar](https://static001.geekbang.org/resource/image/71/20/71bafbd2404dc3ffa5ccf5d0ba077720.jpg)
-
+![avatar](https://cdn.nlark.com/yuque/0/2020/png/382504/1588008238437-d19bc0a9-8248-48bc-8aec-5490859dad6a.png)
 ## 对象
  我们不应该到语言描述干扰，在设计对象的状态和行为时，我们总是遵循“行为改变状态”的原则
 
@@ -69,3 +69,4 @@
 - LeftHandSideExpression：ECMA-262.pdf 201 页 12.3
 - UpdateExpression：ECMA-262.pdf 178 页 11.9.1
 - [IIFE ](https://zh.wikipedia.org/wiki/%E7%AB%8B%E5%8D%B3%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F)：Immediately-invoked Function Expressions 立即执行的函数表达式
+- [别人笔记](https://www.yuque.com/u221766/xgl0mb/fo37kh)
