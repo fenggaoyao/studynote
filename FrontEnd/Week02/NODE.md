@@ -134,7 +134,7 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
     - 使用typedArray构造函数对内存进行操作
 
     - 实践
-      - 关于浮点数表示[计算例子](Decial.md)
+      - 关于浮点数表示[计算例子](Decial.md)，[网上资料](http://alvarto.github.io/VisualNumeric64/#Number.MIN_VALUE)
       - Number.MAX_SAFE_INTEGER.toString(16) "1fffffffffffff"
       - 比较浮点是否相等：Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
       - 如何快捷查看一个数字的二进制：(97).toString(2) 
