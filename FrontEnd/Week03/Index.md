@@ -1,76 +1,55 @@
-# 表达式和语句
+# 表达式、语句与对象
 
 | Grammer | Runtime |
 | --- | --- | 
 | Grammer Tree VS Priority | Type Convertion |
 | Left hand Side & Right Hand Side |  |
+| 简单语句 <br/> 组合语句 <br/> 声明  | Completion Record(type:normal break,continue,return throw；<br /> value: <br /> target) <br /> Lexical Environment  |
 
+## 表达式
+| Category | Content |
+| --- | --- | 
+| Memeber |  a.b <br /> a[b] <br /> foo`string` <br /> super.b <br /> super["b"] <br /> new target <br /> new foo() |
+|Call| foo() <br /> super() <br /> foo()['b'] <br /> foo().b <br /> foo()`abc`|
+| Update  |  a++ <br /> a--<br />  --a <br /> ++a  |
+| Unary  |  delete a.b<br /> void foo()<br /> typeof a<br /> +a <br />a<br /> ~a<br /> !a<br /> await a   |
+| Exponental  | **   |
+| Multiplicative  |  * / %   |
+| Additive  |  +-  |
+| Shift  | >> <<  >>>   |
+| RelationShip  |  <> <=  >=  instanceof in   | 
+|Equality | == != === !== |
+|Bitwise | &(按位与运算)  ^(按位异或运算) &#124; (按位或运算)|
+|Logical |  && &#124;&#124; |
+|Conditional | ?: |
 
-## Memeber
-- a.b
-- a[b]
-- foo`string`
-- super.b
-- super["b"]
-- new target
-- new foo()
-
-## Call
-- foo()
-- super()
-- foo()['b']
-- foo().b
-- foo()`abc`
-
-## update
-- a++
-- a--
-- --a
-- ++a
-  
-## Unary
-
-- delete a.b
-- void foo()
-- typeof a
-- +a
-- -a
-- ~a
-- !a
-- await a
-
-# Exponental
-
-- **
-
-## Multiplicative
-"*" / %
-  
-
-## Additive
-+-
-
-## Shift
- >> <<  >>>
-
-## RelationShip
-<> <=  >=  instanceof in 
-
-## Equality
-== != === !==
-## Bitwise
-&(按位与运算)  ^(按位异或运算) | (按位或运算)
-
-## Logical
-&& ||
-
-## Conditional
-?:
-
-
+## 语句
+| Category | Content |  Describe |
+| --- | --- |  --- | 
+|简单语句 | a= 1+2;<br /> ; <br /> debugger; <br />throw a; <br />continue label;<br /> break label;<br/> return 1+2;| |
+|块Block语句| {  } | 与对象区别；作用域； type:normal，顺序执行  当执行到非normal语句（break,continue,return throw）就不执行下去了  |
+|Iteration|  while(); <br />do while( );<br /> for( ; ;)<br /> for(  in ) <br /> for(  of )<br /> for await (of) |  in(eumerable; of(Symbol.Iterator))  |
+|标签 循环 break continue| label;iteration;continue;break  |  [[type]]:break continue; value:--;  target:label  |   |
+|Try| try{}catch{变量} finally{} | 除了throw语句还有产生throw效果(type:throw): 运行时错误  ExpressionStatement   |
+|声明| function ;function*; aysnc function ; async function*; class ,var let const import export||
 ## Type Convertion
 ![avatar](https://static001.geekbang.org/resource/image/71/20/71bafbd2404dc3ffa5ccf5d0ba077720.jpg)
 
+## 对象
+ 我们不应该到语言描述干扰，在设计对象的状态和行为时，我们总是遵循“行为改变状态”的原则
+
+ K-V：Symbol String  -> Data(数据属性 value writeable enumrable configuration )
+  Accessor（访问器属性 get set enumerable configurable）
+### Object API/Grammar
+  - {}.[]  Object.defineProperty
+  - Object.create/ Object.setPrototypeOf / Object.getPrototypeOf
+  - new /class /extends
+  - new /function /prototype
+
+### Function Object
+   Object.prototype , call(函数对象), constructor(构造器对象)
+### Special Object
+  [盘点JavaScript中对象内部属性和方法](JavaScript_Object.md)
 
 ## 课后作业：
 
