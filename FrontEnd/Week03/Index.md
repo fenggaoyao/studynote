@@ -40,6 +40,7 @@
 
  K-V：Symbol String  -> Data(数据属性 value writeable enumrable configuration )
   Accessor（访问器属性 get set enumerable configurable）
+  
 ### Object API/Grammar
   - {}.[]  Object.defineProperty
   - Object.create/ Object.setPrototypeOf / Object.getPrototypeOf
@@ -50,6 +51,18 @@
    Object.prototype , call(函数对象), constructor(构造器对象)
 ### Special Object
   [盘点JavaScript中对象内部属性和方法](JavaScript_Object.md)
+
+### Object与Function原型
+Fuction函数对象，它来源Function.prototype，同时具有构造器[[Contruct]]与[[Call]]。
+通过[[contruct]]创建对象，实例对象.__proto__ === 构造函数.prototype // ①
+实例对象的实例方法来自构造函数constructor,比如function Foo(){this.a=1}  Foo.prototype.b=2，构造函数就是Foo
+new操作相当于var obj={};Foo.prototype.Call(obj);return obj;
+重点是区分别是
+Function.protoType:"length", "name", "arguments", "caller", "constructor", "apply", "bind", "call", "toString" 
+Object.protoType:"constructor", "__defineGetter__", "__defineSetter__", "hasOwnProperty", "__lookupGetter__", "__lookupSetter__", "isPrototypeOf", "propertyIsEnumerable", "toString", "valueOf", "__proto__", "toLocaleString"
+
+
+![avatar](https://image-static.segmentfault.com/814/496/814496966-594c0322580c7_articlex)
 
 ## 课后作业：
 
