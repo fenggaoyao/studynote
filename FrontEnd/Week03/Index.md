@@ -1,4 +1,4 @@
-# 表达式、语句与对象
+# 表达式、语句与对象 [返回](../../README.md)
 
 | Grammer | Runtime |
 | --- | --- | 
@@ -53,12 +53,14 @@
   [盘点JavaScript中对象内部属性和方法](JavaScript_Object.md)
 
 ### Object与Function原型
-Fuction函数对象，它来源Function.prototype，同时具有构造器[[Contruct]]与[[Call]]。  
+ **要分清对象实例属性来自创建对象的构造属性constructor(this.属性=...),它的原型属性来自原型链**
+function Foo(),Foo函数对象实例有"arguments", "caller"(供函数调用), "prototype"方法下有一个属性contructor(供new构造器创建实例方法__proto__指向Foo.prototype对象方法.
+Foo函数对象的属性由来,它是Created by function Funtion(){this.arguments=..,this.caller=...,this.prototype=...},Funtion.protoType，prototype.construtor指本身就它身。  
 通过[[contruct]]创建对象，实例对象.__proto__ === 构造函数.prototype // ①  
 实例对象的实例方法来自构造函数constructor,比如function Foo(){this.a=1}  Foo.prototype.b=2，构造函数就是Foo  
 new操作相当于var obj={};Foo.prototype.Call(obj);return obj;  
 重点是区分别是  
-Function.protoType:"length", "name", "arguments", "caller", "constructor", "apply", "bind", "call", "toString"   
+Function.protoType:"length", "name", "arguments", "caller", "constructor", "apply", "bind", "call", "toString"  
 Object.protoType:"constructor", "__defineGetter__", "__defineSetter__", "hasOwnProperty", "__lookupGetter__", "__lookupSetter__", "isPrototypeOf", "propertyIsEnumerable", "toString", "valueOf", "__proto__", "toLocaleString"  
 
 

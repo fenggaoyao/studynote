@@ -19,7 +19,14 @@
 
 
 
-### 2、JavaScript词法
+## 2、JavaScript词法
+
+## Unicode
+ - [UniCode知识及UTF转码](UniCode.md)
+
+
+## 正则表达式
+  [正则表达式的相关总结](regex.md)
 
 | Grammer | Runtime |
 | --- | --- | 
@@ -31,7 +38,7 @@
 
 
 
-#### InputElement
+### InputElement
 
 - whiteSpace
 
@@ -43,7 +50,6 @@
   - SP: Space （推荐）
   - NBSP: NO-BREAK SPACE（和 SP 的区别在于不会断开、不会合并）
   - ...
-
 
 - LineTerminator 换行符
 
@@ -150,21 +156,17 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
     - Boolean
     - Null
     - Undefind
-参考匹配[正则表达式](string.js),[测试用例](string.test.js) 
-## Unicode
- - [UniCode知识及UTF转码](UniCode.md)
+   参考匹配[正则表达式](string.js),[测试用例](string.test.js) 
 
-
-## 正则表达式
-  [正则表达式的相关总结](regex.md)
-
-小作业
+## 小作业
 
 - 写一个正则 匹配所有Number直接量
 - 写一个正则表达式来匹配字符串
 
 
-- 讲师提供：
+## 参考：
+
+ - 讲师提供：
     - <https://home.unicode.org/>
     - <https://www.fileformat.info/info/unicode/>
   - 学员提供：
@@ -173,8 +175,6 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
     - 正则表达式：[ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions)
     - 揭秘 0.1 + 0.2 != 0.3 <https://www.barretlee.com/blog/2016/09/28/ieee754-operation-in-js/>
     - ASCII，Unicode 和 UTF-8 ：[ http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
-
-  ## 参考名词：
 
   - [字符集](https://zh.wikipedia.org/zh/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81)：字符编码（英语：Character encoding）、字集码是把字符集中的字符编码为指定集合中某一对象（例如：比特模式、自然数序列、8 位组或者电脉冲），以便文本在计算机中存储和通过通信网络的传递。常见的例子包括将拉丁字母表编码成摩斯电码和 ASCII。其中，ASCII 将字母、数字和其它符号编号，并用 7 比特的二进制来表示这个整数。通常会额外使用一个扩充的比特，以便于以 1 个字节的方式存储。在计算机技术发展的早期，如 ASCII（1963 年）和 EBCDIC（1964 年）这样的字符集逐渐成为标准。但这些字符集的局限很快就变得明显，于是人们开发了许多方法来扩展它们。对于支持包括东亚 CJK 字符家族在内的写作系统的要求能支持更大量的字符，并且需要一种系统而不是临时的方法实现这些字符的编码。
   - [Unicode ](https://zh.wikipedia.org/zh-hans/Unicode)：中文：万国码、国际码、统一码、单一码。是计算机科学领域里的一项业界标准。它对世界上大部分的文字系统进行了整理、编码，使得电脑可以用更为简单的方式来呈现和处理文字。
