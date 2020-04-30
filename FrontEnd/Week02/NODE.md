@@ -15,18 +15,10 @@
 - 图灵完备性
 - 类型系统
 
-编译原理方面的练习[compiler.md]  
-
 
 
 ## 2、JavaScript词法
 
-## Unicode
- - [UniCode知识及UTF转码](UniCode.md)
-
-
-## 正则表达式
-  [正则表达式的相关总结](regex.md)
 
 | Grammer | Runtime |
 | --- | --- | 
@@ -36,6 +28,12 @@
 |  Token <br /> Punctuator、IdentifierName、Keywords、Literal  <br />  |     |
 
 
+## Unicode
+ - [UniCode知识及UTF转码](UniCode.md)
+
+
+## 正则表达式
+  [正则表达式的相关总结](regex.md)
 
 
 ### InputElement

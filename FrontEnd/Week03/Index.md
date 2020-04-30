@@ -3,13 +3,19 @@
 | Grammer | Runtime |
 | --- | --- | 
 | Grammer Tree VS Priority | Type Convertion |
-| Left hand Side & Right Hand Side | 等号左边必须是  Reference 类型 |
-| 简单语句 <br/> 组合语句 <br/> 声明  | Completion Record(type:normal break,continue,return throw；<br /> value: <br /> target) <br /> Lexical Environment  |
+| Left hand Side & Right Hand Side | 等号左边必须是  Reference 类型,由三个组成部分，分别是：<br />base value<br /> referenced name<br />strict reference|
+| 简单语句 <br/> 组合语句 <br/> 声明  | Completion Record<br />(type:normal break,continue,return throw；<br /> value: <br /> target: <br /> Lexical Environment  |
+Reference 的 base value 就是属性所在的对象或者就是 EnvironmentRecord，它的值只可能是 undefined, an Object, a Boolean, a String, a Number, or an environment record 其中的一种。
+而且规范中还提供了获取 Reference 组成部分的方法，比如 GetBase （返回 reference 的 base value）。 和 IsPropertyReference。如果 base value 是一个对象，就返回true。  
+
+
+
+
 
 ## 表达式
 | Category | Content |  |
 | --- | --- | --- | 
-| Memeber |  a.b <br /> a[b] <br /> foo`string` <br /> super.b <br /> super["b"] <br /> new target <br /> new foo() | Reference  <br />  class Reference <br />  { constructor(object, property) <br />{   this.object = object;  this.property = property  }<br />   } |
+| Memeber |  a.b <br /> a[b] <br /> foo`string` <br /> super.b <br /> super["b"] <br /> new target <br /> new foo() | Reference  <br />  class Reference <br />  { <br />constructor(object, property) {   this.object = object;  this.property = property  }<br />   } |
 |Call| foo() <br /> super() <br /> foo()['b'] <br /> foo().b <br /> foo()`abc`|  |
 | Update  |  a++ <br /> a--<br />  --a <br /> ++a  |  |
 | Unary  |  delete a.b<br /> void foo()<br /> typeof a<br /> +a <br />a<br /> ~a<br /> !a<br /> await a   |  |
@@ -22,6 +28,25 @@
 |Bitwise | &(按位与运算)  ^(按位异或运算) &#124; (按位或运算)|  |
 |Logical |  && &#124;&#124; |   |
 |Conditional | ?: |  |
+
+
+一个用于从 Reference 类型获取对应值的方法： GetValue。调用 GetValue，返回的将是具体的值，而不再是一个 Reference 这个很重要，这个很重要，这个很重要。  
+当函数调用的时候，如何确定 this 的取值：  
+1.计算 MemberExpression 的结果赋值给 ref  
+2.判断 ref 是不是一个 Reference 类型  
+2.1 如果 ref 是 Reference，并且 IsPropertyReference(ref) 是 true, 那么 this 的值为 GetBase(ref)  
+2.2 如果 ref 是 Reference，并且 base value 值是 Environment Record, 那么this的值为 ImplicitThisValue(ref)  
+2.3 如果 ref 不是 Reference，那么 this 的值为 undefined
+
+this一般有几种调用场景
+var obj = {a: 1, b: function(){console.log(this);}}
+1、作为对象调用时，指向该对象 obj.b(); // 指向obj
+2、作为函数调用, var b = obj.b; b(); // 指向全局window
+3、作为构造函数调用 var b = new Fun(); // this指向当前实例对象
+4、作为call与apply调用 obj.b.apply(object, []); // this指向当前的object
+
+
+
 
 ## 语句
 | Category | Content |  Describe |
@@ -53,7 +78,7 @@
   [盘点JavaScript中对象内部属性和方法](JavaScript_Object.md)
 
 ### Object与Function原型
- **要分清对象实例属性来自创建对象的构造属性constructor(this.属性=...),它的原型属性来自原型链**
+ **既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢，指向实例倒是没有，因为一个构造函数可以生成多个实例，但是原型指向构造函数倒是有的，这就要讲到属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数**
 function Foo(),Foo函数对象实例有"arguments", "caller"(供函数调用), "prototype"方法下有一个属性contructor(供new构造器创建实例方法__proto__指向Foo.prototype对象方法.
 Foo函数对象的属性由来,它是Created by function Funtion(){this.arguments=..,this.caller=...,this.prototype=...},Funtion.protoType，prototype.construtor指本身就它身。  
 通过[[contruct]]创建对象，实例对象.__proto__ === 构造函数.prototype // ①  

@@ -8,19 +8,15 @@
 [JS](Js.md)执行过程我们则需要按照从大结构到小结构的角度讲解，从最顶层的程序与模块、事件循环和微任务，到函数、再到语句级的执行。  
 我们从粗到细地了解执行过程。实例部分，对 JavaScript 来说类似基础库，JavaScipt 的内置对象多达 150 以上， 
 ![avatar](https://static001.geekbang.org/resource/image/6c/d0/6cb1df319bbc7c7f948acfdb9ffd99d0.png)
-所以我们会从应用和机制的角度，文本处理（String、Regex）,数字与日期(number和string),索引集合（Array TypeArray等）、映射对象（map set workmap）、结构数据、控制对象（promise） 
+所以我们会从应用和机制的角度，文本处理（String、Regex）,数字与日期(number和string),索引集合（Array TypeArray等）、映射对象（map set workmap）、结构数据、控制抽象对象（promise） 
 
 
 ### HTML
  1、标签做一些分类  文档元信息 语言相关 链接 替换 表单 表格  
  2、 HTML 的语法和几个重要的语言机制：实体、命名空间。
-![avatar](https://static001.geekbang.org/resource/image/41/62/4153891927afac7f4c21ccf6a141f062.png)
-
 ### CSS
-
   大到小介绍 CSS 的各种语法结构，比如 @rule、选择器、单位等等。功能部分，我们大致可以分为布局、绘制和交互类。  
-  ![avatar](https://static001.geekbang.org/resource/image/cb/cb/cbb6d198ccfb95af4906eeb0581333cb.png)
-
+![avatar](https://static001.geekbang.org/resource/image/41/62/4153891927afac7f4c21ccf6a141f062.png)
 ### 浏览器实现原理与API
    浏览器部分我们会先介绍下浏览器的实现原理，这是我们深入理解 API 的基础。  
    按照解析、构建 DOM 树、计算 CSS、渲染、合成和绘制的流程来讲解浏览器的工作原理。  
