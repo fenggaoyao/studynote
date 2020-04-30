@@ -58,8 +58,17 @@ var obj = {a: 1, b: function(){console.log(this);}}
 |Try| try{}catch{变量} finally{} | 除了throw语句还有产生throw效果(type:throw): 运行时错误  ExpressionStatement   |
 |声明| function ;function*; aysnc function ; async function*; class ,var let const import export||
 ## Type Convertion
-![avatar](https://static001.geekbang.org/resource/image/71/20/71bafbd2404dc3ffa5ccf5d0ba077720.jpg)
-![avatar](https://cdn.nlark.com/yuque/0/2020/png/382504/1588008238437-d19bc0a9-8248-48bc-8aec-5490859dad6a.png)
+
+| __        | Number               | String              | Boolean | Undefined | Null | Object | Symbol |
+| --------- | -------------------- | ------------------- | ------- | --------- | ---- | ------ | ------ |
+| Number    | -                    |                     | 0 false | x         | x    | Boxing | x      |
+| String    |                      | -                   | ""false | x         | x    | Boxing | x      |
+| Boolean   | true 1 </br> false 0 | 'true'<br/>'false'  | -       | x         | x    | Boxing | x      |
+| Undefined | NaN                  | 'Undefined'         | false   | -         | x    | x      | x      |
+| Null      | 0                    | 'Null'              | false   | -         | x    | x      | x      |
+| Object    | valueOf              | valueOf<br>toString | true    | x         | x    | -      | x      |
+| Symbol    | x                    | x                   | x       | x         | x    | Boxing | -      |
+
 ## 对象
  我们不应该到语言描述干扰，在设计对象的状态和行为时，我们总是遵循“行为改变状态”的原则
 
