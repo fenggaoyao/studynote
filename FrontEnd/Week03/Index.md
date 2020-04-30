@@ -4,8 +4,12 @@
 | --- | --- | 
 | Grammer Tree VS Priority | Type Convertion |
 | Left hand Side & Right Hand Side | 等号左边必须是  Reference 类型,由三个组成部分，分别是：<br />base value<br /> referenced name<br />strict reference|
-| 简单语句 <br/> 组合语句 <br/> 声明  | Completion Record<br />(type:normal break,continue,return throw；<br /> value: <br /> target: <br /> Lexical Environment  |
-Reference 的 base value 就是属性所在的对象或者就是 EnvironmentRecord，它的值只可能是 undefined, an Object, a Boolean, a String, a Number, or an environment record 其中的一种。
+| 简单语句 <br/> 组合语句 <br/> 声明  | Completion Record<br />(type:normal break,continue,return throw；<br /> value: <br /> target: 
+<br/> Lexical Environment  |
+
+
+Reference 的 base value 就是属性所在的对象或者就是 EnvironmentRecord，它的值只可能是 undefined, an Object, a Boolean, a String, a Number, or an environment record 其中的一种。  
+
 而且规范中还提供了获取 Reference 组成部分的方法，比如 GetBase （返回 reference 的 base value）。 和 IsPropertyReference。如果 base value 是一个对象，就返回true。  
 
 
@@ -15,7 +19,7 @@ Reference 的 base value 就是属性所在的对象或者就是 EnvironmentReco
 ## 表达式
 | Category | Content |  |
 | --- | --- | --- | 
-| Memeber |  a.b <br /> a[b] <br /> foo`string` <br /> super.b <br /> super["b"] <br /> new target <br /> new foo() | Reference  <br />  class Reference <br />  { <br />constructor(object, property) {   this.object = object;  this.property = property  }<br />   } |
+| Memeber |  a.b <br /> a[b] <br /> foo`string` <br /> super.b <br /> super["b"] <br /> new target <br /> new foo() | Reference  <br />  class Reference <br />  { <br />constructor(object, property) <br />{   this.object = object;  this.property = property  }<br />   } |
 |Call| foo() <br /> super() <br /> foo()['b'] <br /> foo().b <br /> foo()`abc`|  |
 | Update  |  a++ <br /> a--<br />  --a <br /> ++a  |  |
 | Unary  |  delete a.b<br /> void foo()<br /> typeof a<br /> +a <br />a<br /> ~a<br /> !a<br /> await a   |  |
@@ -34,9 +38,9 @@ Reference 的 base value 就是属性所在的对象或者就是 EnvironmentReco
 当函数调用的时候，如何确定 this 的取值：  
 1.计算 MemberExpression 的结果赋值给 ref  
 2.判断 ref 是不是一个 Reference 类型  
-2.1 如果 ref 是 Reference，并且 IsPropertyReference(ref) 是 true, 那么 this 的值为 GetBase(ref)  
-2.2 如果 ref 是 Reference，并且 base value 值是 Environment Record, 那么this的值为 ImplicitThisValue(ref)  
-2.3 如果 ref 不是 Reference，那么 this 的值为 undefined
+>2.1 如果 ref 是 Reference，并且 IsPropertyReference(ref) 是 true, 那么 this 的值为 GetBase(ref)  
+>2.2 如果 ref 是 Reference，并且 base value 值是 Environment Record, 那么this的值为 ImplicitThisValue(ref)  
+>2.3 如果 ref 不是 Reference，那么 this 的值为 undefined
 
 this一般有几种调用场景
 var obj = {a: 1, b: function(){console.log(this);}}
