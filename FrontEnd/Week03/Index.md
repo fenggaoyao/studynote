@@ -64,6 +64,27 @@ Function.protoType:"length", "name", "arguments", "caller", "constructor", "appl
 Object.protoType:"constructor", "__defineGetter__", "__defineSetter__", "hasOwnProperty", "__lookupGetter__", "__lookupSetter__", "isPrototypeOf", "propertyIsEnumerable", "toString", "valueOf", "__proto__", "toLocaleString"  
 
 
+class MyClass extends X;  
+①⽗类X是可以通过写类的原型来重置的  
+②super总是通过计算指向X，并受上述重置影响  
+obj = new MyClass;  
+① obj总是由祖先类(Base)创建的实例  
+
+```javascript
+function isAtom(obj) {
+ let types = {object: true, function: true};
+ if (types[typeof obj]) {
+ return !(obj instanceof Object);
+ }
+ return false;
+}
+
+```
+
+atom – 原⼦
+meta – 元：能产⽣原⼦的⼀个过程
+
+
 ![avatar](https://image-static.segmentfault.com/814/496/814496966-594c0322580c7_articlex)
 
 ## 课后作业：

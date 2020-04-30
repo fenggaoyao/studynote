@@ -8,6 +8,13 @@
 - [[prototype]] 指向原型对象
 - [[extensible]] 用来标记对象是否可以添加属性
 
+
+对象的方法是有个内部槽[[HomeObject]],这个是静态的，
+homeObj = Method[[HomeObject]];
+super = Object.getPrototypeOf(homeObj)
+
+
+
 普通对象有 11 个内部方法（internal method）：
 
 - [[GetPrototypeOf]]
