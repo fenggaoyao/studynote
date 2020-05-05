@@ -142,4 +142,4 @@ meta – 元：能产⽣原⼦的⼀个过程
 - LeftHandSideExpression：ECMA-262.pdf 201 页 12.3
 - UpdateExpression：ECMA-262.pdf 178 页 11.9.1
 - [IIFE ](https://zh.wikipedia.org/wiki/%E7%AB%8B%E5%8D%B3%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F)：Immediately-invoked Function Expressions 立即执行的函数表达式
-- [参考别人笔记](https://www.yuque.com/u221766/xgl0mb/fo37kh)
+- [同学笔记](https://www.yuque.com/u221766/xgl0mb/fo37kh)
