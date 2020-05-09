@@ -39,20 +39,39 @@
         var _api_registerPlural; // DataTable.Api.registerPlural
         DataTable.util = {};
         var __apiStruct = [];
+
         _Api = function (context, data) {
+            //构造方法,构建的是例法方法
             _Api.extend(this, this, __apiStruct); //执行
         }
+
         DataTable.Api = _Api;
         $.extend(_Api.prototype, {
 
             context: [], // array of table settings objects
             iterator: function () {},
         });
-        _Api.extend = function (scope, obj, ext) {}
+        _Api.extend = function (scope, obj, ext) {
+
+            return function () {
+                var ret = fn.apply(scope, arguments);
+
+                // Method extension
+                _Api.extend(ret, ret, struc.methodExt);
+                return ret;
+
+                // Property extension
+                _Api.extend(scope, obj[struct.name], struct.propExt);
+            };
+
+
+        }
         _Api.register = _api_register = function (name, val) {}
         _Api.registerPlural = _api_registerPlural = function (pluralName, singularName, val) {}
-        /*
-         * _api_register("",function(){})        
+        /*实例方法
+         * _api_register("",function(){})   
+         * tables, table, draw, page, ajax, rows, row, columns, column, cells, cell, 
+         * order, search, state, $, on, one, off, clear, settings, init, data, destroy, i18n
          */
         DataTable.version = "1.10.20";
         DataTable.settings = {}
