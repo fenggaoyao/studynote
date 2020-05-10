@@ -2,9 +2,19 @@
 
 ### 1: [预习作业](WarmingUp.md)
 
-- [读ECMA规范](ecma.md)
+### 2： 读ECMA规范
+- 基础类型(7种)  String number null underfine object bool symbol 
+- 语言类型7种
+  - List 和 Record： 用于描述函数传参过程。
+  - Set：主要用于解释字符集等。
+  - Completion Record：用于描述异常、跳出等语句执行过程。
+  - Reference：用于描述对象属性访问、delete 等。
+  - Property Descriptor：用于描述对象的属性。
+  - Lexical Environment 和 Environment Record：用于描述变量和作用域。
+  - Data Block：用于描述二进制数据。 
+- [详细目录]((ecma.md))
 
-###  2: 把面向对象这个概念用追溯法写一篇博文
+### 3: 把面向对象这个概念用追溯法写一篇博文
 最早，大概是 1967 年的时候，艾伦（Alan Kay）提出了这么一个称为“对象”的抽象概念和基于它的面向对象编程（object-oriented programming），这也成为他所发明的 Smalltalk 这个语言中的核心概念之一。  
 然而，回顾这段历史，这个所谓的“对象”的抽象概念中，只包含了数据和行为两部分，分别称为状态保存和消息发送，再进一步说今天讲的
 属性与方法，并且，在这个基础上，有了这些状态（或称为数据）的局部保存、保护和隐藏等概念，也就是我们现在说的对象成员的可见性问题  
@@ -35,23 +45,14 @@ JavaScript 用对象模拟函数的设计代替了一般编程语言中的函数
 在 ES6 之后 => 语法创建的函数仅仅是函数，它们无法被当作构造器使用，
 
 
-###  3: 把课上老师的脑图里的这些实体补全
+###  4: 把课上老师的脑图里的这些实体补全
 - [entity链接](entity.html)
 - [etity例子](entityDemo.md)
 - [Tag](tag.html)
 
 
 
-###  4: 你能不能在 ECMA 中找到所有的类型（Type）
-- 基础类型(7种)  String number null underfine object bool symbol 
-- 语言类型7种
-  - List 和 Record： 用于描述函数传参过程。
-  - Set：主要用于解释字符集等。
-  - Completion Record：用于描述异常、跳出等语句执行过程。
-  - Reference：用于描述对象属性访问、delete 等。
-  - Property Descriptor：用于描述对象的属性。
-  - Lexical Environment 和 Environment Record：用于描述变量和作用域。
-  - Data Block：用于描述二进制数据。 
+
 
 ###  5：把库里边的 URL 解析代码写一下
 ```js
@@ -59,7 +60,7 @@ JavaScript 用对象模拟函数的设计代替了一般编程语言中的函数
 
 ```
 
-###  5：如果你要写一本关于整个前端开发的书，请你列出你的目录。
+###  6：如果你要写一本关于整个前端开发的书，请你列出你的目录。
 
 - 前端发展史
 - 前端基础——HTML、CSS
@@ -76,7 +77,7 @@ JavaScript 用对象模拟函数的设计代替了一般编程语言中的函数
 - web安全及前端集成
 
 
-###  6：如何在互联网上获取信息
+###  7：如何在互联网上获取信息
 ```js
 
 Array.prototype.map.call(document.querySelectorAll(".element"), e=>e.innerText);

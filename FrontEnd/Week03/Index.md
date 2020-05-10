@@ -16,7 +16,7 @@ Reference 的 base value 就是属性所在的对象或者就是 EnvironmentReco
 
 
 
-## 表达式
+## 1： 表达式
 | Category | Content |  |
 | --- | --- | --- | 
 | Memeber |  a.b <br /> a[b] <br /> foo`string` <br /> super.b <br /> super["b"] <br /> new target <br /> new foo() | Reference  <br />  class Reference <br />  { <br />constructor(object, property) <br />{   this.object = object;  this.property = property  }<br />   } |
@@ -52,7 +52,7 @@ var obj = {a: 1, b: function(){console.log(this);}}
 
 
 
-## 语句
+## 2：语句
 | Category | Content |  Describe |
 | --- | --- |  --- | 
 |简单语句 | a= 1+2;<br /> ; <br /> debugger; <br />throw a; <br />continue label;<br /> break label;<br/> return 1+2;| |
@@ -73,7 +73,7 @@ var obj = {a: 1, b: function(){console.log(this);}}
 | Object    | valueOf              | valueOf<br>toString | true    | x         | x    | -      | x      |
 | Symbol    | x                    | x                   | x       | x         | x    | Boxing | -      |
 
-## 对象
+## 3： 对象
  我们不应该到语言描述干扰，在设计对象的状态和行为时，我们总是遵循“行为改变状态”的原则
 
  K-V：Symbol String  -> Data(数据属性 value writeable enumrable configuration )
@@ -125,7 +125,7 @@ meta – 元：能产⽣原⼦的⼀个过程
 
 ![avatar](https://image-static.segmentfault.com/814/496/814496966-594c0322580c7_articlex)
 
-## 课后作业：
+## 4：作业：
 
 - 函数 convertStringToNumber
 - 以及函数 convertNumberToString

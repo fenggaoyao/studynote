@@ -120,7 +120,7 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
  * Template  
 
   * Type
-    - Number  参考匹配[正则表达式](number.js),[测试用例](number.test.js)
+    - Number  
       - DecimalLiteral
         - 0
         - 0.
@@ -154,12 +154,14 @@ JavaScript 中支持四种转义形式，还有一种虽然标准没有定义，
     - Boolean
     - Null
     - Undefind
-   参考匹配[正则表达式](string.js),[测试用例](string.test.js) 
 
-## 小作业
+
+## 3、作业
 
 - 写一个正则 匹配所有Number直接量
+  - 参考匹配[正则表达式](number.js),[测试用例](number.test.js) 
 - 写一个正则表达式来匹配字符串
+   - 参考匹配[正则表达式](string.js),[测试用例](string.test.js) 
 
 
 ## 参考：
