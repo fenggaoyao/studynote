@@ -5,7 +5,7 @@ class Request {
         this.method = options.method || "GET";
         this.host = options.host;
         this.port = options.port || 80;
-        this.headers = options.header || {};
+        this.headers = options.headers || {};
         this.body = options.body || {}
 
         if (!this.headers["Content-Type"]) {
@@ -13,54 +13,82 @@ class Request {
         }
         this.path = options.path || "/";
         if (this.headers["Content-Type"] === "application/json") {
-            this.bodyText = JSON.stringify(options.body);
+            this.bodyText = JSON.stringify(this.body);
         } else if (this.headers["Content-Type"] === "application/x-www-form-urlencoded") {
-            this.bodyText = Object.keys(options.body).map(key => `${key}=${encodeURIComponent(options.body[key])}`).join('&')
+            this.bodyText = Object.keys(this.body).map(key => `${key}=${encodeURIComponent(this.body[key])}`).join('&')
         }
         this.headers["Content-Length"] = this.bodyText.length;
     }
 
     toString() {
         return `${this.method} ${this.path} HTTP/1.1\r
-${Object.keys(this.headers).map(key=>`${key}:${this.headers[key]}`).join('\r\n')}
+${Object.keys(this.headers).map(key=>`${key}:${this.headers[key]}`).join('\r\n')}\r
 \r
-${this.bodyText}`;
-    }
+${this.bodyText}`}
 
-    send(connetion) {
+    send2(connection) {
         return new Promise((resolve, reject) => {
-            if (connetion)
-                connetion.write(this.toString());
+            if (connection){
+                connection.write(this.toString());
+            }            
             else {
-                console.log(this)
-                connetion = net.createConnection({
+                console.log(this.toString())
+                connection = net.createConnection({
                     host: this.host,
                     port: this.post
                 }, () => {
                     console.log(this.toString());
-                    connetion.write(this.toString());
+                    connection.write(this.toString());
                 });
             }
-            connetion.on('data', (data) => {
+            connection.on('data', (data) => {
                 resolve(data.toString());
-                connetion.end();
+                connection.end();
             });
-            connetion.on('end', () => {
+            connection.on('end', () => {
                 console.log('disconnected from server');
             });
-            connetion.on('error', (error) => {
-                console.log("ff", error)
-                connetion.end();
+            connection.on('error', (error) => {
+                reject(error)
+                connection.end();
             });
 
         });
     }
 
+    send(connection) {
+        return new Promise((resolve, reject) => {
+          if (connection) {
+            connection.write(this.toString())
+          } else {
+            connection = net.createConnection(
+              {
+                host: this.host,
+                port: this.port,
+              },
+              () => {
+                connection.write(this.toString())
+              }
+            )
+          }
+          connection.on('data', (data) => {
+            resolve(data.toString())
+            connection.end()
+          })
+          connection.on('error', (err) => {
+            reject(err)
+            connection.end()
+          })
+        })
+      }
 }
+
+
 
 class Response {
 
 }
+
 
 void(async function () {
     let request = new Request({
@@ -73,12 +101,14 @@ void(async function () {
         },
         body: {
             name: 'winter',
+            hello:"冯"
         },
     })
 
     let response = await request.send()
     console.log(response)
 })()
+
 
 /*
 const client = net.createConnection({
@@ -88,11 +118,12 @@ const client = net.createConnection({
     // 'connect' listener.
     console.log('connected to server!');
 
-    client.write(`POST / HTTP/1.1\r
-    Content-Type: application/x-www-form-urlencoded\r
-    Content-Length: 11\r
-    \r
-    name=winter`);   
+    client.write(`POST / HTTP/1.1
+X-Foo2:customized
+Content-Type:application/x-www-form-urlencoded
+Content-Length:27
+
+name=winter&hello=%E5%86%AF`);   
 });
 
 client.on('data', (data) => {
