@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="map.jpg" download="preview">
+        　　<img src="map.jpg" alt=""/>
+        </a>
+    <img id="testImg" src="map.jpg" alt="">
+<button class="downloadBtn" type="button" onclick="downloadImg()">下载图片</button>
+
+<script>
+
+function downloadImg(){
+  
+        var img = document.getElementById('testImg'); // 获取要下载的图片
+        var url = img.src;                            // 获取图片地址
+        var a = document.createElement('a');          // 创建一个a节点插入的document
+        var event = new MouseEvent('click')           // 模拟鼠标click点击事件
+        a.download = '图片名字'                  // 设置a节点的download属性值
+        a.href = "https://ae01.alicdn.com/kf/Hb264962f13974f6780ef176c75e03834B.jpg";                                 // 将图片的src赋值给a节点的href
+        a.dispatchEvent(event)                        // 触发鼠标点击事件
+     }
+</script>
+    
+</body>
+</html>
