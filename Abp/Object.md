@@ -12,21 +12,34 @@
             添加领域事件（本地、分布式）
 
 加扩展属性IHasExtraProperties
-它进行扩展
+它进行实体扩展
 
 
 
-**ExtensionPropertyConfiguartion**:它的Type是Entity,它的本身有Attributes，Validators，DisplayName，Configuration，它还具有
-ExtensionPropertyUiConfigration => onTable  OnCreateForm  OnEditForm
-ExtensionPropertyApiConfigration =》 OnGet  OnCreate    OnUpdate
-
-EntityExtensionConfiguration，它的下面有Properties（属性字典集合）,Validators,Configuration
+**ExtensionPropertyConfiguartion**:它的Type是Entity,它的本身有Attributes，Validators，DisplayName，Configuration，IsAvailableToClients=true
+ExtensionPropertyUiConfigration => (onTable  OnCreateForm  OnEditForm） =>  IsAvailable=true
+ExtensionPropertyApiConfigration =》 （OnGet  OnCreate    OnUpdate ）  => IsAvailable=true
+ExtensionPropertyEntityConfiguration =>IsAvailable=true
+EntityExtensionConfiguration => Properties（属性字典集合）
+每个Propertis都有,Validators,Configuration，UI，Api、attributes属性
 
 它使用是ObjectExtensionManager进行相应操作
 
 
 
-**ModuleExtensionConfiguration** 它包含多个Entities字典集，配置项Configuration
+**ModuleExtensionConfiguration** 它包含多个Entities字典集，配置项Configuration，它在前端abp.ObjectExtensions有相应配置
+{
+    modules:{
+        Identity:{
+            Users:{
+
+            }
+        },
+        entities:{
+
+        }
+    }
+}
 
 
 
