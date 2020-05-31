@@ -1,5 +1,5 @@
 const net = require("net")
-const parser=require("./parser.js")
+const parser=require("./parserHtml.js")
 
 class Request {
     constructor(options) {
@@ -38,11 +38,12 @@ ${this.bodyText}`}
                     host: this.host,
                     port: this.port
                 }, () => {
+                  console.log(this.toString());
                     connection.write(this.toString());
                 });
             }
             connection.on('data', (data) => {
-                console.log(data.toString())   
+               // console.log(data.toString())   
                 parser.receive(data.toString()); 
                 // console.log(parser.headers)
                 // console.log(parser.statusLine)
@@ -61,9 +62,6 @@ ${this.bodyText}`}
 
         });
     }
-
-}
-class Response {
 
 }
 
@@ -173,8 +171,7 @@ class TrunkedBodyParser {
     //  console.log(this.current)    
       if (this.current === this.WAITING_LENGTH) {
         if (char === '\r') {
-          if (this.length === 0) {
-            console.log("isFinish");
+          if (this.length === 0) {           
             this.isFinished = true
           }
           this.current = this.WAITING_LENGTH_LINE_END
@@ -209,19 +206,20 @@ void(async function () {
     let request = new Request({
         method: 'POST',
         host: '127.0.0.1',
-        port: '8088',
+        port: '3000',
         path: '/',
         headers: {
             ['X-Foo2']: 'customized',
         },
         body: {
-            name: 'winter',
-            hello:"冯"
+            name: 'gaoyao'
         },
     })
 
     let response = await request.send()
-    parser.parserHtml(response)
+    let dom = parser.parseHTML(response.body)
+    console.log(dom);
+   // parser.parserHtml(response)
     
 })()
 
