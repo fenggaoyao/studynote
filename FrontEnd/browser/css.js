@@ -6,7 +6,8 @@ const { parseSelector } = require('./selector');
 let rules = [];
 function addCSSRules(text) {
   var ast = css.parse(text);
-  // console.log(JSON.stringify(ast, null, "  "));
+  
+   //console.logconsole.log(JSON.stringify(ast, null, "  "));
   rules.push(...ast.stylesheet.rules);
 }
 
@@ -222,7 +223,7 @@ function computeCSS(element) {
 
   for (let rule of rules) {
     // 其他情况:
-    const selectorParts = parseSelector(rule.selectors[0]).reverse();
+    const selectorParts = parseSelector(rule.selectors[0]).reverse();   
 
     const matched = matchSelector(elementList, selectorParts);
 

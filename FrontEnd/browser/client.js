@@ -1,5 +1,6 @@
 const net = require("net")
 const parser=require("./parserHtml.js")
+const { createViewPort, render } = require('./render');
 
 class Request {
     constructor(options) {
@@ -38,7 +39,7 @@ ${this.bodyText}`}
                     host: this.host,
                     port: this.port
                 }, () => {
-                  console.log(this.toString());
+                  //console.log('connection',this.toString());
                     connection.write(this.toString());
                 });
             }
@@ -202,7 +203,7 @@ class TrunkedBodyParser {
   }
 
 
-void(async function () {
+void async function () {
     let request = new Request({
         method: 'POST',
         host: '127.0.0.1',
@@ -215,13 +216,22 @@ void(async function () {
             name: 'gaoyao'
         },
     })
-
-    let response = await request.send()
+    try {
+    let response = await request.send();
+    //console.log(response)
     let dom = parser.parseHTML(response.body)
-    console.log(dom);
+    let viewport = createViewPort(800, 800);
+    render(viewport, dom);
+    viewport.save('viewport.svg');
+
+    //console.log(dom);
    // parser.parserHtml(response)
+    }
+    catch (err) {
+      console.error(err);
+    }
     
-})()
+}()
 
 
 /*

@@ -1,4 +1,5 @@
 const { addCSSRules, computeCSS } = require('./css');
+const { layout } = require('./layout');
 
 const EOF=Symbol("EOF") //enf of file
 let currentToken = null
@@ -69,7 +70,7 @@ function emit(token) {
         if (top.tagName === 'style') {
           addCSSRules(top.children[0].content);
         }
-       // layout(top);
+        layout(top);
 
         stack.pop()
       }

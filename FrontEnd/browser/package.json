@@ -11,9 +11,10 @@
     "nyc": "^15.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start-client": "node client.js",
+    "start-server": "node server.js",
+    "test": "mocha"
   },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
