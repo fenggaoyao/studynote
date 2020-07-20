@@ -7,7 +7,7 @@
  - [x] [Week06 浏览器原理-HTML解析](FrontEnd/Week06/README.md)
 
 ## Toy-React
-- [x] [7月20日第一节课](Toy-React/READER.MD)
+- [x] [7月20日第一节课](Toy-React/README.MD)
   
 
 ## 算法训练营
