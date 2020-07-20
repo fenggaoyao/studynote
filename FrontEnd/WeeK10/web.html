@@ -11,10 +11,10 @@
 
     <script>
         window.onload = function () {
-            let names = Object.getOwnPropertyNames(window)
+            let names = Object.getOwnPropertyNames(window) //836个
 
-            names = names.filter(x => !x.match(/^on/))
-            names = names.filter(x => !x.match(/^webkit|^WebKit/))
+            names = names.filter(x => !x.match(/^on/))  //104个
+            names = names.filter(x => !x.match(/^webkit|^WebKit/)) //15个
 
             /**
              * ---------------------------------- WHATWG ---------------------------------------
@@ -29,14 +29,17 @@
                     "TreeWalker", "DOMTokenList", "addEventListener", "removeEventListener",
                     "dispatchEvent", "NodeFilter",
                     "event" // https://dom.spec.whatwg.org/#interface-window-extensions
-                ].includes(x))
+                ].includes(x))  //34
+
+
                 names = names.filter(x => {
                     try {
                         return !(window[x].prototype instanceof Node)
                     } catch (e) {
                         return true
                     }
-                })
+                }) //203个
+
                 names = names.filter(x => x !== 'Node')
 
                 // https://html.spec.whatwg.org
@@ -47,13 +50,16 @@
                     "opener", "parent", "frameElement", "open", "navigator", "applicationCache",
                     "alert", "confirm", "prompt",
                     "print", "postMessage", "console"
-                ].includes(x))
+                ].includes(x))  //34个
+
+
                 // https://html.spec.whatwg.org
                 names = names.filter(x => ![
                     "origin", "btoa", "atob", "setTimeout", "clearTimeout", "setInterval", "clearInterval",
                     "queueMicrotask", "createImageBitmap",
                     "requestAnimationFrame", "cancelAnimationFrame"
-                ].includes(x))
+                ].includes(x)) //11个
+
                 // https://html.spec.whatwg.org
                 names = names.filter(x => ![
                     "ApplicationCache", "AudioTrack", "AudioTrackList", "BarProp",
@@ -77,7 +83,7 @@
                     "WorkerLocation", "WorkerNavigator",
                     "HTMLOptionsCollection", "HTMLFormControlsCollection",
                     "sessionStorage", "localStorage"
-                ].includes(x))
+                ].includes(x)) //70个
 
                 // https://streams.spec.whatwg.org/
                 names = names.filter(x => ![
@@ -87,29 +93,30 @@
                     "WritableStream", "WritableStreamDefaultWriter", "WritableStreamDefaultController",
                     "TransformStream", "TransformStreamDefaultController", "ByteLengthQueuingStrategy",
                     "CountQueuingStrategy"
-                ].includes(x))
+                ].includes(x)) //13个
 
                 // https://encoding.spec.whatwg.org/
                 names = names.filter(x => !["TextDecoder", "TextEncoder", "TextDecoderStream", "TextEncoderStream"]
-                    .includes(x))
+                    .includes(x)) //4个
 
                 // https://url.spec.whatwg.org
-                names = names.filter(x => !["URL", "URLSearchParams"].includes(x))
+                names = names.filter(x => !["URL", "URLSearchParams"].includes(x)) //2个
 
                 // https://xhr.spec.whatwg.org/
                 names = names.filter(x => !["XMLHttpRequestEventTarget", "XMLHttpRequestUpload", "XMLHttpRequest",
                     "FormData", "ProgressEvent"
-                ].includes(x))
+                ].includes(x)) //5个
 
                 // https://fetch.spec.whatwg.org
-                names = names.filter(x => !["Headers", "Request", "Response", "fetch"].includes(x))
+                names = names.filter(x => !["Headers", "Request", "Response", "fetch"].includes(x)) //4个
 
                 // https://notifications.spec.whatwg.org/
-                names = names.filter(x => !["Notification"].includes(x))
+                names = names.filter(x => !["Notification"].includes(x)) //1个
 
                 // https://storage.spec.whatwg.org
-                names = names.filter(x => !["StorageManager"].includes(x))
+                names = names.filter(x => !["StorageManager"].includes(x)) //1个
             }
+
 
             /**
              * ---------------------------------- Khronos ---------------------------------------
