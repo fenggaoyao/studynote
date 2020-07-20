@@ -34,6 +34,7 @@ export class Component{
 
     mountTo(parent){
         let vdom=this.render();
+        debugger
         vdom.mountTo(parent);
     }
     appendChild(vchild){
