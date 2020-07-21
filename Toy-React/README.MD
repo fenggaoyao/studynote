@@ -1,6 +1,11 @@
 # 实现Toy-React
 ## 7月20日第一节课
- 1、课堂完成项目构建，依赖导入,webpack构建，react组件设计和完成。  
+ 1、课堂完成项目构建，依赖导入,webpack构建，react组件设计和完成。 
+  react= 组件化+jsx+vdom
+  - 理解React组件化基本概念
+  - 学习vdom的实现思路
+  - 编写突破自我的代码
+
 
  复习：理解组件化思想  
   每个Node都设计成javascript对象，它通过jsx语法，重点是通过createElement()方法创建组装出来 

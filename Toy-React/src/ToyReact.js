@@ -5,9 +5,11 @@ class ElementWrapper{
     setAttribute(name,value){
         this.root.setAttribute(name,value)
     }
+    //vchild是一个虚拟元素
     appendChild(vchild){       
         vchild.mountTo(this.root)
     }
+     //vchild是一个个真实元素
     mountTo(parent){
         parent.appendChild(this.root)
     }
@@ -34,7 +36,6 @@ export class Component{
 
     mountTo(parent){
         let vdom=this.render();
-        debugger
         vdom.mountTo(parent);
     }
     appendChild(vchild){
