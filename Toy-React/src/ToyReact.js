@@ -14,7 +14,6 @@ class ElementWrapper{
           }
         this.root.setAttribute(name,value)
     }
-    //vchild是一个虚拟元素
     appendChild(vchild){       
         //vchild.mountTo(this.root)
         let range=document.createRange();
@@ -27,8 +26,7 @@ class ElementWrapper{
         }
         vchild.mountTo(range)
     }
-     //vchild是一个个真实元素
-    mountTo(range){
+    mountTo(range){        
         range.deleteContents();
         range.insertNode(this.root);
     }
@@ -55,9 +53,12 @@ export class Component{
     setState(state){ 
         let merge=(oldState,newState)=>{
             for(let p in newState){
-                if(typeof newState[p]==='object'){
+                if(typeof newState[p]==='object' && newState[p] !==null){
                     if(typeof oldState[p] !=='object' ){
-                        oldState[p]={}
+                        if(newState[p] instanceof Array){
+                            oldState[p]=[]
+                        }else      
+                            oldState[p]={}
                     }
                     merge(oldState[p],newState[p]);
                 }else{
@@ -83,6 +84,12 @@ export class Component{
           this.update()
     }
     update(){
+        const placeholder = document.createComment('placeholder');
+        const range = document.createRange();
+        range.setStart(this.range.endContainer, this.range.endOffset);
+        range.setEnd(this.range.endContainer, this.range.endOffset);
+        range.insertNode(placeholder);
+     
        this.range.deleteContents();
        let vdom=this.render();
        vdom.mountTo(this.range);
@@ -110,6 +117,9 @@ export let ToyReact={
                 if(typeof child ==='object' && child instanceof Array)  
                     insertchildren(child)
                 else{
+                    if(child ===null || child===void 0){
+                        child=''
+                    }
                     if(!(child instanceof Component)
                      && !(child instanceof ElementWrapper)
                      && !(child instanceof TextWrapper)
