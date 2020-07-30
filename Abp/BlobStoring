@@ -21,3 +21,44 @@ BlobContainerConfiguration扩展一个方法叫UseFileSystem()
 它指定ProviderType是FileSystemBlobProvider
 命名方法是FileSystemBlobNamingNormalizer
 实现IBlobProvider方法是FileSystemBlobProvider
+
+
+# 设计一个对象存储
+1、首先引用基础模块AbpBlobStoringModule
+2、设计自己的AzureBlobProviderConfiguration，然后将BlobContainerConfiguration包装进去，
+在外面套一个易用的配置，里面使用get和set
+3、使用UseAzure()进行配置
+4、对container和Blob名字进行配置，如何命名（IBlobNamingNormalizer）
+5、最重要的是实现BlobProviderBase
+
+
+为了兼容多存储系统，引入Container（设计一个默认的Container）
+不同Container的配置是不同的BlobContainerConfiguration，为了协调这个引入AbpBlobStoringOptions
+使用
+```C#
+ Configure<AbpBlobStoringOptions>(options =>
+            {
+                options.Containers
+                    .ConfigureDefault(container =>
+                    {
+                        container.SetConfiguration("TestConfigDefault", "TestValueDefault");
+                        container.ProviderType = typeof(FakeBlobProvider1);
+                    })
+                    .Configure<TestContainer1>(container =>
+                    {
+                        container.SetConfiguration("TestConfig1", "TestValue1");
+                        container.ProviderType = typeof(FakeBlobProvider1);
+                    })
+                    .Configure<TestContainer2>(container =>
+                    {
+                        container.SetConfiguration("TestConfig2", "TestValue2");
+                        container.ProviderType = typeof(FakeBlobProvider2);
+                    });
+            });
+
+```
+ConfigureDefault配置一个默认的，其它container找不到配置会使用这个
+
+
+
+
