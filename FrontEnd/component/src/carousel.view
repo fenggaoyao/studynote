@@ -1,0 +1,22 @@
+<template>
+    <div>
+       <p>hello world</p>
+       <div><div style="width:100px;height:100px;border-radius:50%; background-color:red"></div> </div>
+        <img src="https://static001.geekbang.org/resource/image/73/e4/730ea9c393def7975deceb48b3eb6fe4.jpg" />
+    </div>
+</template>
+<script>
+export default {
+    el: '#example',
+    data: {
+        message: 'Hello'
+    },
+    computed: {
+        reversedMessage: function() {
+            for (let i = 0; i < 10; i++) {
+                console.log(i > 10);
+            }
+        }
+    }
+}
+</script>

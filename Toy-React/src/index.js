@@ -124,9 +124,11 @@ import {ToyReact,Component} from './ToyReact.js'
 
       return (
         <div className="game">
+     
           <div className="game-board">
-            <Board squares={current.squares} onClick={(i) => this.handleClick(i)} />
-          </div>
+            <Board squares={current.squares} onClick={(i) => {this.handleClick(i);              
+            }} />           
+          </div>         
         </div>
       );
 
@@ -136,7 +138,7 @@ import {ToyReact,Component} from './ToyReact.js'
   
   // ========================================
   
-  ToyReact.render(<Game />, document.body);
+  ToyReact.render(<Game ></Game>, document.body);
   
   function calculateWinner(squares) {
     const lines = [

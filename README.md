@@ -14,7 +14,7 @@
 - [x] [Week12 编程算法训练-解析一个四则运算的表达式](FrontEnd/Week12/README.md)
 - [x] [Week13 编程算法训练-Proxy双向绑定、Range](FrontEnd/Week13/README.md)
 - [x] [Week14 组件化-基本知识、JSX语法、轮播组件](FrontEnd/Week14/README.md)
-- [x] [Week14 组件化-One more thing](FrontEnd/Week14/README.md)
+- [x] [Week15 组件化-One more thing](FrontEnd/Week14/README.md)
 
 
 ## Toy-React
