@@ -1,39 +1,53 @@
-export class Timeline {
+export class TimeLine {
     constructor() {
         this.animations = [];
         this.animaId = null;
         this.state = 'inited';
         this.tick = () => {
-            let passedTime = Date.now() - this.startTime;
+            let t = Date.now() - this.startTime;
+            console.log(t);
             let animations = this.animations.filter(animation => !animation.finished);
-
             for (let animation of animations) {
                 let {
                     object,
                     property,
                     template,
                     timingFunction,
+                    start,
+                    end,
                     delay,
-                    duration,
-                    addTime
+                    duration
                 } = animation;
-
-                let progression = timingFunction((passedTime - delay - addTime) / duration) // 0-1之间
-
-                if (passedTime > duration + delay + addTime) {
+                let progression = timingFunction((t - delay) / duration)
+                if (t > duration + delay) {
                     progression = 1;
                     animation.finished = true;
+                    this.state = 'finished';
                 }
-
                 let value = animation.valueFromProgression(progression);
-
                 object[property] = template(value)
             }
-
-            if (animations.length) {
+            if (animations.length)
                 this.animaId = requestAnimationFrame(this.tick);
-            }
         }
+    }
+
+    restart() {
+        this.animations.forEach(animation => {
+            animation.finished = false
+        });
+        this.animaId = null;
+        this.state = 'playing';
+        this.startTime = Date.now();
+        this.pauseTime = null;
+        this.tick();
+    }
+    start() {
+        if (this.state !== 'inited')
+            return;
+        this.state = 'playing';
+        this.startTime = Date.now();
+        this.tick();
     }
 
     pause() {
@@ -41,7 +55,7 @@ export class Timeline {
             return;
         this.state = 'paused';
         this.pauseTime = Date.now();
-        cancelAnimationFrame(this.animaId);
+        cancelAnimationFrame(this.animaId)
     }
 
     resume() {
@@ -52,34 +66,28 @@ export class Timeline {
         this.animaId = requestAnimationFrame(this.tick);
     }
 
-    start() {
-        if (this.state !== 'inited')
-            return;
-        this.state = 'playing';
-        this.startTime = Date.now();
-        this.tick();
-    }
-
-    restart() {
-        if (this.state === 'playing') {
-            this.pause();
-        }
-        this.animaId = null;
-        this.state = 'playing';
-        this.startTime = Date.now();
-        this.pauseTime = null;
-        this.tick();
-    }
-
-    add(animation, addTime) {
-        this.animations.push(animation);
-        animation.finished = false;
-        if (this.state === 'playing') {
-            animation.addTime = addTime !== void 0 ? addTime : Date.now() - this.startTime;
-        } else {
-            animation.addTime = addTime !== void 0 ? addTime : 0;
+    run() {
+        switch (this.state) {
+            case 'inited':
+                this.start();
+                break;
+            case 'playing':
+                this.pause();
+                break;
+            case 'paused':
+                this.resume();
+                break;
+            default:
+                this.restart();
+                break;
         }
     }
+
+
+    add(animation) {
+        this.animations.push(animation)
+    }
+
 }
 
 export class Animation {
@@ -91,11 +99,12 @@ export class Animation {
         this.end = end;
         this.duration = duration;
         this.delay = delay;
-        this.timingFunction = timingFunction
+        this.timingFunction = timingFunction;
     }
     valueFromProgression(progression) {
         return this.start + progression * (this.end - this.start);
     }
+
 }
 
 export class ColorAnimation {

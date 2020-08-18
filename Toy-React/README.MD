@@ -9,7 +9,7 @@
 
  复习：理解组件化思想 
  对象：Properties,Methods,Inherit
- 组件：Properties,Methods,Inherit，Attribute，Config&State,Event,LifeCyle,Children
+ 组件：Properties,Methods,Inherit，Attribute（带有声明式编程），Config（全局的能力）&State（组件内部状态的变化）,Event（从组件接收东西）,LifeCyle（定义组件的方式）,Children（能够以树型结构描述界面）
   每个Node都设计成javascript对象，它通过jsx语法，重点是通过createElement()方法创建组装出来 
   - 要创建多少个对象,(多少个Node节点)  
   - 创建对象要重点弄清楚传入参数，分别是type,attribute,...children。对应那个哪些值  

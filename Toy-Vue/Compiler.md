@@ -2,7 +2,7 @@
 
 baseOptions:Web平台相关配置，创建编译器时传入
 
-# 编译的入口
+# vUE 2编译的入口
 1、Parse流程：解析模板字符串为ast
 ```javascript
 ast:{
@@ -41,3 +41,41 @@ ast:{
 3、生成代码
 
 Vue.js	也是利⽤函数柯⾥化技巧把基础的编译过程函数抽出来，通过createCompilerCreator(baseCompile)		的⽅式把真正编译的过程和其它逻辑如对编译配置处理、缓存处理等剥离开
+
+
+
+# VUE 3
+
+使用了@vue/compiler-sfc
+它的 compilerSfc.parse(contents)，将单文件转化成
+```javascript
+{
+  filename,
+  source, //原文件
+  template：{
+    type：'template'，
+    content：'',
+    loc:'',
+    attrs：'',
+    map:''
+  }, //template节点内容
+  script：{
+    type：'template'，
+    content：'',
+    loc:'',
+    attrs：'',
+    map:''
+  }, //
+  scriptSetup,
+  styles,
+  customBlocks
+}
+
+```
+2 编译模板 compileTemplate
+ compilerSfc.compileTemplate({
+        source:"",
+      });
+[编译模板](https://vue-next-template-explorer.netlify.app/)
+
+
