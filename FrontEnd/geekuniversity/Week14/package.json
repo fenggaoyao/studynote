@@ -1,0 +1,15 @@
+{
+  "name": "Week14",
+  "version": "1.0.0",
+  "description": "讲述组件与对象的区别，对象具有property,methods,inherit,组件增加attributes,config/state,lifecyle,event,children\r 增加jsx语法，SFC语法，写一个轮播组件，动画，手势，生命周期",
+  "main": "1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rgbaster": "^2.1.1"
+  }
+}

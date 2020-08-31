@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple-Vue</title>
 </head>
+
 <body>
     <div id="app">
         <h1>{{msg}}</h1>
-        <input type="text"  v-model="msg" />
+        <input type="text" v-model="msg" />
         <button v-on:click="handleClick"> v-on:click</button>
         <button @click="handleClick">@handleClick</button>
 
@@ -17,21 +19,21 @@
 
     <script src="./simple-vue.js"></script>
     <script>
-      const vm= new Vue({
-            el:'#app',
-            data:{
-                msg:'hello world'
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello world'
             },
-            methods:{
-                handleClick(){
-                    this.msg=new Date().getTime();
+            methods: {
+                handleClick() {
+                    this.msg = new Date().getTime();
                 }
 
             }
         });
-       // vm.msg="something";
-       // console.log(vm)
-
+        // vm.msg="something";
+        // console.log(vm)
     </script>
 </body>
+
 </html>

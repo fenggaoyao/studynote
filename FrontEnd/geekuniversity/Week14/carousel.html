@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    #container {
+      background-color: white;
+
+      width: 100%;
+    }
+
+    .casousel {
+      width: 500px;
+      height: 300px;
+      margin: auto;
+      white-space: nowrap;
+      transform: translateX();
+      outline: solid 1px red;
+      overflow: hidden;
+    }
+
+    .casousel>img {
+      width: 500px;
+      height: 300px;
+      display: inline-block;
+      transition: transform ease 2s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="container"></div>
+
+
+  <script src="./node_modules/rgbaster/dist/rgbaster.umd.js"></script>
+
+  <script>
+    async function rgb(image) {
+      let result = await rgbaster(
+        image, {
+          ignore: ['rgb(255,255,255)', 'rgb(0,0,0)']
+        });
+      return result[0].color
+    }
+
+    let data = [
+      "https://static001.geekbang.org/resource/image/bb/21/bb38fb7c1073eaee1755f81131f11d21.jpg",
+      "https://static001.geekbang.org/resource/image/1b/21/1b809d9a2bdf3ecc481322d7c9223c21.jpg",
+      "https://static001.geekbang.org/resource/image/b6/4f/b6d65b2f12646a9fd6b8cb2b020d754f.jpg",
+      "https://static001.geekbang.org/resource/image/73/e4/730ea9c393def7975deceb48b3eb6fe4.jpg",
+    ];
+    class Casousel {
+      constructor() {
+        this.root = null;
+        this.data = null;
+      }
+      async render() {
+        this.root = document.createElement("div");
+        let banner = document.getElementById("banner");
+        this.root.classList.add("casousel");
+
+        for (let d of this.data) {
+          let img = document.createElement("img");
+          img.src = d;
+          img.addEventListener('dragstart', e => e.preventDefault());
+          this.root.appendChild(img);
+        }
+
+
+        let position = 0;
+
+
+        // document.getElementById("container").style.background = await rgb(this.data[0])
+
+        let nextpic = async () => {
+          let nextposition = (position + 1) % this.data.length;
+
+          let current = this.root.childNodes[position];
+          let next = this.root.childNodes[nextposition];
+
+          document.getElementById("container").style.background = await rgb(next.src)
+          console.log("start-----------------")
+          current.style.transform = `translateX(${-100 * position}%)`;
+          next.style.transform = `translateX(${100 - 100 * nextposition}%)`;
+          console.log("current.style", position, current.style.transform)
+          console.log("next.style", nextposition, next.style.transform)
+
+          setTimeout(() => {
+            console.log("settimeout-----------------")
+            current.style.transform = `translateX(${-100 - 100 * position}%)`;
+            console.log("current.style", position, current.style.transform)
+            next.style.transform = `translateX(${-100 * nextposition}%)`;
+            console.log("next.style", nextposition, next.style.transform)
+            position = nextposition;
+          }, 16);
+
+
+
+          // //console.log("-----------------")
+
+          // current.style.transform = `translateX(${-100 * position-100 }%)`
+          // //console.log("current.style", position, current.style.transform)
+          // next.style.transform = `translateX(${-100  * nextposition}%)`
+          // // console.log("next.style", nextposition, next.style.transform)
+
+          // setTimeout(nextpic, 3000);
+        };
+        //setTimeout(nextpic, 3000);
+
+        this.root.addEventListener("mousedown", event => {
+          let startX = event.clientX,
+            startY = event.clientY;
+
+          let nextPosition = (position + 1) % this.data.length;
+          let lastPosition = (position - 1 + this.data.length) % this.data.length;
+          let current = this.root.childNodes[position];
+          let last = this.root.childNodes[lastPosition];
+          let next = this.root.childNodes[nextPosition];
+
+          current.style.transition = "ease 0s";
+          last.style.transition = "ease 0s";
+          next.style.transition = "ease 0s";
+
+          current.style.transform = `translateX(${- 500 * position}px)`;
+          last.style.transform = `translateX(${-500 - 500 * lastPosition}px)`;
+          next.style.transform = `translateX(${500 - 500 * nextPosition}px)`;
+
+          let move = event => {
+            current.style.transform =
+              `translateX(${- 500 * position - startX + event.clientX}px)`;
+            last.style.transform =
+              `translateX(${-500 - 500 * lastPosition - startX + event.clientX}px)`;
+            next.style.transform =
+              `translateX(${500 - 500 * nextPosition - startX + event.clientX}px)`;
+          };
+
+          let up = event => {
+            let offset = 0;
+
+            if (event.clientX - startX > 250) {
+              offset = 1;
+            } else if (event.clientX - startX < -250) {
+              offset = -1;
+            }
+
+            current.style.transition = "";
+            last.style.transition = "";
+            next.style.transition = "";
+
+            current.style.transform = `translateX(${offset * 500 - 500 * position }px)`;
+            last.style.transform =
+              `translateX(${offset * 500 -500 - 500 * lastPosition }px)`;
+            next.style.transform =
+              `translateX(${offset * 500 + 500 - 500 * nextPosition }px)`;
+
+            position = (position - offset + this.data.length) % this.data.length;
+
+            document.removeEventListener("mousemove", move);
+            document.removeEventListener("mouseup", up);
+          };
+
+          document.addEventListener('mousemove', move);
+          document.addEventListener('mouseup', up);
+        });
+
+
+
+      }
+    }
+    let casousel = new Casousel();
+    casousel.data = data;
+    casousel.render();
+    document.getElementById("container").appendChild(casousel.root)
+  </script>
+</body>
+
+</html>

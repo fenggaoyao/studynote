@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h1>{{msg}}</h1>
+        <input v-model="msg" type="text" />
+
+    </div>
+
+    <script>
+        class Compiler {
+            constructor(el, vm) {
+                this.el = this.isElementNode(el) ? el : document.querySelector(el);
+
+            }
+
+            isElementNode(el) {
+
+            }
+
+        }
+
+
+        class Observer {
+            constructor(data) {
+                this.observe(data)
+            }
+            observe(data) {
+                if (data && typeof data === 'object') {
+                    Object.keys(data).forEach(key => {
+                        this.defineReactive(data, key, data[key])
+                    })
+                }
+            }
+            defineReactive(obj, key, value) {
+                this.observe(value);
+                Object.defineProperty(obj, key, {
+                    get() {
+                        console.log("get", value)
+                        return value
+                    },
+                    set: (newVal) => {
+                        if (newVal === value) return;
+                        this.observe(newVal)
+                        console.log("set", newVal)
+                        value = newVal
+                    }
+                })
+            }
+        }
+
+
+        class Vue {
+            constructor(options) {
+                this.$el = options.el;
+                this.$data = options.data;
+                this.$options = options;
+
+                new Observer(this.$data);
+
+                new Compiler(this.$el, this)
+
+                this.proxyData(this.$data)
+            }
+            proxyData(data) {
+                Object.keys(data).forEach(key => {
+                    Object.defineProperty(this, key, {
+                        get() {
+                            return data[key]
+                        },
+                        set(newVal) {
+                            data[key] = newVal
+                        }
+                    })
+                })
+
+            }
+        }
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello"
+            }
+        });
+        vm.msg = "somethings"
+
+        console.log(vm.msg)
+    </script>
+
+
+
+</body>
+
+</html>

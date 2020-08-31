@@ -1,0 +1,67 @@
+<script src="https://unpkg.com/vue@next"></script>
+<div id="app"></div>
+
+<script type="module">
+  const { createApp, ref, watchEffect } = Vue;
+
+  function useFetch(getUrl) {
+    const data = ref(null);
+    const error = ref(null);
+    const isPending = ref(true);
+
+    watchEffect(() => {
+      data.value = null;
+      error.value = null;
+      isPending.value = true;
+      fetch(getUrl())
+        .then((response) => response.json())
+        .then((_data) => {
+          data.value = _data;
+          isPending.value = false;
+        })
+        .catch((_error) => {
+          error.value = _error;
+          isPending.value = false;
+        });
+    });
+
+    return {
+      data,
+      error,
+      isPending,
+    };
+  }
+
+  const Post = {
+    props: ["id"],
+    setup(props) {
+      console.log(props);
+      const { data, error, isPending } = useFetch(
+        () => `https://jsonplaceholder.typicode.com/todos/${props.id}`
+      );
+      return {
+        data,
+        error,
+        isPending,
+      };
+    },
+    template: `
+    <div v-if='isPending'>loading</div>
+    <div v-else-if='data'>{{data}}</div>
+    <div v-else-if='error'> something went wrong {{error.message}}</div>
+    `,
+  };
+
+  const App = {
+    components: { Post },
+    data() {
+      return {
+        id: 1,
+      };
+    },
+    template: `<button @click="id++"> change ID </button> 
+        <Post :id="id"/>
+        {{id}}`,
+  };
+  createApp(App).mount("#app");
+</script>

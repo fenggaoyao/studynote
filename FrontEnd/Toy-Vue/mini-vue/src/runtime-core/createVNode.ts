@@ -5,6 +5,9 @@ export const createVNode = function (
   props?: any = {},
   children?: string | Array<any>
 ) {
+  if (props) {
+    // 处理 props 相关逻辑，标准化 class 和 style
+  }
   // 注意 type 有可能是 string 也有可能是对象
   // 如果是对象的话，那么就是用户设置的 options
   // type 为 stirng 的时候
@@ -27,6 +30,8 @@ export const createVNode = function (
   } else if (typeof children === "string") {
     vnode.shapeFlag |= ShapeFlags.TEXT_CHILDREN;
   }
+  // 标准化子节点，把不同数据类型的 children 转成数组或者文本类型
+  normalizeChildren(vnode, children);
 
   return vnode;
 };

@@ -1,5 +1,5 @@
 import { ShapeFlags } from "../shared";
-import { createComponentInstance } from "./component";
+import { createComponentInstance, setupComponent } from "./component";
 import {
   hostCreateElement,
   hostSetElementText,
@@ -10,34 +10,122 @@ import {
 import { queueJob } from "./scheduler";
 import { effect } from "@vue/reactivity";
 import { h } from "./h";
+import { createAppAPI } from "./apiCreateApp";
+
+export function createRenderer<
+  HostNode = RendererNode,
+  HostElement = RendererElement
+>(options: RendererOptions<HostNode, HostElement>) {
+  return baseCreateRenderer<HostNode, HostElement>(options);
+}
+function baseCreateRenderer(
+  options: RendererOptions,
+  createHydrationFns?: typeof createHydrationFunctions
+): any {
+  const {
+    insert: hostInsert,
+    remove: hostRemove,
+    patchProp: hostPatchProp,
+    forcePatchProp: hostForcePatchProp,
+    createElement: hostCreateElement,
+    createText: hostCreateText,
+    createComment: hostCreateComment,
+    setText: hostSetText,
+    setElementText: hostSetElementText,
+    parentNode: hostParentNode,
+    nextSibling: hostNextSibling,
+    setScopeId: hostSetScopeId = NOOP,
+    cloneNode: hostCloneNode,
+    insertStaticContent: hostInsertStaticContent,
+  } = options;
+
+  return {
+    render,
+    hydrate,
+    createApp: createAppAPI(render, hydrate),
+  };
+}
 
 export const render = (vnode, container) => {
-  console.log("调用 patch");
-  patch(null, vnode, container);
+  if (vnode == null) {
+    // 销毁组件
+    if (container._vnode) {
+      unmount(container._vnode, null, null, true);
+    }
+  } else {
+    // 创建或者更新组件
+    patch(container._vnode || null, vnode, container);
+  }
+  // 缓存 vnode 节点，表示已经渲染
+  container._vnode = vnode;
 };
 
-function patch(n1, n2, container = null) {
-  // 基于 n2 的类型来判断
-  // 因为 n2 是新的 vnode
+function patch(
+  n1,
+  n2,
+  container,
+  anchor = null,
+  parentComponent = null,
+  parentSuspense = null,
+  isSVG = false,
+  optimized = false
+) {
+  // 如果存在新旧节点, 且新旧节点类型不同，则销毁旧节点
+  if (n1 && !isSameVNodeType(n1, n2)) {
+    anchor = getNextHostNode(n1);
+    unmount(n1, parentComponent, parentSuspense, true);
+    n1 = null;
+  }
   const { type, shapeFlag } = n2;
   switch (type) {
-    case "text":
-      // todo
+    case Text:
+      // 处理文本节点
       break;
-    // 其中还有几个类型比如： static fragment comment
-
+    case Comment:
+      // 处理注释节点
+      break;
+    case Static:
+      // 处理静态节点
+      break;
+    case Fragment:
+      // 处理 Fragment 元素
+      break;
     default:
-      // 这里就基于 shapeFlag 来处理
-      if (shapeFlag & ShapeFlags.ELEMENT) {
-        console.log("处理 element");
-        processElement(n1, n2, container);
-      } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
-        console.log("处理 component");
-        processComponent(n1, n2, container);
+      if (shapeFlag & 1 /* ELEMENT */) {
+        // 处理普通 DOM 元素
+        processElement(
+          n1,
+          n2,
+          container,
+          anchor,
+          parentComponent,
+          parentSuspense,
+          isSVG,
+          optimized
+        );
+      } else if (shapeFlag & 6 /* COMPONENT */) {
+        // 处理组件
+        processComponent(
+          n1,
+          n2,
+          container,
+          anchor,
+          parentComponent,
+          parentSuspense,
+          isSVG,
+          optimized
+        );
+      } else if (shapeFlag & 64 /* TELEPORT */) {
+        // 处理 TELEPORT
+      } else if (shapeFlag & 128 /* SUSPENSE */) {
+        // 处理 SUSPENSE
       }
   }
 }
-
+function isSameVNodeType(n1, n2) {
+  // n1 和 n2 节点的 type 和 key 都相同，才是相同节点
+  return n1.type === n2.type && n1.key === n2.key;
+}
 function processElement(n1, n2, container) {
   if (!n1) {
     mountElement(n2, container);
@@ -314,7 +402,7 @@ function processComponent(n1, n2, container) {
     // 初始化 component
     mountComponent(n2, container);
   } else {
-    // todo
+    // 更新组件
     // updateComponent()
   }
 }
@@ -325,91 +413,31 @@ function mountComponent(initialVNode, container) {
     initialVNode
   ));
   console.log(`创建组件实例:${instance.type.name}`);
-  // 2. 给 instance 加工加工
+  // 2. 给 instance 加工 // 设置组件实例
   setupComponent(instance);
-
+  // 设置并运行带副作用的渲染函数
   setupRenderEffect(instance, container);
 }
-
-function setupComponent(instance) {
-  // 1. 处理 props
-  initProps();
-  // 2. 处理 slots
-  initSlots();
-
-  // 源码里面有两种类型的 component
-  // 一种是基于 options 创建的
-  // 还有一种是 function 的
-  // 这里处理的是 options 创建的
-  // 叫做 stateful 类型
-  setupStatefulComponent(instance);
-}
-
-function initProps() {
-  // todo
-  console.log("initProps");
-}
-
-function initSlots() {
-  // todo
-  console.log("initSlots");
-}
-
-function setupStatefulComponent(instance) {
-  // todo
-  // 1. 先创建代理 proxy
-  console.log("创建 proxy");
-  // 2. 调用 setup
-  // todo
-  // 应该传入 props 和 setupContext
-  const setupResult = instance.setup && instance.setup(instance.props);
-
-  // 3. 处理 setupResult
-  handleSetupResult(instance, setupResult);
-}
-
-function handleSetupResult(instance, setupResult) {
-  // setup 返回值不一样的话，会有不同的处理
-  // 1. 看看 setupResult 是个什么
-  if (typeof setupResult === "function") {
-    // 如果返回的是 function 的话，那么绑定到 render 上
-    // 认为是 render 逻辑
-    // setup(){ return ()=>(h("div")) }
-    instance.render = setupResult;
-  } else if (typeof setupResult === "object") {
-    // 返回的是一个对象的话
-    // 先存到 setupState 上
-    instance.setupState = setupResult;
+const updateComponent = (n1, n2, parentComponent, optimized) => {
+  const instance = (n2.component = n1.component);
+  // 根据新旧子组件 vnode 判断是否需要更新子组件
+  if (shouldUpdateComponent(n1, n2, parentComponent, optimized)) {
+    // 新的子组件 vnode 赋值给 instance.next
+    instance.next = n2;
+    // 子组件也可能因为数据变化被添加到更新队列里了，移除它们防止对一个子组件重复更新
+    invalidateJob(instance.update);
+    // 执行子组件的副作用渲染函数
+    instance.update();
+  } else {
+    // 不需要更新，只复制属性
+    n2.component = n1.component;
+    n2.el = n1.el;
   }
+};
 
-  finishComponentSetup(instance);
-}
+// setupComponent setupRenderEffect
 
-function finishComponentSetup(instance) {
-  // 给 instance 设置 render
-
-  // 先取到用户设置的 component options
-  const Component = instance.type;
-
-  if (!instance.render) {
-    // todo
-    // 调用 compile 模块来编译 template
-    // Component.render = compile(Component.template, {
-    //     isCustomElement: instance.appContext.config.isCustomElement || NO
-    //   })
-  }
-
-  instance.render = Component.render;
-
-  // applyOptions()
-}
-
-function applyOptions() {
-  // 兼容 vue2.x
-  // todo
-}
-
-function setupRenderEffect(instance, container) {
+function setupRenderEffect(instance, initialVNode, container) {
   // 调用 render
   // 应该传入 ctx 也就是 proxy
   // ctx 可以选择暴露给用户的 api
@@ -430,8 +458,12 @@ function setupRenderEffect(instance, container) {
         // 是因为在 effect 内调用 render 才能触发依赖收集
         // 等到后面响应式的值变更后会再次触发这个函数
         console.log("调用 render,获取 subTree");
-        const subTree = (instance.subTree = instance.render(instance.proxy));
+        // 渲染组件生成子树 vnode
+
+        const subTree = (instance.subTree = renderComponentRoot(instance));
         console.log("subTree", subTree);
+        // 缓存旧的子树 vnode
+        const prevTree = instance.subTree;
 
         // todo
         console.log(`${instance.type.name}:触发 beforeMount hook`);
@@ -447,7 +479,11 @@ function setupRenderEffect(instance, container) {
         // 而 subTree 就是当前的这个箱子（组件）装的东西
         // 箱子（组件）只是个概念，它实际是不需要渲染的
         // 要渲染的是箱子里面的 subTree
+        // 把子树 vnode 挂载到 container 中
+
         patch(null, subTree, container);
+        // 保留渲染生成的子树根 DOM 节点
+        initialVNode.el = subTree.el;
 
         console.log(`${instance.type.name}:触发 mounted hook`);
         instance.isMounted = true;
@@ -457,8 +493,9 @@ function setupRenderEffect(instance, container) {
         console.log("调用更新逻辑");
         // 拿到最新的 subTree
         const nextTree = instance.render(instance.proxy);
-        // 替换之前的 subTree
+        // 缓存旧的子树 vnode
         const prevTree = instance.subTree;
+        // 更新子树 vnode
         instance.subTree = nextTree;
 
         // 触发 beforeUpdated hook
@@ -466,7 +503,19 @@ function setupRenderEffect(instance, container) {
         console.log("onVnodeBeforeUpdate hook");
 
         // 用旧的 vnode 和新的 vnode 交给 patch 来处理
-        patch(prevTree, nextTree, prevTree.el);
+        patch(
+          prevTree,
+          nextTree,
+          // 如果在 teleport 组件中父节点可能已经改变，所以容器直接找旧树 DOM 元素的父节点
+          hostParentNode(prevTree.el),
+          // 参考节点在 fragment 的情况可能改变，所以直接找旧树 DOM 元素的下一个节点
+          getNextHostNode(prevTree),
+          instance,
+          parentSuspense,
+          isSVG
+        );
+        // 缓存更新后的 DOM 节点
+        next.el = nextTree.el;
 
         // 触发 updated hook
         console.log("updated hook");
@@ -476,8 +525,23 @@ function setupRenderEffect(instance, container) {
     {
       scheduler: (effect) => {
         // 把 effect 推到微任务的时候在执行
-        queueJob(effect)
+        queueJob(effect);
       },
     }
   );
 }
+
+//这里要注意别把 subTree 和 initialVNode 弄混了（其实在 Vue.js 3.0 中，
+//根据命名我们已经能很好地区分它们了，而在 Vue.js 2.x 中它们分别命名为 _vnode 和 $vnode）。
+//我来举个例子说明，在父组件 App 中里引入了 Hello 组件：
+// <template>
+//   <div class="hello">
+//     <p>Hello, Vue 3.0!</p>
+//   </div>
+// </template>
+
+// 在 App 组件中， <hello> 节点渲染生成的 vnode ，
+//对应的就是 Hello 组件的 initialVNode ，为了好记，
+//你也可以把它称作“组件 vnode”。
+//而 Hello 组件内部整个 DOM 节点对应的 vnode 就是执行 renderComponentRoot 渲染生成对应的 subTree，
+//我们可以把它称作“子树 vnode”。

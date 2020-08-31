@@ -33,7 +33,7 @@
   let tl = new Timeline();
 
   let ease = cubicBezier(0.25, 0.1, 0.25, 1);
-  let linear=t=>t;
+  let linear=cubicBezier(0, 0, 1, 1);
 
   tl.add(
     new Animation(
