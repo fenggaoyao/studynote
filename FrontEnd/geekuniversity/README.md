@@ -10,10 +10,10 @@
 - [x] [Week08 重学CSS-CSS选择器、排版、绘制相关属性](Week08/README.md)
 - [x] [Week09 重学CSS+HTML-CSS动画、HTML](Week09/README.md)
 - [x] [Week10 浏览器原理-浏览器API DOM](Week10/README.md)
-- [x] [Week11 编程算法训练-异步编程、寻路问题](Week11/README.md)
+- [x] [Week11 编程算法训练-异步编程、寻路问题](Week11/README.MD)
 - [x] [Week12 编程算法训练-解析一个四则运算的表达式](Week12/README.md)
-- [x] [Week13 编程算法训练-Proxy双向绑定、Range](Week13/README.md)
-- [x] [Week14 组件化-基本知识、JSX语法、轮播组件](Week14/README.md)
-- [x] [Week15 组件化-One more thing](Week14/README.md)
+- [x] [Week13 编程算法训练-Proxy双向绑定、Range](Week13/README.MD)
+- [x] [Week14 组件化-基本知识、JSX语法、轮播组件](Week14/README.MD)
+- [x] [Week15 组件化-One more thing](Week14/README.MD)
 
 
