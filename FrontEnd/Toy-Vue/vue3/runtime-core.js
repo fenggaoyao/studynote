@@ -1,54 +1,75 @@
+function createVNode(rootComponent) {
+    return {
+        type: 'h2',
+        props: {
+            class: 'title'
+        },
+        children: rootComponent.data().foo
+    }
+}
+
+
 function apiCreateApp(render) {
     return function createApp(rootComponent) {
+        let isMounted = false
         const mount = (rootContainer) => {
-            const initVode = {
-                type: 'h2',
-                props: {
-                    class: 'title'
-                },
-                children: rootComponent.data().foo
+            if (!isMounted) {
+                const vnode = createVNode(rootComponent)
+                render(vnode, rootContainer)
+                isMounted = true
             }
-            render(initVode, rootContainer)
         }
-
         const app = {
             mount
         }
-
         return app
     }
 }
 
 export const createRenderer = (options) => {
+
+    const patch = (n1,
+        n2,
+        container) => {
+
+        //这里判断多种类型
+
+
+
+        //假定n2是组件，调用processComponent方法
+        //若n1不存在
+        if (n1 == null) {
+            mountComponent(
+                n2,
+                container)
+        } else {
+            updateComponent(n1, n2)
+        }
+    }
+
+    const mountComponent = (initialVNode, container) => {
+        // const instance = createComponentInstance(initialVNode);
+        // setupComponent(instance);
+        // setupRenderEffect(instance, initialVNode, container)
+
+        const child = options.createElement(initialVNode.type)
+        if (typeof initialVNode.children === 'string') {
+            child.textContent = initialVNode.children
+        }
+        // 3 追加
+        options.insert(child, container)
+    }
+
+
     const render = function (vnode, container) {
         // const container = document.querySelector(root) || document.createElement("container") 
-
-        //获取父元素
-        const parent = options.querySelector(container)
-
-        const child = options.createElement(vnode.type)
-
-        if (typeof vnode.children === 'string') {
-            child.textContent = vnode.children
+        if (vnode !== null) {
+            patch(container._vnode || null, vnode, container)
         }
 
-        // 3 追加
-        options.insert(child, parent)
 
-        // const n1 = container._vnode;
-        // const n2 = null;
 
-        // if (!n1) {
-        //     //第一次挂载
-        //     mountComponent()
-
-        // } else {
-        //     //
-        //     UpdateComponent()
-
-        // }
-
-        //把传入vnode变成dom,追加到container
+        container._vnode = vnode
 
     }
 
@@ -57,5 +78,3 @@ export const createRenderer = (options) => {
         createApp: apiCreateApp(render)
     }
 }
-
-//需要一个渲染器，参数是各种平台节点和属性操作

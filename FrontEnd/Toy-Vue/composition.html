@@ -2,7 +2,15 @@
 <div id="app"></div>
 
 <script type="module">
-  const { createApp, ref, watchEffect } = Vue;
+  const {
+    createApp,
+    ref,
+    watchEffect,
+    onMounted,
+    provide,
+    inject,
+    reactive,
+  } = Vue;
 
   function useFetch(getUrl) {
     const data = ref(null);
@@ -35,33 +43,134 @@
   const Post = {
     props: ["id"],
     setup(props) {
-      console.log(props);
       const { data, error, isPending } = useFetch(
         () => `https://jsonplaceholder.typicode.com/todos/${props.id}`
       );
+      //DOM 的引用 ref
+      const h3Ref = ref(null);
+      // 在 DOM 首次加载完毕之后，才能获取到元素的引用
+      onMounted(() => {
+        // 为 dom 元素设置字体颜色
+        // h3Ref.value 是原生DOM对象
+        h3Ref.value.style.color = "red";
+      });
+
       return {
         data,
         error,
         isPending,
+        h3Ref, // 把创建的引用 return 出去
       };
     },
     template: `
-    <div v-if='isPending'>loading</div>
-    <div v-else-if='data'>{{data}}</div>
-    <div v-else-if='error'> something went wrong {{error.message}}</div>
+      <div v-if='isPending'>loading</div>
+      <div v-else-if='data'>{{data}}</div>
+      <div v-else-if='error'> something went wrong {{error.message}}</div>
+      <h3 ref="h3Ref">TemplateRefOne</h3>
+      <div @click="$parent.$emit('mu')">兄弟间传值</div>
+      `,
+  };
+
+  const checkProps = (props, emit) => {
+    onMounted(() => {
+      emit("event", 1);
+    });
+  };
+  const TemplateRefTwo = {
+    emits: {
+      event: (payload) => {
+        if (payload > 5) return true;
+        else return false;
+      },
+    },
+    // created() {
+    //   console.log(this.$parent.$);
+    //   this.$parent.$on('mu',()=>{
+    //     console.log("hi!")
+
+    //   })
+    // },
+    setup(props, { attrs, emit }) {
+      const theme = inject("theme", {});
+      // 1. 定义响应式的数据
+      const count = ref(0);
+      checkProps(props, emit);
+      // 2. 把响应式数据 return 给 Template 使用
+
+      const handle = () => {
+        count.value += 1;
+        emit("event", count.value);
+      };
+
+      console.log("TemplateRefTwo attrs", attrs);
+
+      return {
+        count,
+        handle,
+        theme,
+      };
+    },
+    template: `
+    <div>
+    <h5>TemplateRefTwo --- {{count}}</h5>
+    <!-- 3. 点击按钮，让 count 值自增 +1 -->
+    <button @click="handle">+1</button>
+
+<hr />
+{{theme.theme}}
+<hr />
+<slot :count="count"></slot>
+
+  </div>
     `,
   };
 
   const App = {
-    components: { Post },
+    components: { Post, TemplateRefTwo },
     data() {
       return {
         id: 1,
       };
     },
-    template: `<button @click="id++"> change ID </button> 
-        <Post :id="id"/>
-        {{id}}`,
+
+    setup() {
+      const theme = reactive({
+        theme: "dark",
+      });
+      provide("theme", theme);
+
+      // 1. 创建一个组件的 ref 引用
+
+      const comRef = ref(null);
+      const comRefValue = ref(0);
+      // 5. 展示子组件中 count 的值
+      const showNumber = () => {
+        comRefValue.value = comRef.value.count;
+        theme.theme += 1;
+      };
+
+      const emitevent = (arg) => {
+        console.log(arg);
+      };
+
+      return { comRef, showNumber, emitevent, comRefValue };
+    },
+    template: `<button @click="id++"> change ID </button>
+          <Post :id="id" />
+          {{id}}
+          <hr />
+          <h1>TemplateRefone ref</h1>
+          <button @click="showNumber">获取TemplateRefTwo中的count值</button>
+          <hr />
+      <!-- 3. 为组件添加 ref 引用 -->
+<p>TemplateRefTwo</p>
+
+      <TemplateRefTwo ref="comRef" @event=emitevent  v-slot="scope">
+        comRefValue:  {{comRefValue}}<br/>
+        count:  {{scope.count}}
+        
+        </TemplateRefTwo>
+          `,
   };
   createApp(App).mount("#app");
 </script>

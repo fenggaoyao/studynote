@@ -20,7 +20,23 @@ function ensureRenderer() {
     return renderer || createRenderer(rendererOptions)
 }
 
+function normalizeContainer(container) {
+    const res = document.querySelector(container)
+    return res
+}
+
 export const createApp = (...args) => {
-    const app = ensureRenderer().createApp(...args)
+    const app = ensureRenderer().createApp(...args);
+
+    const {
+        mount
+    } = app;
+    app.mount = (containerOrSelector) => {
+        const container = normalizeContainer(containerOrSelector)
+        const proxy = mount(container)
+        return proxy
+    }
+
+
     return app;
 }

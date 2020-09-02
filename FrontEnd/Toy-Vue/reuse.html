@@ -1,0 +1,157 @@
+<script src="https://unpkg.com/vue@next"></script>
+<div id="app"></div>
+
+
+<script>
+    const {
+        createApp,
+        h,
+        ref,
+        onMounted,
+        onUnmounted
+    } = Vue;
+    //mouseMixin
+    const mouseMixin = {
+        data() {
+            return {
+                x: 0,
+                y: 0
+            }
+        },
+        methods: {
+            update(e) {
+                this.x = e.pageX;
+                this.y = e.pageY;
+            }
+        },
+        mounted() {
+            document.addEventListener("mousemove", this.update)
+        },
+        unmounted() {
+            document.removeEventListener('mousemove', this.update)
+        }
+    }
+    //高阶组件
+    function withMouse(Inner) {
+        return {
+            data() {
+                return {
+                    x: 0,
+                    y: 0
+                }
+            },
+            methods: {
+                update(e) {
+                    this.x = e.pageX;
+                    this.y = e.pageY;
+                }
+            },
+            mounted() {
+                document.addEventListener("mousemove", this.update)
+            },
+            unmounted() {
+                document.removeEventListener('mousemove', this.update)
+            },
+            render() {
+                return h(Inner, {
+                    x: this.x,
+                    y: this.y
+                })
+
+            },
+        }
+    }
+
+
+    const HighApp = withMouse({
+        props: ['x', 'y'],
+        template: `{{x}},{{y}}`,
+        // mixins: [mouseMixin]
+    })
+
+
+    //slot
+    const Mouse = {
+        data() {
+            return {
+                x: 0,
+                y: 0
+            }
+        },
+        methods: {
+            update(e) {
+                this.x = e.pageX;
+                this.y = e.pageY;
+            }
+        },
+        mounted() {
+            document.addEventListener("mousemove", this.update)
+        },
+        unmounted() {
+            document.removeEventListener('mousemove', this.update)
+        },
+        template: `<slot :x="x" :y="y" />`,
+        // render() {
+        //     return this.$slots.default && this.$slots.default({
+        //         x: this.x,
+        //         y: this.y
+        //     })
+        // },
+    }
+
+
+    const SlotApp = {
+        components: {
+            Mouse
+        },
+        template: `<Mouse v-slot="{x:i,y:j}"> {{i}},{{j}} </Mouse>`,
+        // mixins: [mouseMixin]
+    }
+
+    //slot
+    function useMouse() {
+        const x = ref(0);
+        const y = ref(0);
+
+        const update = (e) => {
+            x.value = e.pageX;
+            y.value = e.pageY;
+        }
+
+        onMounted(() => {
+            document.addEventListener("mousemove", update)
+        })
+
+        onUnmounted(() => {
+            document.removeEventListener("mousemove", update)
+        })
+
+
+        return {
+            x,
+            y
+        }
+    }
+
+    const App = {
+        setup() {
+            const {
+                x,
+                y
+            } = useMouse();
+            return {
+                x,
+                y
+            }
+
+        },
+        template: `{{x}},{{y}}`
+
+    }
+
+
+
+
+
+    createApp(SlotApp).mount("#app")
+</script>
