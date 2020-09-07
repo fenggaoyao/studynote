@@ -14,6 +14,10 @@
 - [x] [Week12 编程算法训练-解析一个四则运算的表达式](Week12/README.md)
 - [x] [Week13 编程算法训练-Proxy双向绑定、Range](Week13/README.MD)
 - [x] [Week14 组件化-基本知识、JSX语法、轮播组件](Week14/README.MD)
-- [x] [Week15 组件化-One more thing](Week14/README.MD)
-
-
+- [x] [Week15 组件化-动画](Week15/README.md)
+- [x] [Week16 组件化-手势和集成](Week16/README.MD)
+- [x] [Week17 工具链-整体理解一个工具链的设计](Week17/README.MD)
+- [x] [Week18 工具链-Dev 单元测试](Week18/README.MD)
+- [x] [Week19 工具链-目录结构和初始化、发布系统-线上WEB服务](Week19/README.MD)
+- [x] [Week20 发布系统-lint phantomJs OAuth](Week20/README.MD)
+- [x] [Week21 组件化-Git hook与lint](Week21/README.MD)
