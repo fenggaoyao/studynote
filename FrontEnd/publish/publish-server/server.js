@@ -3,6 +3,8 @@ const https = require("https");
 const fs = require("fs");
 const unzip = require("unzipper");
 
+const host = "localhost" //localhost
+
 const server = http.createServer((req, res) => {
   if (req.url.match(/^\/auth/)) {
     return auth(req, res);
@@ -106,7 +108,7 @@ const server = http.createServer((req, res) => {
 
 });
 
-server.listen(8081);
+server.listen(8088);
 
 function auth(req, res) {
   //获取授权码
@@ -116,7 +118,7 @@ function auth(req, res) {
   let state = "abc123";
   let client_id = "Iv1.04da7de61ecd6c5a";
   let client_secret = "0c3f4d8b2258a1e92e0e3cae4bb27091313fe3da";
-  let redirect_uri = encodeURIComponent("http://localhost:8081/auth");
+  let redirect_uri = encodeURIComponent(`http://${host}:8088/auth`);
 
   let params = `code=${code}&state=${state}&client_secret=${client_secret}&client_id=${client_id}&redirect_uri=${redirect_uri}`;
 
@@ -142,7 +144,7 @@ function auth(req, res) {
           `<a href="http://localhost:8080/publish?token=${token}">publish</a>`
         );
       } else {
-        res.writeHead(200, {
+        res.writeHead(500, {
           "Content-Type": "text/plain",
         });
         res.end("error");

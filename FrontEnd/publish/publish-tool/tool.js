@@ -3,7 +3,9 @@ const archiver = require("archiver");
 const child_process = require("child_process");
 let packageName = "./package";
 
-const redirect_uri = encodeURIComponent("http://localhost:8081/auth");
+const host = "localhost" //localhost
+
+const redirect_uri = encodeURIComponent(`http://${host}:8088/auth`);
 const url = `https://github.com/login/oauth/authorize?client_id=Iv1.04da7de61ecd6c5a&redirect_uri=${redirect_uri}`;
 
 //mac open,windows使用start
@@ -23,8 +25,8 @@ const server = http.createServer((request, res) => {
   console.log("token " + token);
 
   const options = {
-    host: "localhost",
-    port: 8081,
+    host: host,
+    port: 8088,
     path: "/?filename=package.zip",
     method: "POST",
     headers: {
