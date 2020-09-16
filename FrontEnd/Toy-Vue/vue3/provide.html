@@ -1,0 +1,44 @@
+<script>
+    const context = {
+        provides: {
+            a: 1
+        }
+    }
+
+    const app = {
+        _context: context,
+        mount: () => {}
+    }
+
+
+    function createInstance(vnode, parent) {
+        const type = vnode.type || 1;
+        const appContext = (parent ? parent.appContext : vnode.appContext) || {};
+        const instance = {
+            type,
+            vnode,
+            parent: parent,
+            appContext,
+            provides: parent ? parent.provides : Object.create(appContext.provides),
+        }
+        return instance
+    }
+    const vnode = {
+        type: "",
+        appContext: context
+    }
+    const root = createInstance(vnode, null)
+
+    const child = createInstance({}, root)
+
+    const grandchild = createInstance({}, child)
+    grandchild.provides["a"] = 2
+
+
+    const grandchild2 = createInstance({
+        type: 1
+    }, grandchild)
+
+    console.log(child.provides.a)
+    console.log(grandchild2.provides.a)
+</script>

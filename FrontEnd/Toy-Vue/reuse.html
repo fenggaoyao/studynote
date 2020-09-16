@@ -90,7 +90,7 @@
         unmounted() {
             document.removeEventListener('mousemove', this.update)
         },
-        template: `<slot :x="x" :y="y" />`,
+        template: `<slot name="default" :x="x" :y="y" />`,
         // render() {
         //     return this.$slots.default && this.$slots.default({
         //         x: this.x,
@@ -104,11 +104,12 @@
         components: {
             Mouse
         },
+        // 标准写是v-slot:default=""
         template: `<Mouse v-slot="{x:i,y:j}"> {{i}},{{j}} </Mouse>`,
         // mixins: [mouseMixin]
     }
 
-    //slot
+    //composition api
     function useMouse() {
         const x = ref(0);
         const y = ref(0);
