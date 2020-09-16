@@ -1,0 +1,99 @@
+<body></body>
+
+<!-- <script src="./index.js"></script> -->
+<script>
+  (function (modules) {
+    var installedModules = {};
+    var installedChunks = {
+      main: 0, //已加载
+    };
+
+    let resolves = [];
+
+    function webpackJsonpCallback(data) {
+      const chunksIds = data[0];
+      const moreModules = data[1];
+
+      for (let i = 0; i < chunksIds.length; i++) {
+        let chunksId = chunksIds[i];
+        resolves.push(installedChunks[chunksId][0]); //0是resolve方法，1是reject
+        installedChunks[chunksId] = 0; //重新赋值，已加载
+      }
+
+      for (let moduleId in moreModules) {
+        modules[moduleId] = moreModules[moduleId];
+      }
+      while (resolves.length) {
+        //shift取得第一方法
+        resolves.shift()(); //执行resolve方法，则promise状态为成功，扫行then方法
+      }
+    }
+
+    var _webpack_require_ = function (moduleId) {
+      if (installedModules[moduleId]) return installedModules[moduleId];
+      var module = (installedModules[moduleId] = {
+        i: moduleId,
+        l: false,
+        exports: {},
+      });
+      modules[moduleId].call(
+        module.exports,
+        module,
+        module.exports,
+        _webpack_require_
+      );
+      module.l = true;
+      return module.exports;
+    };
+
+    _webpack_require_.e = function (chunkId) {
+      const primises = [];
+      let installChunkData = installedChunks[chunkId]; //underfined
+      const promise = new Promise(function (resolve, reject) {
+        installChunkData = installedChunks[chunkId] = [resolve, reject];
+      });
+      installChunkData[2] = promise; // 分别是resolve，reject，promise
+
+      var script = document.createElement("script");
+      script.src = chunkId + ".bundle.js";
+      document.head.appendChild(script); //执行title.bundle方法，将
+      //return Promise.all(primises);
+      return promise;
+    };
+
+    //mode为什么要用二进制判断 ，linux权限为7，高效，111，可读可写可执行
+    _webpack_require_.t = function (value, mode) {
+      if (mode & 1) value = _webpack_require_(value);
+      let ns = Object.create(null);
+      Object.defineProperty(ns, "_esmodule", {
+        value: true,
+      }); //表明esmodule
+      Object.defineProperty(ns, "default", {
+        value,
+      }); //表明esmodule
+      return ns;
+    };
+
+    var jsonArray = (window["webpackJsonp"] = window["webpackJsonp"] || []);
+    var oldJsonPFunction = jsonArray.push.bind(jsonArray); //返回函数,this指向jsonArray
+    jsonArray.push = webpackJsonpCallback; //重写push
+
+    var parentJsonFunction = oldJsonPFunction; //老数组的push
+
+    return _webpack_require_("./index.js");
+  })({
+    "./index.js": function (module, exports, _webpack_require_) {
+      const button = document.createElement("button");
+      button.innerText = "button";
+      button.addEventListener("click", () => {
+        _webpack_require_
+          .e("title") //返回primise对象
+          .then(_webpack_require_.t.bind(null, "./title.js", 7))
+          .then((result) => {
+            console.log(result.default);
+          });
+      });
+      document.body.appendChild(button);
+    },
+  });
+</script>
