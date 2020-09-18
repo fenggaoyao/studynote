@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            background-color: red;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>222222222</div>
+    <div>33333333</div>
+
+
+
+    <script>
+        class Trie {
+            constructor() {
+                this.root = Object.create(null)
+            }
+            insert(word) {
+                let node = this.root;
+                for (let i = 0; i < word.length; i++) {
+                    let c = word[i]
+                    if (!node[c])
+                        node[c] = Object.create(null)
+                    node = node[c]
+                }
+                if (!("$" in node))
+                    node["$"] = 0
+                node["$"]++
+            }
+            most() {
+                let max = 0;
+                let maxword = ""
+                let visit = (node, word) => {
+                    if (node.$ & node.$ > max) {
+                        max = node.$;
+                        maxword = word
+                    }
+                    for (let p in node) {
+                        visit(node[p], word + p)
+                    }
+                }
+                visit(this.root, "")
+                console.log(maxword)
+            }
+        }
+
+        function randomword(length) {
+            let s = ""
+            for (let i = 0; i < length; i++) {
+                s += String.fromCharCode(Math.random() * 16 + "a".charCodeAt())
+            }
+            return s
+        }
+
+        let tree = new Trie;
+
+        for (let i = 0; i < 10000; i++) {
+            tree.insert(randomword(4))
+        }
+    </script>
+
+</body>
+
+</html>
