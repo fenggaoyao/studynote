@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分栏</title>
+    <style>
+        :root {
+            --ydUnit: 400px
+        }
+
+        .resizep-bar {
+            border: 1px solid #bbb;
+            width: 100px;
+            height: 100px;
+            resize: horizontal;
+            overflow: scroll;
+        }
+
+
+        .resize-bar {
+            width: 200px;
+            height: inherit;
+            resize: horizontal;
+            overflow: scroll;
+            cursor: ew-resize;
+        }
+
+        .resize-context {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 16px;
+            overflow-x: hidden;
+        }
+
+        .resize-bar::-webkit-scrollbar {
+            width: 200px;
+            height: 200px;
+        }
+
+        .column {
+            overflow: hidden;
+            border: 1px dashed yellowgreen
+        }
+
+        .column-left {
+            height: var(--ydUnit);
+            padding: 16px;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            float: left;
+        }
+
+        .column-right {
+            padding: 16px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .resize-line {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border-right: 2px solid #eee;
+            border-left: 1px solid #eee;
+            pointer-events: none;
+        }
+
+        .resize-bar::-webkit-scrollbar {
+            width: 200px;
+            height: inherit
+        }
+
+        .resize-bar:hover~.resize-line:hover {
+            border-left: 1px dashed red;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="resizep-bar"></div>
+
+    <div class="column">
+        <div class="column-left">
+            <div class="resize-bar"></div>
+            <div class="resize-line"></div>
+            <div class="resize-context"> 左侧内容左侧内容左侧内容左侧内容左侧内容左侧内容
+            </div>
+        </div>
+        <div class="column-right">右侧内容右侧内容右侧内容右侧内容右侧内容右侧内容</div>
+    </div>
+
+</body>
+
+</html>

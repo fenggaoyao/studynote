@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes hue {
+            from {
+                filter: hue-rotate(0deg);
+            }
+
+            to {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .yd-slogon {
+            font-size: 120px;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            animation: hue 2s linear infinite;
+            background-image: linear-gradient(to right, orange, red, yellow, blue, cyan, purple);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1 class="yd-slogon">这是CSS流光字体</h1>
+
+</body>
+
+</html>
