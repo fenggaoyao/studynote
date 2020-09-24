@@ -1,0 +1,31 @@
+<!-- 引入 第三方css动画库 -->
+<link href="https://cdn.bootcdn.net/ajax/libs/animate.css/2.0/animate.css" rel="stylesheet">
+
+<body>
+    <div id="app">
+        <button @click="fn">过渡</button>
+
+        <!-- 通过 修改过渡组件transition的样式属性，来指定我们要使用的动画类名 -->
+        <!-- animated 是必须要添加的一个类，说明当前元素要执行动画效果 -->
+        <!-- tada / bounceOutRight 是 animate.css 提供的 -->
+        <transition enter-active-class="animated tada" leave-active-class="animated hinge">
+            <h1 v-show="isShow">这个东西多少钱？how much？</h1>
+        </transition>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isShow: true
+            },
+
+            methods: {
+                fn() {
+                    this.isShow = !this.isShow
+                }
+            }
+        })
+
+    </script>
+</body>

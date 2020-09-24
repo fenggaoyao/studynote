@@ -1,0 +1,52 @@
+<body>
+    <div id="app">
+        <button @click="isShow=!isShow">过渡</button>
+
+        <transition @before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter">
+            <h1 v-show="isShow">这个东西多少钱？how much？</h1>
+        </transition>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./node_modules/velocity-animate/velocity.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isShow: false
+            },
+
+            methods: {
+                beforeEnter(el) {
+                    // 开始动画之前，也就是起始状态
+                    // console.log('before');
+
+                    // 设置动画的起始状态
+                    el.style.transform = 'translateY(300px)'
+                    el.style.opacity = 0
+                    el.style.transition = 'all 2s ease'
+                },
+                enter(el, done) {
+                    // 动画指定的过程
+                    // console.log('enter');
+
+                    // 作用：告诉浏览器重绘或重排页面结构
+                    // offsetWidth 会通知浏览器重新计算元素的宽度，这样，会造成浏览器重绘
+                    // el.offsetWidth
+                    el.offsetHeight
+
+                    // 设置动画要达到的目标状态
+                    el.style.transform = 'translateY(0px)'
+                    el.style.opacity = 1
+                    done()
+                },
+                afterEnter(el) {
+                    // 动画结束
+                    // console.log('after');
+
+                    this.isShow = !this.isShow
+                }
+            }
+        })
+
+    </script>
+</body>

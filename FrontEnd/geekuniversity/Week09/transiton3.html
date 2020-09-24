@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>动态组件</title>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <style>
+        /* 使用keyframe形式的动画 */
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.2)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        .fade-enter-active {
+            transform-origin: left center;
+            animation: bounce-in 1s;
+        }
+
+        .fade-leave-active {
+            transform-origin: left center;
+            animation: bounce-in 1s reverse;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- 
+        
+     -->
+    <div id="app">
+        <transition name="fade">
+            <div v-show="show">hello world</div>
+        </transition>
+        <button @click="handleChange">显示与隐藏</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                show: true
+            },
+            methods: {
+                handleChange: function () {
+                    this.show = !this.show
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
