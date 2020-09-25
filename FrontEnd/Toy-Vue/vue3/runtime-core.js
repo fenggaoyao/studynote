@@ -1,4 +1,28 @@
 function createVNode(rootComponent) {
+
+    // VNodeTypes =
+    // | string
+    // | VNode
+    // | Component
+    // | typeof Text
+    // | typeof Static
+    // | typeof Comment
+    // | typeof Fragment
+    // | typeof TeleportImpl
+    // | typeof SuspenseImpl
+
+    // const shapeFlag = isString(type)
+    // ? ShapeFlags.ELEMENT
+    // : __FEATURE_SUSPENSE__ && isSuspense(type)
+    //   ? ShapeFlags.SUSPENSE
+    //   : isTeleport(type)
+    //     ? ShapeFlags.TELEPORT
+    //     : isObject(type)
+    //       ? ShapeFlags.STATEFUL_COMPONENT
+    //       : isFunction(type)
+    //         ? ShapeFlags.FUNCTIONAL_COMPONENT
+    //         : 0
+
     return {
         type: 'h2',
         props: {
@@ -11,6 +35,8 @@ function createVNode(rootComponent) {
 
 function apiCreateApp(render) {
     return function createApp(rootComponent) {
+        // const context = createAppContext()
+        // const installedPlugins = new Set()
         let isMounted = false
         const mount = (rootContainer) => {
             if (!isMounted) {
@@ -29,7 +55,7 @@ function apiCreateApp(render) {
 export const createRenderer = (options) => {
 
     const patch = (n1,
-        n2,
+        n2, //新vnode
         container) => {
 
         //这里判断多种类型

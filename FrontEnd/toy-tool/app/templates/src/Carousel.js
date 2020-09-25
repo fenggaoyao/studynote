@@ -160,12 +160,12 @@ export default class Carousel {
 
       let current = children[position];
       let next = children[nextPosition];
-
+      //object, property, start, end, duration, delay, timingFunction, template
       let currentAnimation = new Animation(
         current.style,
         'transform',
-        -100 * position,
-        -100 - 100 * position,
+        -100 * position, //start 
+        -100 - 100 * position, //end 
         500,
         0,
         ease,

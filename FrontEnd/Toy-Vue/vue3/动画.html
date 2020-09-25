@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- <link rel="stylesheet" href="https://s3.pstatp.com/cdn/expire-1-M/animate.css/3.7.0/animate.min.css" /> -->
+
+    <script src="https://s0.pstatp.com/cdn/expire-1-M/velocity/2.0.5/velocity.min.js"></script>
+</head>
+
+<body>
+
+    <div id="demo">
+        <button @click="show=!show">troggle</button>
+        <!-- <transition name="custom-classes-transition" leave-active-class="animated jello"
+            enter-active-class="animated bounce">
+            <p v-if="show">hello vue animation</p>
+        </transition> -->
+
+        <transition @before-enter="beforenter" @enter="enter">
+            <p v-if="show">hello vue animation</p>
+        </transition>
+    </div>
+
+    <script>
+        const {
+            createApp,
+            ref
+        } = Vue
+        const app = {
+            setup() {
+                const show = ref(true);
+                const beforenter = (el) => {
+                    el.style.opacity = 0
+                    el.style.height = 0;
+                }
+                const enter = (el, done) => {
+                    Velocity(el, {
+                        opacity: 1,
+                        translateX: "20px",
+                        fontSize: "1.4rem",
+                        rotateZ: "50deg"
+                    }, {
+                        duration: 5000
+                    })
+
+
+                }
+                return {
+                    show,
+                    beforenter,
+                    enter
+                }
+            }
+
+        }
+        createApp(app).mount("#demo")
+    </script>
+
+</body>
+
+</html>

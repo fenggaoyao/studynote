@@ -8,7 +8,7 @@
 </head>
 
 <style>
-    #container {
+    .container {
         width: 800px;
         display: flex;
         height: 500px;
@@ -17,30 +17,37 @@
         flex-wrap: wrap;
     }
 
-    #container>div {
+    .container>div {
         width: 150px;
         background: lightblue;
-
+        font-size: 20px;
+        padding-left: 10px;
     }
 
-    #container~div {
+    .container~div {
         background: yellow;
     }
 
-    #container+div {
+    .container+div {
         background: red;
     }
 
     div {
         outline: solid 1px red;
+    }
 
+    .a .b {
+        color: red
+    }
 
+    .a .c {
+        padding: 10px;
     }
 </style>
 
 <body>
 
-    <div id="container">
+    <div class="container">
         <div>1</div>
         <div>2</div>
         <div>3</div>
@@ -54,10 +61,11 @@
         <div>12</div>
         <div>13</div>
         <div>14</div>
-        <div>15</div>
+        <div>15 <div>16</div>
+        </div>
     </div>
     <div>4</div>
-    <div>5</div>
+    <div class="a b">5</div>
 
 </body>
 
