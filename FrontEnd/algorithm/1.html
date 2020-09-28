@@ -1,0 +1,26 @@
+<script>
+    function getminNumber(array) {
+        let max = array.length - 1;
+        let inArray = array.map(item => {
+            return Math.min(item, max)
+        })
+        for (let i = 0; i < inArray.length; i++) {
+            let count = inArray[i]
+            if (count > 0) {
+                for (let j = 0; j < array.length; j++) {
+                    if (count <= 0) break;
+                    if (i !== j & array[j] >= 1) {
+                        array[j] -= 1;
+                        count--;
+                    }
+                }
+            }
+        }
+        return array.length + Math.max(...array)
+    }
+
+
+    console.log(getminNumber([1, 1, 1, 1, 1, 2, 2]))
+    console.log(getminNumber([0, 0, 1, 1, 0]))
+    console.log(getminNumber([6, 6, 6, 6]))
+</script>
