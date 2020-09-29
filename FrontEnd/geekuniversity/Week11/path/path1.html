@@ -77,7 +77,7 @@
             })
         }
         async function findPath(map, start, end) {
-            map = map.slice();
+            map = map.slice(); //返回一个新数组，该方法并不会修改数组，而是返回一个子数组。如果想删除数组中的一段元素，应该使用方法 Array.splice()
             let stack = [start];
 
             async function insert([x, y]) {

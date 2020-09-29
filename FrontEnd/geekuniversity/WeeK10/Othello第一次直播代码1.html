@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>othello</title>
+        <meta name="author" content="winter" />
+    </head>
+    <body>
+        <div id="container"></div>
+        <script>
+            let board = [
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 2, 1, 1, 0, 0],
+                [0, 1, 2, 2, 2, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0]
+            ];
+            let color = 1;
+
+            let container = document.getElementById("container");
+            render();
+
+            function render(){
+                container.innerHTML = "";
+                for(let y = 0; y < 8; y++) {
+                    for(let x = 0; x < 8; x++) {
+                        let element = document.createElement("div");
+                        element.addEventListener("click", (event) => {
+                            let ox = x, oy = y;
+                            let hasOpposite = false;
+                            let canMove = false;
+
+                            if(board[y][x] !== 0)
+                                return;
+
+                            while(--x >= 0) {
+                                if(board[y][x] === 3 - color) {
+                                    hasOpposite = true;
+                                }
+                                if(board[y][x] === color) {
+                                    if(hasOpposite)
+                                        canMove = true;
+                                    break;
+                                }
+                                if(board[y][x] === 0) {
+                                    break;
+                                }
+                            }
+                            if(canMove) {
+                                while(x++ != ox) {
+                                    board[y][x] = color;
+                                }
+                                color = 3 - color;
+                            }
+                            render();
+
+                        })
+                        element.style = "vertical-align:bottom;border:solid 1px white;width:50px;height:50px;background-color:darkgreen;display:inline-block;"
+                        container.appendChild(element);
+                        if(board[y][x] === 1) {
+                            let disc = document.createElement("div");
+                            disc.style = "margin-top:5px;margin-left:5px;border-radius:20px;width:40px;height:40px;background-color:black;"
+                            element.appendChild(disc);
+                        }
+                        if(board[y][x] === 2) {
+                            let disc = document.createElement("div");
+                            disc.style = "margin-top:5px;margin-left:5px;border-radius:20px;width:40px;height:40px;background-color:white;"
+                            element.appendChild(disc);
+                        }
+                    }
+                    container.appendChild(document.createElement("br"));
+                }
+            }
+
+
+
+        </script>
+    </body>
+</html>

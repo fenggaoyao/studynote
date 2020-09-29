@@ -98,7 +98,7 @@
                     while (x !== start[0] || y !== start[1]) {
                         path.push([x, y]);
                         container.children[y * 100 + x].style.backgroundColor = "pink";
-                        [x, y] = map[y * 100 + x];
+                        [x, y] = map[y * 100 + x]; //从哪里来的
                     }
                     return path;
                 }

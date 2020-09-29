@@ -71,20 +71,23 @@
                     return;
                 }
 
-                let min = this.data[0];
+                let min = this.data[0]; //顶是最小的，取出后，再产出一个洞
+
+                //fix二叉堆
                 let i = 0;
                 while (i < this.data.length) {
                     if (i * 2 + 1 >= this.data.length) {
+                        break; //说明没有左右节点
+                    }
+                    if (i * 2 + 2 >= this.data.length) { //只有右节点没有
+                        this.data[i] = this.data[i * 2 + 1]; //子节点总比父节点小，因此互换位置
+                        i = i * 2 + 1; //左节点
                         break;
                     }
-                    if (i * 2 + 2 >= this.data.length) {
-                        this.data[i] = this.data[i * 2 + 1];
-                        i = i * 2 + 1;
-                        break;
-                    }
+                    //比较左右子节点（i * 2 + 1），则哪个节点比较小，则将此值换成此值，i值下移到此位置
                     if (this.comparator(this.data[i * 2 + 1], this.data[i * 2 + 2]) < 0) {
-                        this.data[i] = this.data[i * 2 + 1];
-                        i = i * 2 + 1;
+                        this.data[i] = this.data[i * 2 + 1]; //小的上位
+                        i = i * 2 + 1; //这个可能会超
                     } else {
                         this.data[i] = this.data[i * 2 + 2];
                         i = i * 2 + 2;
@@ -92,7 +95,8 @@
                 }
 
                 if (i < this.data.length - 1) {
-                    this.insertAt(i, this.data.pop());
+                    //不是最后一个，则要补回来
+                    this.insertAt(i, this.data.pop()); //将最后一位补回
                 } else {
                     this.data.pop();
                 }
@@ -104,10 +108,11 @@
                     return;
                 }
                 this.data[i] = v;
+                //父节点大，则互换位置，将最小的值一直冒泡到父节点
                 while (i > 0 && this.comparator(v, this.data[Math.floor((i - 1) / 2)]) < 0) {
                     this.data[i] = this.data[Math.floor((i - 1) / 2)];
-                    this.data[Math.floor((i - 1) / 2)] = v;
-                    i = Math.floor((i - 1) / 2);
+                    this.data[Math.floor((i - 1) / 2)] = v; //
+                    i = Math.floor((i - 1) / 2); //父节点
                 }
             }
 
