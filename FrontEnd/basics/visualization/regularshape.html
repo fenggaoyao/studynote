@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画正多边形</title>
+</head>
+
+<body>
+    <canvas width="512" height="512"></canvas>
+
+    <script>
+        class Vector2D extends Array {
+            constructor(x = 1, y = 0) {
+                super(x, y);
+            }
+
+            set x(v) {
+                this[0] = v;
+            }
+
+            set y(v) {
+                this[1] = v;
+            }
+
+            get x() {
+                return this[0];
+            }
+
+            get y() {
+                return this[1];
+            }
+
+            get length() {
+                return Math.hypot(this.x, this.y);
+            }
+
+            get dir() {
+                return Math.atan2(this.y, this.x);
+            }
+
+            copy() {
+                return new Vector2D(this.x, this.y);
+            }
+
+            add(v) {
+                this.x += v.x;
+                this.y += v.y;
+                return this;
+            }
+
+            sub(v) {
+                this.x -= v.x;
+                this.y -= v.y;
+                return this;
+            }
+
+            scale(a) {
+                this.x *= a;
+                this.y *= a;
+                return this;
+            }
+
+            cross(v) {
+                return this.x * v.y - v.x * this.y;
+            }
+
+            dot(v) {
+                return this.x * v.x + v.y * this.y;
+            }
+
+            normalize() {
+                return this.scale(1 / this.length);
+            }
+
+            rotate(rad) {
+                const c = Math.cos(rad),
+                    s = Math.sin(rad);
+                const [x, y] = this;
+
+                this.x = x * c + y * -s;
+                this.y = x * s + y * c;
+
+                return this;
+            }
+        }
+
+
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        const {
+            width,
+            height
+        } = canvas;
+        ctx.translate(0.5 * width, 0.5 * height);
+        ctx.scale(1, -1);
+
+
+        function drawAxis() {
+            ctx.save();
+            ctx.strokeStyle = '#ccc';
+            ctx.beginPath();
+            ctx.moveTo(-width, 0);
+            ctx.lineTo(width, 0);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, -height);
+            ctx.lineTo(0, height);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        drawAxis();
+
+        function regularShape(edges = 3, x, y, step) {
+            const ret = [];
+            const delta = Math.PI * (1 - (edges - 2) / edges); //正多边形内角（PI（n-2）n），外角pi-PI（n-2）n
+            let p = new Vector2D(x, y);
+            const dir = new Vector2D(step, 0);
+            ret.push(p);
+            for (let i = 0; i < edges; i++) {
+                p = p.copy().add(dir.rotate(delta));
+                ret.push(p);
+            }
+            return ret;
+        }
+
+        function draw(points, strokeStyle = 'black', fillStyle = null) {
+            ctx.strokeStyle = strokeStyle;
+            ctx.beginPath();
+            ctx.moveTo(...points[0]);
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(...points[i]);
+            }
+            ctx.closePath();
+            if (fillStyle) {
+                ctx.fillStyle = fillStyle;
+                ctx.fill();
+            }
+            ctx.stroke();
+        }
+
+        draw(regularShape(3, 128, 128, 100), 'black', "red");
+        draw(regularShape(6, -64, 128, 50));
+
+        draw(regularShape(11, -128, -128, 30));
+        draw(regularShape(60, 128, -200, 6));
+    </script>
+
+</body>
+
+
+
+</html>

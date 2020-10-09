@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>坐标系</title>
+
+</head>
+
+<body>
+    <canvas width="512" height="256"></canvas>
+    <script>
+        /* globals rough */
+        const rc = document.querySelector('canvas');
+        const ctx = rc.getContext('2d')
+
+
+        //坐标系
+        // rc.path('M76 256 L176 156 L276 256', hillOpts);
+        // rc.path('M236 256 L336 156 L436 256', hillOpts);
+
+        // rc.circle(256, 106, 105, {
+        //     stroke: 'red',
+        //     strokeWidth: 4,
+        //     fill: 'rgba(255,255,0,0.4)',
+        //     fillStyle: 'solid',
+        // });
+
+        //转移坐标系
+
+        ctx.translate(256, 256); //转移到256 256点
+        ctx.scale(1, -1); //将y轴向下部分，即y>0沿x轴翻转180度
+
+        ctx.beginPath();
+        ctx.lineWidth = "5";
+        ctx.strokeStyle = "red"; // 红色路径
+        ctx.moveTo(-180, 0);
+        ctx.lineTo(-80, 100);
+        ctx.lineTo(20, 0);
+        ctx.stroke(); // 进行绘制
+
+
+        ctx.beginPath();
+        ctx.strokeStyle = "blue"; // 蓝色路径
+        ctx.moveTo(-20, 0);
+        ctx.lineTo(80, 100);
+        ctx.lineTo(180, 0);
+        ctx.stroke(); // 进行绘制
+
+
+
+        ctx.beginPath();
+        ctx.arc(0, 150, 50, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        // console.log(rc);
+    </script>
+</body>
+
+</html>

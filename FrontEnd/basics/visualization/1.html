@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>draw arc</title>
+</head>
+
+<body>
+    <canvas width="512" height="512"></canvas>
+    <script type="text/javascript">
+        function draw(points, context, {
+            strokeStyle = 'black',
+            close = false
+        } = {}) {
+            context.save();
+            context.beginPath();
+            for (let i = 0; i < points.length; i++) {
+                if (i == 0) {
+                    context.moveTo(...points[i]);
+                } else {
+                    context.lineTo(...points[i]);
+                }
+            }
+            if (close) {
+                context.closePath();
+            }
+            context.strokeStyle = strokeStyle;
+            context.stroke();
+            context.restore();
+        }
+
+        function parametric(functionx, functiony) {
+            return function (start, end, segments = 500, ...args) {
+                const points = [];
+                for (let i = 0; i <= segments; i++) {
+                    const angle = start + (end - start) * i / segments;
+                    points.push([functionx(angle, ...args), functiony(angle, ...args)]);
+                }
+                return {
+                    draw: draw.bind(null, points),
+                    points: points
+                }
+            }
+        }
+
+        const canvas = document.querySelector('canvas');
+        const context = canvas.getContext('2d');
+        context.translate(0, 256);
+        context.translate(1, -1);
+        const cycloid = parametric(
+            (t, r) => r * (t - Math.sin(t)),
+            (t, r) => -r * (1 - Math.cos(t))
+        );
+        cycloid(0, Math.PI * 8, 1000, 15).draw(context, {
+            strokeStyle: 'red'
+        });
+
+        const heart = parametric(
+            (t, a) => a * (1 - Math.cos(t)) * Math.cos(t),
+            (t, a) => a * (1 - Math.cos(t)) * Math.sin(t)
+        );
+        context.save();
+        context.translate(256, 50);
+        context.rotate(Math.PI * 1.5);
+        heart(0, Math.PI * 2, 500, 100).draw(context, {
+            strokeStyle: 'green'
+        });
+
+        const nephroid = parametric(
+            (t, a) => a * (3 * Math.cos(t) - Math.cos(3 * t)),
+            (t, a) => a * (3 * Math.sin(t) - Math.sin(3 * t))
+        );
+
+        nephroid(0, Math.PI * 2, 500, 10).draw(context, {
+            strokeStyle: 'blue'
+        });
+
+        const catenary = parametric(
+            (t, a) => t,
+            (t, a) => a * Math.cosh(t / a)
+        );
+        context.restore();
+
+        context.save();
+        context.translate(256, 0);
+        catenary(-Math.PI * 100, Math.PI * 100, 500, 10).draw(context);
+        context.restore();
+    </script>
+</body>
+
+</html>
