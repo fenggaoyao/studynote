@@ -39,7 +39,7 @@
         const TAU = Math.PI * 2;
 
         function arc(x0, y0, radius, startAng = 0, endAng = Math.PI * 2) {
-            const ang = Math.min(TAU, endAng - startAng);
+            const ang = Math.min(TAU, endAng - startAng);//角度
             const ret = ang === TAU ? [] : [
                 [x0, y0]
             ];

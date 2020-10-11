@@ -45,6 +45,28 @@
 
         para(-5.5, 5.5).draw(ctx);
 
+
+        const circle = parametric(
+            t => 50 * Math.cos(t),
+            t => 50 * Math.sin(t),
+        );
+        circle(0, 2 * Math.PI).draw(ctx, {
+            strokeStyle: 'green'
+        });
+
+
+        const ellipse = parametric(
+            t => 100 * Math.cos(t),
+            t => 50 * Math.sin(t),
+        )
+        ellipse(0, 2 * Math.PI).draw(ctx, {
+            strokeStyle: 'yellow'
+        });
+
+
+
+
+
         const helical = parametric(
             (t, l) => l * t * Math.cos(t),
             (t, l) => l * t * Math.sin(t),
