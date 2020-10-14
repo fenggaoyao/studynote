@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "lib": ["ES2020", "DOM"],
+        "strict": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true
+    }
+}

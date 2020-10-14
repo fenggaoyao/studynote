@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes my {
+            0% {
+                transform: translateX(0px);
+            }
+
+            25% {
+                transform: translateX(500px);
+            }
+
+            50% {
+                transform: translate(500px, 500px);
+            }
+
+            75% {
+                transform: translate(0px, 500px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+
+            }
+        }
+
+        @keyframes circle {
+            to {
+                transform: translateX(-50%) rotate(1turn);
+            }
+        }
+
+        .test {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: red;
+            /* transform: translate(600px, 250px); */
+
+            /* animation: circle 10s infinite; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test"></div>
+
+    <script>
+        class Vector2D extends Array {
+            constructor(x = 1, y = 0) {
+                super(x, y);
+            }
+
+            set x(v) {
+                this[0] = v;
+            }
+
+            set y(v) {
+                this[1] = v;
+            }
+
+            get x() {
+                return this[0];
+            }
+
+            get y() {
+                return this[1];
+            }
+
+            get length() {
+                return Math.hypot(this.x, this.y);
+            }
+
+            get dir() {
+                return Math.atan2(this.y, this.x);
+            }
+
+            copy() {
+                return new Vector2D(this.x, this.y);
+            }
+
+            add(v) {
+                this.x += v.x;
+                this.y += v.y;
+                return this;
+            }
+
+            sub(v) {
+                this.x -= v.x;
+                this.y -= v.y;
+                return this;
+            }
+
+            scale(a) {
+                this.x *= a;
+                this.y *= a;
+                return this;
+            }
+
+            cross(v) {
+                return this.x * v.y - v.x * this.y;
+            }
+
+            dot(v) {
+                return this.x * v.x + v.y * this.y;
+            }
+
+            normalize() {
+                return this.scale(1 / this.length);
+            }
+
+            rotate(rad) {
+                const c = Math.cos(rad),
+                    s = Math.sin(rad);
+                const [x, y] = this;
+
+                this.x = x * c + y * -s;
+                this.y = x * s + y * c;
+
+                return this;
+            }
+        }
+
+        function regularShape(edges = 3, x, y, step) {
+            const ret = [];
+            const delta = Math.PI * (1 - (edges - 2) / edges); //正多边形内角（PI（n-2）n），外角pi-PI（n-2）n
+            let p = new Vector2D(x, y);
+            const dir = new Vector2D(step, 0);
+            ret.push(p);
+            for (let i = 0; i < edges; i++) {
+                p = p.copy().add(dir.rotate(delta));
+                ret.push(p);
+            }
+            return ret;
+        }
+
+
+        let div = document.querySelector(".test");
+
+
+
+
+        const TAU_SEGMENTS = 1000;
+        const TAU = Math.PI * 2;
+
+        function arc(x0, y0, radius, startAng = 0, endAng = Math.PI * 2) {
+            const ang = Math.min(TAU, endAng - startAng); //角度
+            const ret = ang === TAU ? [] : [
+                [x0, y0]
+            ];
+            const segments = Math.round(TAU_SEGMENTS * ang / TAU);
+            for (let i = 0; i <= segments; i++) {
+                const x = x0 + radius * Math.cos(startAng + ang * i / segments);
+                const y = y0 + radius * Math.sin(startAng + ang * i / segments);
+                ret.push([x, y]);
+            }
+            return ret;
+        }
+
+
+        //const points = regularShape(200, 200, 200, 5)
+        const points = arc(600, 250, 250)
+        let count = 0
+        const length = points.length
+
+        const loop = () => requestAnimationFrame(() => {
+
+            let point = points[count++ % length];
+            //console.log(point[0], point[1])
+            div.style.transform = `translate(${point[0]}px,${point[1]}px)`
+            // points.unshift(point)
+            loop()
+        })
+        loop()
+    </script>
+
+</body>
+
+</html>
