@@ -15,7 +15,7 @@ function printBaseLine(req) {
   console.log('========================================')
   console.log(time, req.method, req.url);
   console.log('========================================')
-  console.log(req.headers); 
+  console.log(req.headers);
 }
 
 const server = http.createServer((req, res) => {
@@ -49,7 +49,7 @@ const server = http.createServer((req, res) => {
 </head>
 <body>
 <h1>hello world</h1>
-<img src="https://www.baidu.com" alt="head" />
+<img src="https://m1-1253159997.image.myqcloud.com/imageDir/9c57634f396d3d37e5d416db7754c437.jpg" alt="head" />
 <div class="mainWrapper">
   <header class="left">big head</header>
   <section id="gaga" class="right">
