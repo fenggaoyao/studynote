@@ -1,0 +1,21 @@
+{
+  "name": "yd-pack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ydpack.config.js",
+  "scripts": {
+    "dev": "node ./ydpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-traverse": "^6.26.0",
+    "babylon": "^6.18.0",
+    "styletron": "^3.0.4",
+    "styletron-utils": "^3.0.4",
+    "tapable": "^2.2.0"
+  }
+}

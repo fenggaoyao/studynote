@@ -9,3 +9,16 @@
 - 动态规划
 
 字符串的编辑距离
+
+
+```javascript
+
+let lastindex=0;
+let token;
+do{
+  token=inputElement.exec(source);
+  console.log(token)
+}
+while(inputElement.lastindex-lastindex==token.length)
+
+```

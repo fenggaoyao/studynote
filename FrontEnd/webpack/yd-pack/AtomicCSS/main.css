@@ -1,0 +1,7 @@
+module.exports = {
+    '.test': { color: 'red', 'font-size': '14px' },
+    '.qq': { color: 'green', 'font-size': '14px' },
+    '.x': { color: 'red' },
+  };
+
+

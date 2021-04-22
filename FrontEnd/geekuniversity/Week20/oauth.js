@@ -1,7 +1,7 @@
 //https://github.com/apps/toy-publish
 
 {
-    const code = "95b403b5e07dc7afdbc5"
+    const code = "cbfcfeebdaa2908214ea"
     const state = "abc123"
     const client_id = "Iv1.04da7de61ecd6c5a"
     const client_secret = "0c3f4d8b2258a1e92e0e3cae4bb27091313fe3da"

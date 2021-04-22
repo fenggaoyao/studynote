@@ -12,7 +12,7 @@
 - [x] [Week10 浏览器原理-浏览器 API DOM tictactoe井字棋](Week10/README.md)
 - [x] [Week11 编程算法训练-异步编程、寻路问题 正则表达式](Week11/README.MD)
 - [x] [Week12 编程算法训练-解析四则运算表达式，字典树 KMP wildcard](Week12/README.md)
-- [x] [Week13 编程算法训练-Proxy Range](Week13/README.MD)
+- [x] [Week13 编程算法训练-Proxy（双向绑定） Range](Week13/README.MD)
 - [x] [Week14 组件化-基本知识、JSX 语法、轮播组件](Week14/README.MD)
 - [x] [Week15 组件化-动画](Week15/README.md)
 - [x] [Week16 组件化-手势和集成](Week16/README.MD)

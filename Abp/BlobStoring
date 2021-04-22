@@ -1,20 +1,36 @@
 # BlobStore
+不同container有不同BlobContainerConfiguration，可以定义自己的Configuration，装饰者模式,利用组合而不是继承，实现扩展
+一个container有自己名字，结合BlobContainerConfiguration，组成是字典结构，构成AbpBlobStoringOptions
+IBlobContainer<>
+默认是IBlobContainer是IBlobContainer<DefaultContainer>
+使用适配器模式
 
-1、AbpBlobStoringOptions 包括BlobContainerConfiguration，不同container有不同BlobContainerConfiguration
+
+
+1、AbpBlobStoringOptions ：拥有BlobContainerConfigurations，不同container有不同BlobContainerConfiguration
 存在一个默认的DefaultContainer（每个Container都有BlobContainerNameAttribute 标识此Container,此Container
 的DefaultName是Default）
 它注入一个默认DefaultContainer，它的配置BlobContainerConfiguration
 配置内容包括 ProviderType，IsMultiTenant（是否多租户），_properties（配置参数），NamingNormalizers（命名Container,Blob）
 
-2、BlobContainer创建依靠工厂模式BlobContainerFactory，这个提供一个IBlobContainerConfigurationProvider服务方法
-获取BlobContainerConfiguration，默认实现是DefaultBlobContainerConfigurationProvider，它是使用AbpBlobStoringOptions
-来获取的
-
-
 3、IBlobContainer包含方法SaveAsync、DeleteAsync、ExistsAsync、GetAsync、GetOrNullAsync。
 它还是注入IBlobProvider来实现上面操作
 
-4、设计了一个IBlobProviderSelector获取IBlobProvider
+
+什么用工厂模式，创建这个对象比较复杂,创建BlobContainer需要name,configuration,IBlobProvider,currenttenant,serviceprovider
+
+配置对象AbpBlobStoringOptions是拥有名字，配置对象，以及ProviderType
+IBlobContainerConfigurationProvider注入AbpBlobStoringOptions 默认实现是DefaultBlobContainerConfigurationProvider，它是使用AbpBlobStoringOptions
+来获取的
+IBlobProvider,它是ITransient，IBlobProviderSelector 可以注入IEnumrable<>,然后匹配AbpBlobStoringOptions的ProviderType
+
+这里也用到桥接模式，将接口和实现相分离，让他们各自发展，通过多用组合的方式，通过IOption组合在一起
+
+
+
+
+
+
 
 # 实现BlobStoring.FileSystem
 BlobContainerConfiguration扩展一个方法叫UseFileSystem()
@@ -29,10 +45,10 @@ BlobContainerConfiguration扩展一个方法叫UseFileSystem()
 在外面套一个易用的配置，里面使用get和set
 3、使用UseAzure()进行配置
 4、对container和Blob名字进行配置，如何命名（IBlobNamingNormalizer）
-5、最重要的是实现BlobProviderBase
+5、最重要的是实现继承BlobProviderBase
 
 
-为了兼容多存储系统，引入Container（设计一个默认的Container）
+为了兼容多对象存储系统，引入Container（设计一个默认的Container）
 不同Container的配置是不同的BlobContainerConfiguration，为了协调这个引入AbpBlobStoringOptions
 使用
 ```C#

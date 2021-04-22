@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script type="module">
+
+        import Promise from './promise.js';
+        
+
+        window.s=new Promise((resolve,reject)=>{
+
+            setTimeout(resolve,10000)
+        })
+        console.log(window.s)
+
+
+
+    </script>
+    
+</body>
+</html>

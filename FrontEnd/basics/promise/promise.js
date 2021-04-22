@@ -152,4 +152,6 @@ Promise.all = function (Promises) {
     });
 }
 
-module.exports = Promise
+export default Promise;
+
+// module.exports = Promise

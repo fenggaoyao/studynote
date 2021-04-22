@@ -51,10 +51,20 @@ function effect(handler){
 
   
 let p= reactive({r:255,g:0,b:0});    
-
+let i=0;
 effect(()=>{
-    document.getElementById("r").value=p.r
-    document.getElementById("dr").innerText=p.r
+    console.log('1----')
+    effect(()=>{
+       // console.log('2----')
+        effect(()=>{ 
+            
+           // console.log(i)
+            document.getElementById("r").value=p.r
+            document.getElementById("dr").innerText=p.r
+        })
+     
+    })
+    
 })
 effect(()=>{
     document.getElementById("g").value=p.g
@@ -67,8 +77,11 @@ effect(()=>{
 effect(()=>{
     document.getElementById("color").style.backgroundColor=`rgb(${p.r},${p.g},${p.b})`
 })
+
+
 document.getElementById("r").addEventListener("input",(event)=>{
     p.r=event.target.value;
+    i++
 })
 document.getElementById("g").addEventListener("input",(event)=>{
     p.g=event.target.value;
