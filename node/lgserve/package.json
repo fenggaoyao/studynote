@@ -1,0 +1,20 @@
+{
+  "name": "lgserve",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "bin": {
+    "lgserve": "bin/www.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^6.0.0",
+    "ejs": "^3.1.5",
+    "mime": "^2.4.6"
+  }
+}

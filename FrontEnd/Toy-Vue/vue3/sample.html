@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+           <script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+            <!-- 引入样式 -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vxe-table@next/lib/style.css">
+            <!-- 引入脚本 -->
+            <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+            <script src="https://cdn.jsdelivr.net/npm/vxe-table@next"></script>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+       
+</head>
+<body>
+    <div id="app"></div>
+     
+    <script>
+const {createApp,ref,onMounted}=Vue
+
+const http=axios.create({    
+    baseURL:"https://gns.smartsu.net"
+})
+
+const App={
+    name:"app",
+    setup(){
+       const value1=ref('success')
+       const value2=ref('消息提示')
+       const data=ref({})
+       const scrollRef = ref(null)
+	   const ff=ref('click')
+
+
+        onMounted(()=>{
+        //    var result= await http.get("/api/getItem?code=103115032")
+        //     data.value=result.data;
+          console.log(scrollRef)
+       })
+
+       const handle=(e,d)=>{
+         VXETable.modal.message({ message: 'ctrl按下' , status: 'success' })
+		 console.log(e,d)
+       }
+
+
+        return {
+            value1,
+            value2,
+            data,
+            handle,
+			ff,
+            scrollRef
+        }
+    },
+    template:`
+    <p   @[ff]='handle($event,value2)'> modify </p>
+    {{value2}}<br/>
+  {{data}}
+  按键   <vxe-input v-model="ff" placeholder="click" clearable></vxe-input>
+   <vxe-input v-model="value2" placeholder="状态" clearable></vxe-input>
+   <vxe-input v-model="value1" placeholder="状态" clearable></vxe-input>
+ 
+    <vxe-button ref="scrollRef"  content="消息提示" :status="value1" @click="$XModal.message({ message: value2 , status: value1 })"></vxe-button>
+    `    
+}
+
+const app=createApp(App);
+app.use(VXETable)
+
+app.config.globalProperties.$XModal = VXETable.modal
+app.mount("#app")
+
+
+    </script>
+    
+</body>
+</html>

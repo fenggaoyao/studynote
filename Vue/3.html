@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+    window.vue=Vue;
+    const { createApp,reactive,ref,computed,getCurrentInstance,h,watch,defineComponent,watchEffect } = Vue;
+    function enableGesture(element) {
+        function InnerEvent(name, params) {
+            return Object.assign(new CustomEvent(name), params);
+        }
+        let contexts = Object.create(null);
+        let MOUSE_SYMBOL = Symbol("mouse");
+        element.addEventListener('mousedown', (event) => {
+            contexts[MOUSE_SYMBOL] = Object.create(null);
+            start(event, contexts[MOUSE_SYMBOL]);
+            let mousemove = event => {
+                move(event, contexts[MOUSE_SYMBOL]);
+            };
+            let mouseend = event => {
+                end(event, contexts[MOUSE_SYMBOL]);
+                document.removeEventListener('mousemove', mousemove);
+                document.removeEventListener('mouseup', mouseend);
+            };
+            document.addEventListener('mousemove', mousemove);
+            document.addEventListener('mouseup', mouseend);
+        });
+        element.addEventListener('touchstart', event => {
+            for (let touch of event.changedTouches) {
+                contexts[touch.identifier] = Object.create(null);
+                start(touch, contexts[touch.identifier]);
+            }
+        });
+        element.addEventListener('touchmove', event => {
+            for (let touch of event.changedTouches) {
+                move(touch, contexts[touch.identifier]);
+            }
+        });
+    
+        element.addEventListener('touchend', event => {
+            for (let touch of event.changedTouches) {
+                end(touch, contexts[touch.identifier]);
+                delete contexts[touch.identifier];
+            }
+        });
+    
+        element.addEventListener('touchcancel', event => {
+            for (let touch of event.changedTouches) {
+                cancel(touch, touch.identifier);
+                delete contexts[touch.identifier];
+            }
+        });
+        // tap
+        // pan - panstart panmove panend
+        // flick
+        // press - pressstart pressend
+        let start = (point, context) => {
+            element.dispatchEvent(new InnerEvent('start', {
+                startX: point.clientX,
+                startY: point.clientY,
+                clientX: point.clientX,
+                clientY: point.clientY
+            }));
+            context.startX = point.clientX;
+            context.startY = point.clientY;
+            context.moves = [];
+            context.isTap = true;
+            context.isPan = false;
+            context.isPress = false;
+            context.timeoutHandler = setTimeout(() => {
+                if (context.isPan)
+                    return;
+    
+                context.isTap = false;
+                context.isPan = false;
+                context.isPress = true;
+                element.dispatchEvent(new InnerEvent('pressstart', {}));
+            }, 500);
+        };
+        let move = (point, context) => {
+            let dx = point.clientX - context.startX,
+                dy = point.clientY - context.startY;
+            if (dx ** 2 + dy ** 2 > 100 && !context.isPan) {
+                if (context.isPress) {
+                    element.dispatchEvent(new InnerEvent('presscancel', {}));
+                }
+                context.isTap = false;
+                context.isPan = true;
+                context.isPress = false;
+    
+                element.dispatchEvent(new InnerEvent('panstart', {
+                    startX: context.startX,
+                    startY: context.startY,
+                    clientX: point.clientX,
+                    clientY: point.clientY
+                }));
+            }
+            if (context.isPan) {
+                context.moves.push({
+                    dx,
+                    dy,
+                    t: Date.now()
+                });
+                context.moves = context.moves.filter(record => Date.now() - record.t < 300);
+                element.dispatchEvent(new InnerEvent('pan', {
+                    startX: context.startX,
+                    startY: context.startY,
+                    clientX: point.clientX,
+                    clientY: point.clientY
+                }));
+            }
+    
+            // console.log('move', dx, dy);
+        };
+        let end = (point, context) => {
+            if (context.isPan) {
+                let dx = point.clientX - context.startX,
+                    dy = point.clientY - context.startY;
+                let record = context.moves[0];
+                let speed = Math.sqrt(((record.dx - dx) ** 2 + (record.dy - dy) ** 2) / (Date.now() - record.t));
+                // console.log(speed);
+                let isFlick = speed > 2.5;
+                if (isFlick) {
+                    element.dispatchEvent(new InnerEvent('flick', {
+                        startX: context.startX,
+                        startY: context.startY,
+                        clientX: point.clientX,
+                        clientY: point.clientY,
+                        speed: speed
+                    }));
+                }
+                element.dispatchEvent(new InnerEvent('panend', {
+                    startX: context.startX,
+                    startY: context.startY,
+                    clientX: point.clientX,
+                    clientY: point.clientY,
+                    speed: speed,
+                    isFlick: isFlick
+                }));
+            }
+            if (context.isTap) {
+                element.dispatchEvent(new InnerEvent('tap', {}))
+            }
+    
+            if (context.isPress) {
+                element.dispatchEvent(new InnerEvent('pressend', {}))
+            }
+            clearTimeout(context.timeoutHandler);
+        };
+        let cancel = (point, context) => {
+            element.dispatchEvent(new InnerEvent('canceled', {}))
+            clearTimeout(context.timeoutHandler);
+        };
+    }
+     function drags() {
+        let x = 0,
+            y = 0;
+        const pan = (event) => {
+            const d = event;
+            event.target.style.transform = `translate(${x + d.clientX - d.startX}px,${y + d.clientY - d.startY}px)`;
+        }
+        const panend = (event) => {
+            const d = event;
+            x = x + d.clientX - d.startX;
+            y = y + d.clientY - d.startY;
+        }
+        return {
+            pan,
+            panend
+        }
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/element-plus/lib/index.full.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-json-pretty@2.0.1/lib/vue-json-pretty.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/lib/theme-chalk/index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-json-pretty/lib/styles.css" />
+   <style>
+.card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }    
+  .text {
+    font-size: 14px;
+  }
+  .item {
+    margin-bottom: 18px;
+  }
+  .box-card {
+    width: 480px;
+  }
+       
+     </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    const {ElMessage,ElMessageBox} =ElementPlus
+    const {default:vjp} =VueJsonPretty
+    const http=axios.create({    
+     baseURL:"https://gns.smartsu.net"
+})
+    const Item={
+      name:"Item",      
+      setup(){
+        const code=ref("10333427")
+        const form=ref({
+          ITEM:"",
+          ITEMPIC:"",
+          ITEMNAME:"",
+          CPLB:"",
+          BUYR:"",
+          OTBP:"",
+          CITG:"",
+          KITM:"",
+          CWAR:""
+         }
+        )
+        const onOpen=async ()=>{
+          console.log(code.value)
+          var result= await http.get("/api/getItem?code="+code.value)//103115032
+          console.log(result)
+          form.value=result.data[0];
+        }
+
+        return {
+          onOpen,
+          code,
+          form
+        }
+       
+      },
+      template:`
+      <el-card class="box-card">
+<template #header>
+  <div class="card-header">
+    <el-input v-model="code"></el-input>
+    <el-button type="text" @click="onOpen">查询</el-button> 
+  </div>
+</template>
+<el-form :model="form" label-width="80px">
+<el-form-item label="物料代码">
+  <el-input v-model="form.ITEM"></el-input>
+</el-form-item>
+<el-form-item label="图号">
+  <el-input v-model="form.ITEMPIC"></el-input>
+</el-form-item>
+<el-form-item label="物料名称">
+  <el-input v-model="form.ITEMNAME"></el-input>
+</el-form-item>
+<el-form-item label="物料组">
+  <el-input v-model="form.CITG"></el-input>
+</el-form-item>
+<el-form-item label="仓库">
+  <el-input v-model="form.CWAR"></el-input>
+</el-form-item>
+<el-form-item label="制造属性">
+  <el-input v-model="form.KITM"></el-input>
+</el-form-item>
+<el-form-item label="计划员">
+  <el-input v-model="form.CPLB"></el-input>
+</el-form-item>
+<el-form-item label="采购员">
+  <el-input v-model="form.BUYR"></el-input>
+</el-form-item>
+<el-form-item label="供应商">
+  <el-input v-model="form.OTBP"></el-input>
+</el-form-item>
+</el-form>
+</el-card>
+      `
+    }
+    const Sample={
+          name:"sample",
+          props:{
+              message:{
+                  type:String,
+                  default:"只是一条消息提示"
+              }                
+          },     
+          setup(props,{emit,slots}){
+          //   const instance=getCurrentInstance();                
+            const form=reactive({
+        name: 'vue表单测试',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: '备注'
+       });
+             const onSubmit=()=>{
+
+              ElMessageBox({
+          title: '消息',
+          message: h(vjp, {
+            "data":form,
+            "deep":3,
+            "showDoubleQuotes":true,
+            "showLength":true,
+            "showLine":true,
+            "collapsedOnClickBrackets":true,
+          }),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              instance.confirmButtonLoading = true;
+              instance.confirmButtonText = '执行中...';
+              setTimeout(() => {
+                done();
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false;
+                }, 300);
+              }, 1000);
+            } else {
+              done();
+            }
+          }
+        }).then(action => {
+          ElMessage({
+            type: 'success',
+            message: 'action: ' + action
+          });
+        });
+        
+              
+              
+              }
+             const onOpen=()=>ElMessage.success(props.message)
+              return{   
+                  form,                
+                  onOpen,
+                  onSubmit
+              }
+          },         
+          template:`
+          <el-card class="box-card">
+<template #header>
+  <div class="card-header">
+    <span>表单</span>
+    <el-button type="text" @click="onOpen">消息提示</el-button> 
+  </div>
+</template>
+<el-form :model="form" label-width="80px">
+<el-form-item label="活动名称">
+  <el-input v-model="form.name"></el-input>
+</el-form-item>
+<el-form-item label="活动区域">
+  <el-select v-model="form.region" placeholder="请选择活动区域">
+    <el-option label="区域一" value="shanghai"></el-option>
+    <el-option label="区域二" value="beijing"></el-option>
+  </el-select>
+</el-form-item>
+<el-form-item label="活动时间">
+  <el-col :span="11">
+    <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+  </el-col>
+  <el-col class="line" :span="2">-</el-col>
+  <el-col :span="11">
+    <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
+  </el-col>
+</el-form-item>
+<el-form-item label="即时配送">
+  <el-switch v-model="form.delivery"></el-switch>
+</el-form-item>
+<el-form-item label="活动性质">
+  <el-checkbox-group v-model="form.type">
+    <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
+    <el-checkbox label="地推活动" name="type"></el-checkbox>
+    <el-checkbox label="线下主题活动" name="type"></el-checkbox>
+    <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+  </el-checkbox-group>
+</el-form-item>
+<el-form-item label="特殊资源">
+  <el-radio-group v-model="form.resource">
+    <el-radio label="线上品牌商赞助"></el-radio>
+    <el-radio label="线下场地免费"></el-radio>
+  </el-radio-group>
+</el-form-item>
+<el-form-item label="活动形式">
+  <el-input type="textarea" v-model="form.desc"></el-input>
+</el-form-item>
+<el-form-item>
+  <el-button type="primary" @click="onSubmit">立即创建</el-button>
+  <el-button>取消</el-button>
+</el-form-item>
+</el-form>
+</el-card>
+`
+      }
+    const App={
+          components:{Sample,Item},    
+          setup(){
+            const {pan,panend}=drags();
+            return {
+              pan,panend
+            }
+          },        
+          template:`
+          <el-row :gutter="20">
+          <el-col :span="12">
+            <sample></sample>
+          </el-col>
+          <el-col :span="12">
+            <item></item>
+            <div v-enableGesture @pan="pan" @panend="panend" style="background-color: red; border-radius: 50%; width: 50px; height: 50px;"></div> 
+            </el-col>           
+          </el-row>
+          `
+      }        
+    createApp(App).use(ElementPlus).directive("enableGesture", {
+      beforeMount: (el, binding, vnode, oldvode) => {
+        //console.log(el, binding, vnode, oldvode);
+        enableGesture(el);
+      },
+    }).mount("#app");
+   
+  </script>
+</body>
+</html>
+

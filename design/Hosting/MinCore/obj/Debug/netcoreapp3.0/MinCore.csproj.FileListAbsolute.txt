@@ -1,0 +1,17 @@
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\MinCore.exe
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\MinCore.deps.json
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\MinCore.runtimeconfig.json
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\MinCore.runtimeconfig.dev.json
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\MinCore.dll
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\MinCore.pdb
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Configuration.dll
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Study\netcore\Hosting\Hosting\MinCore\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Primitives.dll
+D:\Study\netcore\Hosting\Hosting\MinCore\obj\Debug\netcoreapp3.0\MinCore.csprojAssemblyReference.cache
+D:\Study\netcore\Hosting\Hosting\MinCore\obj\Debug\netcoreapp3.0\MinCore.AssemblyInfoInputs.cache
+D:\Study\netcore\Hosting\Hosting\MinCore\obj\Debug\netcoreapp3.0\MinCore.AssemblyInfo.cs
+D:\Study\netcore\Hosting\Hosting\MinCore\obj\Debug\netcoreapp3.0\MinCore.csproj.CopyComplete
+D:\Study\netcore\Hosting\Hosting\MinCore\obj\Debug\netcoreapp3.0\MinCore.dll
+D:\Study\netcore\Hosting\Hosting\MinCore\obj\Debug\netcoreapp3.0\MinCore.pdb

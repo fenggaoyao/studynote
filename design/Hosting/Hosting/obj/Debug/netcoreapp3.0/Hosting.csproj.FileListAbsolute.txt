@@ -1,0 +1,17 @@
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Hosting.exe
+D:\Study\netcore\Hosting\Hosting\Hosting\obj\Debug\netcoreapp3.0\Hosting.csprojAssemblyReference.cache
+D:\Study\netcore\Hosting\Hosting\Hosting\obj\Debug\netcoreapp3.0\Hosting.AssemblyInfoInputs.cache
+D:\Study\netcore\Hosting\Hosting\Hosting\obj\Debug\netcoreapp3.0\Hosting.AssemblyInfo.cs
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Study\netcore\Hosting\Hosting\Hosting\obj\Debug\netcoreapp3.0\Hosting.csproj.CopyComplete
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Hosting.deps.json
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Hosting.runtimeconfig.json
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Hosting.runtimeconfig.dev.json
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Hosting.dll
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Hosting.pdb
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Configuration.dll
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Study\netcore\Hosting\Hosting\Hosting\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Primitives.dll
+D:\Study\netcore\Hosting\Hosting\Hosting\obj\Debug\netcoreapp3.0\Hosting.dll
+D:\Study\netcore\Hosting\Hosting\Hosting\obj\Debug\netcoreapp3.0\Hosting.pdb
