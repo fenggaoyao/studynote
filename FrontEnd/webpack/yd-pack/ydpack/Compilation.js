@@ -38,7 +38,7 @@ class Compilation {
           },
         `;
     });
-    const tempalte = `(function (modules) {
+    const template = `(function (modules) {
         var installedModules = {};
         function __webpack_require__(moduleId) {
           // Check if module is in cache
@@ -63,7 +63,7 @@ class Compilation {
       });
       `;
     console.log('🐻', outputPath);
-    writeFileSync(outputPath, tempalte, 'utf8');
+    writeFileSync(outputPath, template, 'utf8');
   }
 }
 module.exports = Compilation;

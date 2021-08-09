@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>几何体贴图</title>
+  <script src="./three.min.js"></script>
+</head>
+
+<body>
+  <script>
+
+    // 定义全局变量
+    let camera, scene, mesh, renderer
+
+    function init() {
+      // 场景 
+      scene = new THREE.Scene()
+
+      // 相机
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
+
+      // 几何体 + 材质 ===> 网格===》场景
+      const geometry = new THREE.BoxGeometry(1, 1, 1)
+      const texture = new THREE.TextureLoader().load('img/crate.gif')
+      const material = new THREE.MeshBasicMaterial({ map: texture })
+      mesh = new THREE.Mesh(geometry, material)
+      scene.add(mesh)
+
+      // 渲染器
+      renderer = new THREE.WebGLRenderer({ antialias: true })
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setPixelRatio(window.devicePixelRatio)
+      document.body.appendChild(renderer.domElement)
+    }
+
+    function animate() {
+      requestAnimationFrame(animate)
+      mesh.rotation.x += 0.005
+      mesh.rotation.y += 0.01
+      camera.position.z = 5
+      renderer.render(scene, camera)
+    }
+
+    init()
+    animate()
+  </script>
+</body>
+
+</html>

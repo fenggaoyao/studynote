@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绘制文字</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 40px auto 0;
+      border: 1px solid sienna;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="600" height="400">您的浏览器不支持 canvas</canvas>
+</body>
+<script>
+  const canvas = document.getElementById('canvas')
+  const ctx = canvas.getContext('2d')
+
+  canvas.style.width = canvas.width + 'px'
+  canvas.style.height = canvas.height + 'px'
+  canvas.width = canvas.width * 1.5
+  canvas.height = canvas.height * 1.5
+
+  // 绘制居中线条
+  ctx.beginPath()
+  ctx.lineWidth = 1
+  ctx.strokeStyle = '#ccc'
+  ctx.moveTo(450, 0)
+  ctx.lineTo(450, 600)
+  ctx.stroke()
+  ctx.closePath()
+
+  ctx.beginPath()
+  ctx.lineWidth = 1
+  ctx.strokeStyle = '#ccc'
+  ctx.moveTo(0, 300)
+  ctx.lineTo(900, 300)
+  ctx.stroke()
+  ctx.closePath()
+
+  // 实心文字 描边文字
+  ctx.fillStyle = 'orange'
+  ctx.strokeStyle = "hotpink"
+  ctx.font = 'bold 60px 微软雅黑'
+  ctx.fillText('拉勾教育', 100, 100, 100)
+  ctx.strokeText('前端', 100, 240)
+
+  // 对齐属性设置
+  ctx.textAlign = 'center' // left right start end center 
+  ctx.textBaseline = "middle"  // top bottom middle
+  ctx.fillText('拉勾教育', 450, 300)
+
+</script>
+
+</html>

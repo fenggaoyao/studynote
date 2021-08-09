@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三种选择集</title>
+  <script src="./d3.min.js"></script>
+</head>
+
+<body>
+  <p></p>
+  <p></p>
+  <p></p>
+  <script>
+    // 数据
+    // const data = [1, 2, 3, 4, 5]
+    // const allAp = d3.selectAll('body p')
+    // const update = allAp.data(data)
+    // update.text(d => "更新" + d)
+    // const enter = update.enter()
+    // enter.append('p').text(d => '新增' + d)
+
+    // const allAp = d3.selectAll('body p')
+    // const update = allAp.data(data)
+    // update.text(d => "更新" + d)
+
+    // const exit = update.exit()
+    // exit.text(d => "将要删除" + d)
+
+    // 03 enter 
+    // d3.select('body').selectAll('p')
+    //   .data(data)
+    //   .enter()
+    //   .append('p')
+    //   .text(d => d)
+
+    // 04 data datum 
+    // const data = [1, 2, 3, 4, 5]
+    // const data = '拉勾教育'
+    const data = { name: 'lg', age: 100 }
+
+    d3.selectAll('body p')
+      // .data(data)
+      .datum(data)
+      .text(d => d.name)
+  </script>
+</body>
+
+</html>

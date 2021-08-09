@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轨迹球控制与材质</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <script src="./three.min.js"></script>
+  <script src="./TrackballControls.js"></script>
+</head>
+
+<body>
+  <script>
+    // 定义全局变量
+    let scene, camera, geometry, mesh, renderer, controls
+
+    // 初始化渲染器
+    function initRenderer() {
+      renderer = new THREE.WebGLRenderer({ antialias: true })
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setPixelRatio(window.devicePixelRatio)
+      document.body.appendChild(renderer.domElement)
+    }
+
+    // 初始化场景
+    function initScene() {
+      scene = new THREE.Scene()
+      const axesHelper = new THREE.AxesHelper(100)
+      scene.add(axesHelper)
+    }
+
+    // 初始化相机
+    function initCamera() {
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
+      camera.position.set(0, 0, 15)
+      controls = new THREE.TrackballControls(camera, renderer.domElement)
+    }
+
+    // 初始化模型
+    function initMesh() {
+
+      // 前面
+      const geometryF = new THREE.PlaneGeometry(4, 4)
+      const materialF = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/0_f.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshF = new THREE.Mesh(geometryF, materialF)
+      meshF.rotation.y = 180 * Math.PI / 180
+      meshF.position.z = 2
+      scene.add(meshF)
+
+      // 后面
+      const geometryB = new THREE.PlaneGeometry(4, 4)
+      const materialB = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/0_b.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshB = new THREE.Mesh(geometryB, materialB)
+      // meshB.rotation.y = 180 * Math.PI / 180
+      meshB.position.z = -2
+      scene.add(meshB)
+
+      // 左侧 
+      const geometryL = new THREE.PlaneGeometry(4, 4)
+      const materialL = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/0_l.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshL = new THREE.Mesh(geometryL, materialL)
+      meshL.rotation.y = (-90) * Math.PI / 180
+      meshL.position.x = 2
+      scene.add(meshL)
+
+      // 右侧 
+      const geometryR = new THREE.PlaneGeometry(4, 4)
+      const materialR = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/0_r.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshR = new THREE.Mesh(geometryR, materialR)
+      meshR.rotation.y = (90) * Math.PI / 180
+      meshR.position.x = -2
+      scene.add(meshR)
+
+      // 上面
+      const geometryU = new THREE.PlaneGeometry(4, 4)
+      const materialU = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/0_u.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshU = new THREE.Mesh(geometryU, materialU)
+      meshU.rotation.x = (90) * Math.PI / 180
+      meshU.rotation.z = (180) * Math.PI / 180
+      meshU.position.y = 2
+      scene.add(meshU)
+
+      // 下面
+      const geometryD = new THREE.PlaneGeometry(4, 4)
+      const materialD = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/0_d.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshD = new THREE.Mesh(geometryD, materialD)
+      meshD.rotation.x = (-90) * Math.PI / 180
+      meshD.rotation.z = (180) * Math.PI / 180
+      meshD.position.y = -2
+      scene.add(meshD)
+    }
+
+    // 初始化动画
+    function animate() {
+      requestAnimationFrame(animate)
+      controls.update()
+      renderer.render(scene, camera)
+    }
+
+    // 定义初始化方法
+    function init() {
+      initRenderer()
+      initScene()
+      initCamera()
+      initMesh()
+      animate()
+    }
+
+    init()
+
+  </script>
+</body>
+
+</html>

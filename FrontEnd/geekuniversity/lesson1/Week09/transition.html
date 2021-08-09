@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+
+    <script type="module" src="./animation.js"></script>
+    <script type="module">
+        import {Timeline,Animation,ColorAnimation} from './animation.js'
+        import { cubicBezier } from "./cubicBezier.js";
+        let ease = cubicBezier(0.25, 0.1, 0.25, 1);
+        let linear=cubicBezier(0, 0, 1, 1);
+        var t=new Timeline;
+       
+        let words = ["爱国", "富强", "自强"]
+
+
+
+        document.addEventListener("click", (e) => {
+          
+            var div = document.createElement("div");
+            let word = words.shift()
+            div.innerText = word;
+            words.push(word)
+            let {x,y}=getMousePos(e)
+            console.log(x,y)
+            div.style = `position:absolute;left:${x}px;top:${y}px`;          
+            document.body.append(div);
+            t.add(
+    new Animation(
+        div.style, //object
+      "transform", //property
+      (v) => `translateY(${v}px)`, //template
+     0, //start
+     -100, //end
+      5000, //duration
+      0 ,//delay
+      linear//ease
+    )
+  );
+  t.add(
+    new Animation(
+        div.style, //object
+      "opacity", //property
+      (v) => v, //template
+    1, //start
+     0, //end
+      5000, //duration
+      0 ,//delay
+      linear//ease
+    )
+  );
+
+
+  t.start();
+
+        })
+      
+        function getMousePos(event) {
+       var e = event || window.event;
+       var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+       var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+       var x = e.pageX || e.clientX + scrollX;
+       var y = e.pageY || e.clientY + scrollY;
+       //alert('x: ' + x + '\ny: ' + y);
+       return { 'x': x, 'y': y };
+}
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绑定数据</title>
+  <script src="./d3.min.js"></script>
+</head>
+
+<body>
+  <script>
+    // 01 添加 svg 
+    d3.select('body').append('svg')
+      .attr('width', 600)
+      .attr('height', 400)
+
+    // 02 绘制圆形1 
+    // d3.select('svg').append('circle')
+    //   .attr('cx', 100)
+    //   .attr('cy', 100)
+    //   .attr('r', 10)
+    //   .attr('fill', 'orange')
+
+    // d3.select('svg').append('circle')
+    //   .attr('cx', 120)
+    //   .attr('cy', 130)
+    //   .attr('r', 20)
+    //   .attr('fill', 'seagreen')
+
+    // 03 定义数据 
+    const data = [
+      { cx: 100, cy: 100, r: 10, fill: 'orange' },
+      { cx: 130, cy: 140, r: 20, fill: 'seagreen' },
+      { cx: 230, cy: 240, r: 19, fill: 'lightblue' },
+    ]
+
+    d3.select('svg').selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('cx', d => d.cx)
+      .attr('cy', d => d.cy)
+      .attr('r', d => d.r)
+      .attr('fill', d => d.fill)
+
+  // update  enter  exit 
+  </script>
+</body>
+
+</html>

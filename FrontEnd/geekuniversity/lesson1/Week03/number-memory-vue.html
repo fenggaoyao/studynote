@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
+        
+        .container input[type='number'] {
+          -moz-appearance: textfield;
+        }
+        
+        span {
+          padding: 0;
+          margin: 4px;
+          display: inline-block;
+        }
+        
+        input {
+          width: 2em;
+          height: 2em;
+          text-align: center;
+        }
+        
+        .sign {
+          background-color: lightblue;
+        }
+        
+        .exponent {
+          background-color: orange;
+        }
+      </style>
+</head>
+<body>
+  
+  
+    
+    <div id="app" style="width: 80%; margin: 20px auto;">
+      <span v-for="v, i of bits">
+          <input :class="i > 0 ? i > 11 ? 'fraction' :'exponent':'sign' "  type="number" min=0 max=1 v-model="bits[i]"/>
+          
+          <input v-if="i===11" style="margin-left: 3px; border: none;" value=1 type="number" disabled />
+      </span>
+    
+      <div style="margin: 24px 0; padding-left: 12px;">
+        V = (-1)^S * 2^(E-1023) * (M+1) </br>
+        - 符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数 </br>
+        - 指数位E：中间的 11 位存储指数（exponent），用来表示次方数 </br>
+        - 尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零 {{formula}}
+      </div>
+      <input style="width:5em;display: block; margin: 12px auto; width: 40%;" v-model="value" type="number" placeholder="输入要查看的数字" />
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="vue.min.js"></script> -->
+    
+    <script type="text/javascript">
+      window.vm = new Vue({
+        el: '#app',
+        data: {
+          bits: [...
+            "0".repeat(64)
+          ].map(v => Number(v)),
+          value: '',
+          formula: ''
+        },
+        watch: {
+          value(val) {
+            if (!val || isNaN(val)) {
+              return;
+            }
+            const bytes = new Uint8Array(8);
+            const memory = new Float64Array(bytes.buffer);
+            memory[0] = (val);
+            console.log("******");
+    
+            // 小端序转大端序
+            console.log(bytes.reverse());
+            for (var i = 0; i < 8; i++) {
+              var byte = bytes[i]
+              for (var j = 0; j < 8; j++) {
+                // 0100 0000
+                this.bits[i * 8 + j] = byte >> (7 - j) & 1;
+              }
+            }
+    
+    
+            // for (var i = 0; i < 8; i++) {
+            //   var byte = bytes[i]
+            //   for (var j = 0; j < 8; j++) {
+            //     this.bits[(8 - i) * 8 - j - 1] = byte & 1;
+            //     byte = byte >> 1;
+            //   }
+            // }
+          }
+        }
+      })
+    
+    
+      function isLittleEndian() {
+        var arrayBuffer = new ArrayBuffer(2);
+        var uint8Array = new Uint8Array(arrayBuffer);
+        var uint16array = new Uint16Array(arrayBuffer);
+        uint8Array[0] = 0xAA; // set first byte
+        uint8Array[1] = 0xBB; // set second byte
+        if (uint16array[0] === 0xBBAA) {
+          console.log("little endian");
+          return true;
+        } else if (uint16array[0] === 0xAABB) {
+          console.log("little endian");
+          return false;
+        } else throw new Error("Something crazy just happened");
+      }
+    
+      function viewNumberInMem(number) {
+        if (!number || isNaN(number)) {
+          throw new Error("Param isNaN");
+        }
+    
+        let bits = [];
+        const bytes = new Uint8Array(8);
+        const memory = new Float64Array(bytes.buffer);
+        memory[0] = (number);
+        console.log("******");
+    
+        // 小端序转大端序
+        if (isLittleEndian()) {
+          bytes.reverse();
+        }
+    
+        for (var i = 0; i < 8; i++) {
+          var byte = bytes[i]
+          for (var j = 0; j < 8; j++) {
+            bits[i * 8 + j] = byte >> (7 - j) & 1;
+          }
+        }
+    
+        return bits;
+      }
+    </script>
+</body>
+</html>

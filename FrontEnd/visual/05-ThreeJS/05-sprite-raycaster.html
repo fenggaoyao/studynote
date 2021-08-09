@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>精灵材质与3D交互</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+  <script src="./three.min.js"></script>
+  <script src="./TrackballControls.js"></script>
+</head>
+
+<body>
+  <script>
+    // 定义全局变量
+    let scene, camera, geometry, mesh, renderer, controls
+
+    const raycaster = new THREE.Raycaster()
+    const mouse = new THREE.Vector2()
+
+    function onMouseMove(event) {
+
+      // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+    }
+
+    window.addEventListener('mousemove', onMouseMove, false)
+
+    window.addEventListener('click', function () {
+      // 计算物体和射线的焦点
+      const intersects = raycaster.intersectObjects([mesh])
+      if (intersects.length > 0) {
+        mesh.rotation.x += 01
+      }
+    }, false)
+
+
+    // 初始化渲染器
+    function initRenderer() {
+      renderer = new THREE.WebGLRenderer({ antialias: true })
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setPixelRatio(window.devicePixelRatio)
+      document.body.appendChild(renderer.domElement)
+    }
+
+    // 初始化场景
+    function initScene() {
+      scene = new THREE.Scene()
+      const axesHelper = new THREE.AxesHelper(100)
+      scene.add(axesHelper)
+    }
+
+    // 初始化相机
+    function initCamera() {
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
+      camera.position.set(0, 0, 15)
+      controls = new THREE.TrackballControls(camera, renderer.domElement)
+    }
+
+    // 初始化模型
+    function initMesh() {
+
+      // const map = new THREE.TextureLoader().load('img/icon.png')
+      // const material = new THREE.SpriteMaterial({ map: map, color: 0xffffff })
+      // const sprite = new THREE.Sprite(material)
+      // scene.add(sprite)
+
+      geometry = new THREE.BoxGeometry(2, 2, 2)
+      // material = new THREE.MeshNormalMaterial()
+      const texture = new THREE.TextureLoader().load('img/crate.gif')
+      material = new THREE.MeshBasicMaterial({
+        map: texture,
+        side: THREE.DoubleSide
+      })
+      mesh = new THREE.Mesh(geometry, material)
+      scene.add(mesh)
+    }
+
+    // 初始化动画
+    function animate() {
+      requestAnimationFrame(animate)
+      controls.update()
+      renderer.render(scene, camera)
+    }
+
+    // 定义初始化方法
+    function init() {
+      initRenderer()
+      initScene()
+      initCamera()
+      initMesh()
+      animate()
+    }
+
+    init()
+
+  </script>
+</body>
+
+</html>

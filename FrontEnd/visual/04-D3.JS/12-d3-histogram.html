@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>柱状图带交互</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      margin: 0;
+    }
+
+    #tip {
+      color: #fff;
+      display: none;
+      margin-top: 15px;
+      margin-left: 15px;
+      position: absolute;
+      padding: 5px 10px;
+      border-radius: 3px;
+      background: rgba(0, 0, 0, .4);
+      font: normal 14px/1em '微软雅黑';
+    }
+  </style>
+  <script src="./d3.min.js"></script>
+</head>
+
+<body>
+  <script>
+    // 画布大小
+    const width = 600
+    const height = 400
+
+    // 1 添加画布
+    const svg = d3.select('body').append('svg')
+      .attr('width', width)
+      .attr('height', height)
+
+    // 2 填充
+    const margin = { left: 30, right: 30, top: 20, bottom: 30 }
+
+    // 3 准备源数据
+    const data = [10, 20, 30, 40, 36, 25, 18, 5]
+
+    // 4 绘制坐标轴（比例尺）[0, 1 , 2, 3]=>[0, 540]
+    const xScale = d3.scaleBand()
+      .domain(d3.range(data.length))
+      .range([margin.left, width - margin.left - margin.right])
+      .padding(0.1)
+
+    // 5 定义X轴的生成器
+    const xAxis = d3.axisBottom(xScale)
+    // 6 绘制X轴坐标
+    const gx = d3.select('svg').append('g')
+      .call(xAxis)
+      .attr('transform', `translate(0, ${height - margin.bottom})`)
+
+    // 7 绘制Y轴（比例尺  生成器 Y绘制）[5, 40] [30, 400]
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(data)])
+      .range([height - margin.top - margin.bottom, margin.bottom])
+    const yAxis = d3.axisLeft(yScale)
+    const gy = d3.select('svg').append('g')
+      .call(yAxis)
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+    // 8 绘制柱状图
+    const rects = svg.selectAll('.myRect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'myRect')
+      .attr('x', (d, i) => xScale(i))
+      .attr('y', d => yScale(d))
+      .attr('width', xScale.bandwidth())
+      .attr('height', d => yScale(0) - yScale(d))
+      .attr('fill', 'orange')
+      .attr('transform', `translate(0, ${margin.top})`)
+
+    // 提供二个状态
+    rects.attr('y', () => yScale(0)).attr('height', 0)
+    rects.transition()
+      .duration(1000)
+      .delay((d, i) => i * 200)
+      .ease(d3.easeBounce)
+      .attr('y', d => yScale(d))
+      .attr('height', d => yScale(0) - yScale(d))
+
+    // 9 绘制文件
+    const texts = svg.selectAll('myText')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('class', 'myText')
+      .attr('fill', '#666')
+      .attr('text-anchor', 'middle')
+      .attr('x', (d, i) => xScale(i))
+      .text(d => d)
+      .attr('transform', `translate(${xScale.bandwidth() / 2}, ${margin.top})`)
+      .attr('y', () => yScale(0))
+      .transition()
+      .delay((d, i) => i * 200)
+      .duration(1000)
+      .ease(d3.easeBounce)
+      .attr('y', (d) => yScale(d) - 5)
+
+    // 自定义缓动类
+    class EaseObj {
+      constructor(target) {
+        this.target = target
+        this.pos = { x: width / 2, y: height / 2 }
+        this.endPos = { x: 0, y: 0 }
+        this._play = false
+        this.fm = 0
+        this.speed = 0.1
+      }
+      set animate(value) {
+        if (value !== this._play) {
+          if (value) {
+            this.render()
+          } else {
+            this.cancel()
+          }
+          this._play = value
+        }
+      }
+
+      render() {
+        const { pos, endPos, speed, target } = this
+        pos.x += (endPos.x - pos.x) * speed
+        pos.y += (endPos.y - pos.y) * speed
+        target.style('left', `${pos.x}px`)
+          .style('top', `${pos.y}px`)
+
+        this.fm = requestAnimationFrame(() => {
+          this.render()
+        })
+      }
+
+      cancel() {
+        cancelAnimationFrame(this.fm)
+      }
+    }
+
+    // 10 定义提示框元素
+    const tip = d3.select('body').append('div').attr('id', 'tip')
+    // 11 鼠标移上
+    rects.on('mouseover', ({ clientX, clientY }, data) => {
+      tip.style('left', `${clientX}px`)
+        .style('top', `${clientY}px`)
+        .style('display', 'block')
+        .html(`
+          <p>此项平均值：${data}</p>
+        `)
+    })
+
+    const tipObj = new EaseObj(tip)
+    rects.on('mousemove', ({ clientX, clientY }, data) => {
+      tipObj.endPos = { x: clientX, y: clientY }
+      tipObj.animate = true
+    })
+
+    rects.on('mouseout', () => {
+      tipObj.animate = false
+      tip.style('display', 'none')
+    })
+
+
+    // rects.on('mousemove', ({ clientX, clientY }, data) => {
+    //   tip.style('left', `${clientX}px`)
+    //     .style('top', `${clientY}px`)
+    // })
+
+    // rects.on('mouseout', ({ clientX, clientY }, data) => {
+    //   tip.style('left', `${clientX}px`)
+    //     .style('top', `${clientY}px`)
+    //     .style('display', 'none')
+    // })
+  </script>
+</body>
+
+</html>

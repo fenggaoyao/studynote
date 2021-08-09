@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轨迹球控制与材质</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <script src="./three.min.js"></script>
+  <script src="./TrackballControls.js"></script>
+</head>
+
+<body>
+  <script>
+    // 定义全局变量
+    let scene, camera, geometry, mesh, renderer, controls
+    let sixPlane = []
+    let spriteArrow = ""
+    let raycaster = new THREE.Raycaster()
+    const mouse = new THREE.Vector2()
+
+    function onMouseMove(event) {
+      // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+    }
+    window.addEventListener('mousemove', onMouseMove, false)
+
+    // 鼠标点击 
+    function mouseClickEvent(ev) {
+      ev.preventDefault();
+      // 射线捕获
+      raycaster.setFromCamera(mouse, camera)
+
+      const intersects = raycaster.intersectObjects([spriteArrow])
+
+      if (intersects.length > 0) {
+        changeScene()
+      }
+    }
+
+    window.addEventListener('click', mouseClickEvent, false)
+
+    // 初始化渲染器
+    function initRenderer() {
+      renderer = new THREE.WebGLRenderer({ antialias: true })
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setPixelRatio(window.devicePixelRatio)
+      document.body.appendChild(renderer.domElement)
+    }
+
+    // 初始化场景
+    function initScene() {
+      scene = new THREE.Scene()
+      const axesHelper = new THREE.AxesHelper(100)
+      scene.add(axesHelper)
+    }
+
+    // 初始化相机
+    function initCamera() {
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
+      camera.position.set(0, 0, 15)
+      controls = new THREE.TrackballControls(camera, renderer.domElement)
+      controls.maxDistance = 2
+      controls.minDistance = 0
+    }
+
+    // 初始化模型
+    function initMesh() {
+
+      // 利用精灵材质引入地面标记 
+      new THREE.TextureLoader().load('img/icon.png', (texture) => {
+        const spriteMaterial = new THREE.SpriteMaterial({
+          map: texture
+        })
+        spriteArrow = new THREE.Sprite(spriteMaterial)
+        spriteArrow.scale.set(0.1, 0.1, 0.1)
+        spriteArrow.position.set(0.5, -1, -1.5)
+        scene.add(spriteArrow)
+      })
+
+      sixPlane = createPlane(0)
+      for (let i = 0; i < 6; i++) {
+        scene.add(sixPlane[i])
+      }
+    }
+
+    // 初始化动画
+    function animate() {
+      requestAnimationFrame(animate)
+      controls.update()
+      renderer.render(scene, camera)
+    }
+
+    // 定义初始化方法
+    function init() {
+      initRenderer()
+      initScene()
+      initCamera()
+      initMesh()
+      animate()
+    }
+
+    init()
+
+    function createPlane(num) {
+      const BoxGeometry = []
+      // 前面
+      const geometryF = new THREE.PlaneGeometry(4, 4)
+      const materialF = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/' + num + '_f.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshF = new THREE.Mesh(geometryF, materialF)
+      meshF.rotation.y = 180 * Math.PI / 180
+      meshF.position.z = 2
+      BoxGeometry.push(meshF)
+
+      // 后面
+      const geometryB = new THREE.PlaneGeometry(4, 4)
+      const materialB = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/' + num + '_b.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshB = new THREE.Mesh(geometryB, materialB)
+      // meshB.rotation.y = 180 * Math.PI / 180
+      meshB.position.z = -2
+      BoxGeometry.push(meshB)
+
+      // 左侧 
+      const geometryL = new THREE.PlaneGeometry(4, 4)
+      const materialL = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/' + num + '_l.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshL = new THREE.Mesh(geometryL, materialL)
+      meshL.rotation.y = (-90) * Math.PI / 180
+      meshL.position.x = 2
+      BoxGeometry.push(meshL)
+
+      // 右侧 
+      const geometryR = new THREE.PlaneGeometry(4, 4)
+      const materialR = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/' + num + '_r.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshR = new THREE.Mesh(geometryR, materialR)
+      meshR.rotation.y = (90) * Math.PI / 180
+      meshR.position.x = -2
+      BoxGeometry.push(meshR)
+
+      // 上面
+      const geometryU = new THREE.PlaneGeometry(4, 4)
+      const materialU = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/' + num + '_u.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshU = new THREE.Mesh(geometryU, materialU)
+      meshU.rotation.x = (90) * Math.PI / 180
+      meshU.rotation.z = (180) * Math.PI / 180
+      meshU.position.y = 2
+      BoxGeometry.push(meshU)
+
+      // 下面
+      const geometryD = new THREE.PlaneGeometry(4, 4)
+      const materialD = new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load('img/' + num + '_d.jpg'),
+        side: THREE.DoubleSide
+      })
+      const meshD = new THREE.Mesh(geometryD, materialD)
+      meshD.rotation.x = (-90) * Math.PI / 180
+      meshD.rotation.z = (180) * Math.PI / 180
+      meshD.position.y = -2
+      BoxGeometry.push(meshD)
+
+      return BoxGeometry
+    }
+
+    function changeScene() {
+      // 创建六个面 
+      const sixBox = createPlane(2)
+      const timer = setInterval(() => {
+        camera.fov -= 1
+        camera.updateProjectionMatrix()
+        if (camera.fov == 20) {
+          clearInterval(timer)
+          camera.fov = 45
+          camera.updateProjectionMatrix()
+          for (let i = 0; i < 6; i++) {
+            scene.remove(sixPlane[i])
+          }
+          sixPlane = sixBox
+          for (let i = 0; i < 6; i++) {
+            scene.add(sixPlane[i])
+          }
+          spriteArrow.visible = false
+        }
+      }, 50)
+    }
+
+  </script>
+</body>
+
+</html>

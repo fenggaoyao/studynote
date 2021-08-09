@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+</head>
+<body>
+
+    R:  <span id="dr"></span>  <input id="r" type="range" min=0 max=255></input>
+G:  <span id="dg"></span>  <input id="g" type="range" min=0 max=255></input>
+B: <span id="db"></span>  <input id="b" type="range" min=0 max=255></input>
+
+    <div id="color" style="width: 100px; height: 100px; border-radius: 50%"> </div>
+
+    <script>
+
+const {reactive,effect}=VueReactivity
+          
+let p= reactive({r:255,g:0,b:0});    
+let i=0;
+effect(()=>{
+    console.log('1----')
+    effect(()=>{
+        console.log('2----')
+        effect(()=>{ 
+            // console.log('3----')
+            // console.log(i)
+            document.getElementById("r").value=p.r
+            document.getElementById("dr").innerText=p.r
+        })
+     
+    })
+    
+})
+effect(()=>{
+    document.getElementById("g").value=p.g
+    document.getElementById("dg").innerText=p.g
+})
+effect(()=>{
+    document.getElementById("b").value=p.b
+    document.getElementById("db").innerText=p.b
+})
+effect(()=>{
+    document.getElementById("color").style.backgroundColor=`rgb(${p.r},${p.g},${p.b})`
+})
+
+
+document.getElementById("r").addEventListener("input",(event)=>{
+    p.r=event.target.value;
+    i++
+})
+document.getElementById("g").addEventListener("input",(event)=>{
+    p.g=event.target.value;
+})
+document.getElementById("b").addEventListener("input",(event)=>{
+    p.b=event.target.value;
+})
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>比例尺与坐标轴</title>
+  <script src="./d3.min.js"></script>
+</head>
+
+<body>
+  <div id="box"></div>
+  <script>
+    // 定义数据
+    const width = 600
+    const height = 500
+    const margin = { left: 50, right: 50, bottom: 50, top: 50 }
+    const kindData = ['ES6+', "NodeJS", "Vue", "React", "Angular"]
+    const kindPixel = [margin.left, width - margin.right]
+    const ratioData = [80, 60, 50, 20, 100]
+    const ratioPixel = [height - margin.bottom, margin.top]
+
+    // 设置画布
+    d3.select('#box').append('svg')
+      .attr('width', width)
+      .attr('height', height)
+
+    // 定义比例尺
+    const xScale = d3.scaleBand().domain(kindData).rangeRound(kindPixel)
+    // 定义坐标刻度生成器
+    const xAxis = d3.axisBottom(xScale)
+    // 绘制X轴具体的刻度内容
+    d3.select('svg').append('g')
+      .call(xAxis)
+      .attr('transform', `translate(0, ${height - margin.bottom})`)
+      .attr('font-size', 14)
+
+    // 定义y轴比例尺
+    const yScale = d3.scaleLinear().domain([0, d3.max(ratioData)]).range(ratioPixel)
+    const yAxis = d3.axisLeft(yScale)
+    d3.select('svg').append('g')
+      .call(yAxis)
+      .attr('transform', `translate(50, 0)`)
+      .attr('font-size', 14)
+
+  </script>
+</body>
+
+</html>

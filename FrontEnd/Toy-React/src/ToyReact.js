@@ -228,6 +228,7 @@ export class Component{
 
 export let ToyReact={
     createElement(type,attributes,...children){     
+      console.log("createElement",type,attributes,children)
         let element;
         if(typeof type ==='string'){
             element=new ElementWrapper(type)

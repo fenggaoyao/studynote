@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绘制立方体</title>
+  <script src="./three.min.js"></script>
+</head>
+
+<body>
+  <script>
+    /**
+    01 场景 
+    02 相机： 分类 位置
+    03 渲染器：大小 颜色
+    04 几何体：
+    */
+    const scene = new THREE.Scene()
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true
+    })
+    renderer.setClearColor(0xffffff)
+    renderer.setSize(window.innerWidth, window.innerHeight)
+
+    document.body.appendChild(renderer.domElement)
+
+    const geometry = new THREE.BoxGeometry(1, 1, 1)
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x285b41,
+      wireframe: true
+    })
+
+    const cube = new THREE.Mesh(geometry, material)
+    scene.add(cube)
+    camera.position.z = 4
+
+    function animate() {
+
+      requestAnimationFrame(animate)
+      cube.rotation.y += 0.01
+      cube.rotation.x += 0.01
+      renderer.render(scene, camera)
+    }
+
+    animate()
+
+  </script>
+</body>
+
+</html>

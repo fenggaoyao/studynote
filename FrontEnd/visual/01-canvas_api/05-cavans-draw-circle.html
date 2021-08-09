@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绘制矩形</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 10px auto 0;
+      border: 1px solid orange;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="600" height="400">您的浏览器不支持 canvas</canvas>
+</body>
+<script>
+  const canvas = document.getElementById('canvas')
+  const ctx = canvas.getContext('2d')
+
+  canvas.style.width = canvas.width + 'px'
+  canvas.style.height = canvas.height + 'px'
+  canvas.width = canvas.width * 1.5
+  canvas.height = canvas.height * 1.5
+
+  // 提前设置相关属性
+  const ht = canvas.clientHeight
+  const wd = canvas.clientWidth
+  const pad = 20
+  const bottomPad = 20
+  const step = 100
+
+  const drawAxis = (options) => {
+    const { ht, wd, pad, bottomPad, step, ctx } = options
+    // 绘制坐标轴
+    ctx.beginPath()
+    ctx.lineWidth = 2
+    ctx.strokeStyle = 'lightblue'
+    ctx.moveTo(pad, pad)
+    ctx.lineTo(pad, ht * 1.5 - bottomPad)
+    ctx.lineTo(wd * 1.5 - pad, ht * 1.5 - bottomPad)
+    ctx.stroke()
+    ctx.closePath()
+
+    // 绘制 X 轴方向刻度
+    ctx.beginPath()
+    ctx.lineWidth = 1
+    ctx.strokeStyle = '#666'
+    for (let i = 1; i < Math.floor(wd * 1.5 / step); i++) {
+      ctx.moveTo(pad + i * step, ht * 1.5 - bottomPad)
+      ctx.lineTo(pad + i * step, ht * 1.5 - bottomPad + 10)
+    }
+    ctx.stroke()
+    ctx.closePath()
+
+
+    // 绘制 Y 轴方向刻度
+    ctx.beginPath()
+    ctx.lineWidth = 1
+    ctx.strokeStyle = '#666'
+    for (let i = 1; i < Math.floor(ht * 1.5 / step); i++) {
+      ctx.moveTo(pad, (ht * 1.5 - bottomPad) - (i * step))
+      ctx.lineTo(pad + 10, (ht * 1.5 - bottomPad) - (i * step))
+    }
+    ctx.stroke()
+    ctx.closePath()
+  }
+
+  drawAxis({
+    ht: ht,
+    wd: wd,
+    pad: pad,
+    bottomPad: bottomPad,
+    step: step,
+    ctx: ctx
+  })
+
+  // 绘制圆环
+  ctx.beginPath()
+  ctx.lineWidth = 2
+  ctx.strokeStyle = 'orange'
+  ctx.arc(400, 300, 200, 0, Math.PI / 4, true)
+  ctx.stroke()
+  ctx.closePath()
+
+  // 绘制圆形
+  ctx.beginPath()
+  ctx.fillStyle = 'skyblue'
+  ctx.moveTo(400, 300)
+  ctx.arc(400, 300, 100, 0, -Math.PI / 2, true)
+  ctx.fill()
+  ctx.closePath()
+
+</script>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>d3操作svg</title>
+  <script src="./d3.min.js"></script>
+</head>
+
+<body>
+  <div id="box">
+    <p>p元素</p>
+    <p>p元素</p>
+    <p>p元素</p>
+  </div>
+  <div>第二个div元素</div>
+  <svg width="600" height="400">
+    <rect x="100" y="100" width="200" height="100" style=" stroke:red; stroke-width: 4"></rect>
+  </svg>
+  <script>
+    // 01 d3 获取元素
+    console.log(d3.select('#box'))
+    console.log(d3.select('#box p'))
+    console.log(d3.selectAll('#box p'))
+    console.log(d3.selectAll('div'))
+
+    // 02 获取元素属性
+    console.log(+d3.select('rect').attr('width') === 300)
+
+    // 03 设置属性
+    // d3.select('rect')
+    //   .attr('fill', 'seagreen')
+    //   .attr('transform', 'translate(100, 100)')
+
+    // 04 添加删除元素
+    d3.select('svg').append('rect')
+      .attr('x', 100)
+      .attr('y', '200')
+      .attr('width', '200')
+      .attr('height', '100')
+      .attr('fill', 'lightblue')
+
+    d3.select('svg').append('text')
+      .attr('x', 100)
+      .attr('y', 260)
+      .attr('fill', 'red')
+      .attr('font-size', 20)
+      .attr('textLength', 200)
+      .text('拉勾教育')
+
+    // 05 删除元素
+    d3.selectAll('rect').remove()
+  </script>
+</body>
+
+</html>

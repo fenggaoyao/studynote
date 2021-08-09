@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绘制直方图</title>
+  <script src="./d3.min.js"></script>
+  <style>
+    div svg {
+      display: block;
+      margin: 40px auto 0;
+      border: 1px solid orange;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="svg"></div>
+  <script>
+    // 定义数据
+    const width = 700
+    const height = 400
+    const rectStep = 40
+    const rectWidth = 30
+    const data = [10, 50, 280, 122, 90, 230, 250, 300]
+
+    // 定义填充
+    const margin = { left: 20, right: 20, top: 20, bottom: 20 }
+
+    // 创建 svg 
+    d3.select('#svg').append('svg')
+      .attr('width', width)
+      .attr('height', height)
+
+    // 绘制矩形
+    d3.select('svg').selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', (d, i) => margin.left + i * rectStep)
+      .attr('y', d => height - d - margin.bottom)
+      .attr('width', rectWidth)
+      .attr('height', d => d)
+      .attr('fill', 'lightblue')
+
+    // 绘制文字
+    d3.select('svg').selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('fill', '#666')
+      .attr('font-size', '20')
+      .attr('x', (d, i) => margin.left + i * rectStep)
+      .attr('y', d => height - d - margin.bottom - 5)
+      .attr('text-anchor', 'middle')
+      .attr('transform', `translate(${rectWidth / 2})`)
+      .text(d => d)
+  </script>
+</body>
+
+</html>

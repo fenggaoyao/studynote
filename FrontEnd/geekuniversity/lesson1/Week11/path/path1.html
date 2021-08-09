@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度搜索</title>
+    <style>
+        .cell {
+
+            width: 6px;
+            height: 6px;
+            background-color: gray;
+            border-bottom: solid 1px white;
+            border-right: solid 1px white;
+            /* display: inline-block;
+            vertical-align: middle; */
+        }
+
+        /* 关于样式有两种解法，一个是 display+light-height*/
+
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 701px;
+            /* line-height: 1px; */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <button onclick="localStorage.map=JSON.stringify(map)">save</button>
+    <script>
+        //var map = new Array(10000).join(0).split('').map(s => Number(s))
+        var map = localStorage.map ? JSON.parse(localStorage.map) : new Array(10000).fill(0);
+        const container = document.getElementById("container")
+        for (let y = 0; y < 100; y++) {
+            for (let x = 0; x < 100; x++) {
+                let cell = document.createElement("div");
+                cell.classList.add("cell");
+
+                if (map[y * 100 + x] === 1) {
+                    cell.style.backgroundColor = 'black';
+                }
+
+                cell.addEventListener("mouseover", () => {
+                    if (mousedown) {
+                        if (clear) {
+                            cell.style.backgroundColor = '';
+                            map[y * 100 + x] = 0;
+                        } else {
+                            cell.style.backgroundColor = 'black';
+                            map[y * 100 + x] = 1;
+                        }
+                    }
+                })
+                container.appendChild(cell);
+            }
+        }
+
+        let mousedown = false;
+        let clear = false;
+        document.addEventListener('mousedown', (e) => {
+            mousedown = true;
+            clear = (e.which === 3)
+            console.log(clear, mousedown)
+        })
+        document.addEventListener('mouseup', () => {
+            mousedown = false;
+        })
+        document.addEventListener("contextmenu", e => e.preventDefault());
+
+        function sleep(duration) {
+            return new Promise((resolve, reject) => {
+                setTimeout(resolve, duration)
+            })
+        }
+        async function findPath(map, start, end) {
+            map = map.slice(); //返回一个新数组，该方法并不会修改数组，而是返回一个子数组。如果想删除数组中的一段元素，应该使用方法 Array.splice()
+            let stack = [start];
+
+            async function insert([x, y]) {
+                if (map[100 * y + x] !== 0) {
+                    return
+                }
+                if (x < 0 || x > 100 || y < 0 || y > 100) {
+                    return;
+                }
+                map[100 * y + x] = 2;
+                container.children[y * 100 + x].style.backgroundColor = "lightgreen";
+                await sleep(5);
+                stack.push([x, y])
+            }
+            while (stack.length) {
+                let [x, y] = stack.pop(); //pop unshift  / push shift
+                if (x === end[0] && y === end[1]) return true;
+                await insert([x - 1, y]) //左
+                await insert([x + 1, y]) //右
+                await insert([x, y - 1]) //下
+                await insert([x, y + 1]) //上
+            }
+            return false;
+
+        }
+    </script>
+
+</body>
+
+</html>
