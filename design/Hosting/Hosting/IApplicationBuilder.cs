@@ -30,7 +30,6 @@ namespace Hosting
                     next = middleware(next);
                 }
                 return next(httpContext);
-
             };
 
         }
