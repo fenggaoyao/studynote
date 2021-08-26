@@ -38,10 +38,15 @@ console.log(path.extname('/a/b/index.html.js.'))  */
  * 01 接收一个路径，返回一个对象，包含不同的信息
  * 02 root dir base ext name
  */
-// const obj = path.parse('/a/b/c/index.html')
+// const {
+//     name,
+//     ext
+// } = path.parse('/a/b/c/index.html')
 // const obj = path.parse('/a/b/c/')
 /* const obj = path.parse('./a/b/c/')
 console.log(obj.name) */
+// console.log(name, ext)
+
 
 // 5 序列化路径
 /* const obj = path.parse('./a/b/c/')
@@ -56,12 +61,12 @@ console.log(path.isAbsolute('.'))
 console.log(path.isAbsolute('../bar')) */
 
 // 7 拼接路径
-/* console.log(path.join('a/b', 'c', 'index.html'))
+console.log(path.join('a/b', 'c', 'index.html'))
 console.log(path.join('/a/b', 'c', 'index.html'))
 console.log(path.join('/a/b', 'c', '../', 'index.html'))
 console.log(path.join('/a/b', 'c', './', 'index.html'))
 console.log(path.join('/a/b', 'c', '', 'index.html'))
-console.log(path.join('')) */
+console.log(path.join(''))
 
 // 8 规范化路径
 /* console.log(path.normalize(''))
@@ -76,4 +81,4 @@ console.log(path.normalize('a//\b/c\\/d')) */
  * resolve([from], to)
  */
 // console.log(path.resolve('/a', '../b'))
-console.log(path.resolve('index.html'))
+//console.log(path.resolve('index.html'))

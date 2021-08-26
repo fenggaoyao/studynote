@@ -45,7 +45,21 @@
 
   drawCircle(x, y, r)
 
-  setInterval(() => {
+  // setInterval(() => {
+  //   ctx.clearRect(0, 0, wd, ht)  // 清空画布
+  //   if (x - r <= 0 || x + r >= wd) {
+  //     xSpeed = -xSpeed
+  //   }
+
+  //   if (y - r <= 0 || y + r >= ht) {
+  //     ySpeed = -ySpeed
+  //   }
+  //   x += xSpeed
+  //   y += ySpeed
+  //   drawCircle(x, y, r)
+  // }, 20)
+
+  var render=()=>{
     ctx.clearRect(0, 0, wd, ht)  // 清空画布
     if (x - r <= 0 || x + r >= wd) {
       xSpeed = -xSpeed
@@ -57,7 +71,15 @@
     x += xSpeed
     y += ySpeed
     drawCircle(x, y, r)
-  }, 20)
+  }
+ 
+
+  (function loop(){
+    render() 
+    requestAnimationFrame(loop)
+  })()
+
+
 
 </script>
 
