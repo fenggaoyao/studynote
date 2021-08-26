@@ -1,3 +1,5 @@
+//创建buffer alloc allocunsafe from
+
 /* const b1 = Buffer.alloc(10)
 const b2 = Buffer.allocUnsafe(10)
 

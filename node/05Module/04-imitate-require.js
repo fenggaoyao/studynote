@@ -1,18 +1,20 @@
-const { dir } = require('console')
+const {
+  dir
+} = require('console')
 const fs = require('fs')
 const path = require('path')
 const vm = require('vm')
 
-function Module (id) {
+function Module(id) {
   this.id = id
   this.exports = {}
-  console.log(1111)
+  //console.log(1111)
 }
 
 Module._resolveFilename = function (filename) {
   // 利用 Path 将 filename 转为绝对路径
   let absPath = path.resolve(__dirname, filename)
-  
+
   // 判断当前路径对应的内容是否存在（）
   if (fs.existsSync(absPath)) {
     // 如果条件成立则说明 absPath 对应的内容是存在的
@@ -20,8 +22,9 @@ Module._resolveFilename = function (filename) {
   } else {
     // 文件定位
     let suffix = Object.keys(Module._extensions)
+    //console.log(suffix, Module._extensions)
 
-    for(var i=0; i<suffix.length; i++) {
+    for (var i = 0; i < suffix.length; i++) {
       let newPath = absPath + suffix[i]
       if (fs.existsSync(newPath)) {
         return newPath
@@ -37,8 +40,8 @@ Module._extensions = {
     let content = fs.readFileSync(module.id, 'utf-8')
 
     // 包装
-    content = Module.wrapper[0] + content + Module.wrapper[1] 
-    
+    content = Module.wrapper[0] + content + Module.wrapper[1]
+
     // VM 
     let compileFn = vm.runInThisContext(content)
 
@@ -66,14 +69,14 @@ Module._cache = {}
 
 Module.prototype.load = function () {
   let extname = path.extname(this.id)
-  
+
   Module._extensions[extname](this)
 }
 
-function myRequire (filename) {
+function myRequire(filename) {
   // 1 绝对路径
   let mPath = Module._resolveFilename(filename)
-  
+
   // 2 缓存优先
   let cacheModule = Module._cache[mPath]
   if (cacheModule) return cacheModule.exports

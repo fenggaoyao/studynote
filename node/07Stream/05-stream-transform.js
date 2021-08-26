@@ -1,7 +1,9 @@
-let {Transform} = require('stream')
+let {
+  Transform
+} = require('stream')
 
 
-class MyTransform extends Transform{
+class MyTransform extends Transform {
   constructor() {
     super()
   }
@@ -14,7 +16,9 @@ class MyTransform extends Transform{
 let t = new MyTransform()
 
 t.write('a')
+t.write('dfda')
+// t.on('data', (chunk) => {
+//   console.log(chunk.toString())
+// })
 
-t.on('data', (chunk) => {
-  console.log(chunk.toString())
-})
+t.pipe(process.stdout)
