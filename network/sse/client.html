@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+'use strict';
+
+if (window.EventSource) {
+  // 创建 EventSource 对象连接服务器
+  const source = new EventSource('http://localhost:2000');
+
+  // 连接成功后会触发 open 事件
+  source.addEventListener('open', () => {
+    console.log('Connected');
+  }, false);
+
+  // 服务器发送信息到客户端时，如果没有 event 字段，默认会触发 message 事件
+  source.addEventListener('message', e => {
+    console.log(`data: ${e.data}`);
+  }, false);
+
+  // 自定义 EventHandler，在收到 event 字段为 slide 的消息时触发
+  source.addEventListener('slide', e => {
+    console.log(`data: ${e.data}`); // => data: 7
+  }, false);
+
+  // 连接异常时会触发 error 事件并自动重连
+  source.addEventListener('error', e => {
+    if (e.target.readyState === EventSource.CLOSED) {
+      console.log('Disconnected');
+    } else if (e.target.readyState === EventSource.CONNECTING) {
+      console.log('Connecting...');
+    }
+  }, false);
+} else {
+  console.error('Your browser doesn\'t support SSE');
+}
+    </script>
+</body>
+</html>
