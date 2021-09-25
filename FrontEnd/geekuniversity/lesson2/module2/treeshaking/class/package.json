@@ -1,0 +1,17 @@
+{
+  "name": "treeshaking",
+  "version": "1.0.0",
+  "description": "```javascript const inc = require(\"./increment\").increment; var a = 1; inc(a); // 2 ```",
+  "main": "example.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.46.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.7.2"
+  }
+}

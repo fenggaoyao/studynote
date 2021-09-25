@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: demoApp
+  name: demoApp
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 80
+  selector:
+    io.kompose.service: demoApp
+  type: NodePort
+status:
+  loadBalancer: {}

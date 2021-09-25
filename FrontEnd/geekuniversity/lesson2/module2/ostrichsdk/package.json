@@ -1,0 +1,27 @@
+{
+  "name": "ostrichjs",
+  "version": "1.0.9",
+  "description": "",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "unpkg": "unpkg/index.js",
+  "scripts": {
+    "build": "webpack build --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy": "cypress open"
+  },
+  "author": "",
+  "license": "MIT",
+  "sideEffects": false,
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "jest": "^27.0.6",
+    "terser-webpack-plugin": "^5.1.4",
+    "webpack": "^5.48.0",
+    "webpack-cli": "^4.7.2",
+    "cypress": "^8.1.0"
+  }
+}

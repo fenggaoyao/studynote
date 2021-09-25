@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: demoApp
+  labels:
+    app: demoApp
+spec:
+  rules:
+    - host: navigation.aibee.cn
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: demoApp
+              servicePort: 8080

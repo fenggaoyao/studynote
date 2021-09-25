@@ -1,0 +1,27 @@
+.compo-iscroll{
+	width: 100%;
+
+	.h-scroll-wraper{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		position: relative;
+
+		.h-scroll-body{
+			height: 100%;
+			transform: translate3d(0,0,0);
+			display: -moz-flex; /*Firefox*/
+			display: -webkit-flex; /*Safari,Opera,Chrome*/
+		    display: flex;
+
+			.flex-item{
+				flex: 1;
+				height: 100%;
+
+				.component-wrapper{
+					height: 100%;
+				}
+			}
+		}
+	}
+}

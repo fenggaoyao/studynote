@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>
+    import map
+  </title>
+  <script>
+        const im = document.createElement('script');
+        im.type = 'importmap';
+        im.textContent = JSON.stringify({
+        imports: {
+            'my-library': Math.random() > 0.5 ? '/my-awesome-library.mjs' : '/my-rad-library.mjs';
+        }
+        });
+        document.currentScript.after(im);
+    </script>
+    <script type="module">
+        import 'my-library'; // will fetch the randomly-chosen URL
+    </script>
+</head>
+    <div id="canvas" style="background: linear-gradient(to bottom,  #11e8bb 0%,#8200c9 100%); ">hello</div>
+    <script type="module">
+        import 'my-library'; // will fetch the randomly-chosen URL
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>
+      Single-sap with router
+    </title>
+    <template id="single-spa-template">
+      <single-spa-router mode="hash">
+        <div id="content-dom">
+          <route path="/page">
+            <application name="app-nav"></application>
+          </route>
+          <route path="/page/:name">
+            <application name="app-page"></application>
+          </route>
+        </div>
+      </single-spa-router>
+    </template>
+  </head>
+  <body>
+    <import-map-overrides-full></import-map-overrides-full>
+  </body>
+</html>

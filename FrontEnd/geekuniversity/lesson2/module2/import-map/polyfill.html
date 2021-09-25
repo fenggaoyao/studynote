@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>
+    import map
+  </title>
+  <script type="importmap">
+    {
+        "imports": {
+            "/node_modules/kv-storage-polyfill/dist/kv-storage-polyfill.mjs": [
+                "std:kv-storage",
+                "/node_modules/kv-storage-polyfill/dist/kv-storage-polyfill.mjs"
+            ]
+        }
+    }
+  </script>
+  
+</head>
+
+<body>
+  <div id="canvas" style="background: linear-gradient(to bottom,  #11e8bb 0%,#8200c9 100%); ">hello</div>
+
+    <script type="module">
+        import flatten from "/node_modules/lodash-es/flatten.js";
+        console.log("flatten>>>", flatten([1,[2],3]));
+    </script>
+
+    <script type="module">
+        import {storage} from '/node_modules/kv-storage-polyfill/dist/kv-storage-polyfill.mjs';
+        const main = async () => {
+            const oldPreferences = await storage.get('preferences');
+            document.querySelector('form').addEventListener('submit', async () => {
+                const newPreferences = Object.assign({}, oldPreferences, {
+                // Updated preferences go here...
+                });
+                await storage.set('preferences', newPreferences);
+            });
+        };
+        main();
+    </script>
+</body>
+
+</html>

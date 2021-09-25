@@ -1,0 +1,160 @@
+<html>
+  <head>
+    <style>
+      a {
+        display: block;
+        padding: 10px;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div>改变页面hash的方法</div>
+    <div><a onclick="pushState()">1. history.pushState()</a></div>
+    <div><a onclick="replaceState()">2. history.replaceState()</a></div>
+    <div><a onclick="back()">3. history.back()</a></div>
+    <div><a onclick="go()">4. history.go()</a></div>
+    <div><a onclick="forward()">5. history.forward()</a></div>
+    <div><a onclick="hrefjump()">6. location.href</a></div>
+    <div><a onclick="assign()">7. location.assign()</a></div>
+    <div><a onclick="replace()">8. location.replace()</a></div>
+    <script>
+      function urlReroute() {
+        console.log(arguments);
+      }
+
+      function patchedUpdateState(updateState, methodName) {
+        return function () {
+          const urlBefore = window.location.href;
+          const result = updateState.apply(this, arguments);
+          const urlAfter = window.location.href;
+
+          // if (!urlRerouteOnly || urlBefore !== urlAfter) {
+          // if (isStarted()) {
+          // fire an artificial popstate event once single-spa is started,
+          // so that single-spa applications know about routing that
+          // occurs in a different application
+          window.dispatchEvent(
+            createPopStateEvent(window.history.state, methodName)
+          );
+          // } else {
+          // do not fire an artificial popstate event before single-spa is started,
+          // since no single-spa applications need to know about routing events
+          // outside of their own router.
+          // reroute([]);
+          // }
+          // }
+          return result;
+        };
+      }
+
+      function createPopStateEvent(state, originalMethodName) {
+        // https://github.com/single-spa/single-spa/issues/224 and https://github.com/single-spa/single-spa-angular/issues/49
+        // We need a popstate event even though the browser doesn't do one by default when you call replaceState, so that
+        // all the applications can reroute. We explicitly identify this extraneous event by setting singleSpa=true and
+        // singleSpaTrigger=<pushState|replaceState> on the event instance.
+        let evt;
+        try {
+          evt = new PopStateEvent("popstate", { state });
+        } catch (err) {
+          // IE 11 compatibility https://github.com/single-spa/single-spa/issues/299
+          // https://docs.microsoft.com/en-us/openspecs/ie_standards/ms-html5e/bd560f47-b349-4d2c-baa8-f1560fb489dd
+          evt = document.createEvent("PopStateEvent");
+          evt.initPopStateEvent("popstate", false, false, state);
+        }
+        evt.singleSpa = true;
+        evt.singleSpaTrigger = originalMethodName;
+        return evt;
+      }
+
+      // We will trigger an app change for any routing events.
+      window.addEventListener("hashchange", urlReroute);
+      window.addEventListener("popstate", urlReroute);
+      // Monkeypatch addEventListener so that we can ensure correct timing  const originalAddEventListener = window.addEventListener;
+      const originalRemoveEventListener = window.removeEventListener;
+      window.addEventListener = function (eventName, fn) {
+        if (typeof fn === "function") {
+          /* 如果用户监听的是 hashchange 和 popstate 事件，并且这个监听器此前未加入事件监听列表
+                  那这个事件时有可能引发应用变更的，需要加入 capturedEventListeners 中直接 return 掉，
+                  说明 hashchange 和 popstate 事件并没有马上执行, 而是在执行完 reroute 逻辑之后在执行 */
+          if (
+            routingEventsListeningTo.indexOf(eventName) >= 0 &&
+            !find(
+              capturedEventListeners[eventName],
+              (listener) => listener === fn
+            )
+          ) {
+            capturedEventListeners[eventName].push(fn);
+            return;
+          }
+        }
+        return originalAddEventListener.apply(this, arguments);
+      };
+      window.removeEventListener = function (eventName, listenerFn) {
+        if (typeof listenerFn === "function") {
+          if (routingEventsListeningTo.indexOf(eventName) >= 0) {
+            capturedEventListeners[eventName] = capturedEventListeners[
+              eventName
+            ].filter((fn) => fn !== listenerFn);
+            return;
+          }
+        }
+        return originalRemoveEventListener.apply(this, arguments);
+      };
+      // patchedUpdateState: 对原生的window.history.pushState 和 window.history.replaceState做加强
+      // 使其能触发 popstate事件
+      window.history.pushState = patchedUpdateState(
+        window.history.pushState,
+        "pushState"
+      );
+      window.history.replaceState = patchedUpdateState(
+        window.history.replaceState,
+        "replaceState"
+      );
+    </script>
+
+    <script>
+      function resolveUrl(hash) {
+        return (
+          location.origin + location.pathname + location.search + "#/" + hash
+        );
+      }
+      function pushState() {
+        history.pushState({ state: 1 }, "state1", resolveUrl("state1"));
+        logHistory();
+      }
+      function replaceState() {
+        history.replaceState({ state: 2 }, "state2", resolveUrl("state2"));
+        logHistory();
+      }
+      function back() {
+        history.back();
+        logHistory();
+      }
+      function go() {
+        history.go(-1);
+        logHistory();
+      }
+      function forward() {
+        history.forward();
+        logHistory();
+      }
+      function hrefjump() {
+        location.href = resolveUrl("state_href");
+        logHistory();
+      }
+      function assign() {
+        location.assign(resolveUrl("state_assign"));
+        logHistory();
+      }
+      function replace() {
+        location.replace(resolveUrl("state_replace"));
+        logHistory();
+      }
+
+      function logHistory() {
+        console.log(history.length);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+version: "2"
+
+services:
+  nginx:
+    image: "nginx:1.17.4-alpine"
+    container_name: "nginx"
+    restart: "always"
+    volumes:
+      - "./nginx/etc/:/etc/nginx/"
+      - "./nginx/html:/usr/share/nginx/html"
+    # 默认nginx的日志输出到stdout，如果你想收集日志请重新配置配置文件
+    #  - "nginx-log:/var/log/nginx/"
+    ports:
+      - "6000:80"
+
+  mysql:
+    image: "mysql:5.6"
+    container_name: "mysql"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: "always"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=Abc!@#qwe"
+      - "MYSQL_DATABASE=ostrich"
+      - "TZ=Asia/Shanghai"
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./mysql/data:/var/lib/mysql"
+      - "./mysql/etc:/etc/mysql/conf.d"
+
+  adminer:
+    image: "adminer:4.7.1"
+    container_name: "adminer"
+    restart: "always"
+    ports:
+      - "8080:8080"
+      - "9000:9000"
+
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379
+
+  mongodb:
+    image: "mongo:4.1"
+    container_name: "mongo"
+    restart: "always"
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME=root"
+      - "MONGO_INITDB_ROOT_PASSWORD=passwd"
+    volumes:
+      - "./mongodb/data:/data/db"
+      - "/etc/localtime:/etc/localtime"
+    ports:
+      - "27017:27017"
+
+  mongo-express:
+    image: "mongo-express:0.49"
+    container_name: "mongo-express"
+    restart: "always"
+    environment:
+      - "ME_CONFIG_MONGODB_ADMINUSERNAME=root"
+      - "ME_CONFIG_MONGODB_ADMINPASSWORD=passwd"
+      #- "ME_CONFIG_MONGODB_SERVER="
+    ports:
+      - "8081:8081"
+
+volumes:
+  nginx-etc:
+  nginx-html:
+  mysql-data:
+  mysql-etc:
+  mongodb-db:

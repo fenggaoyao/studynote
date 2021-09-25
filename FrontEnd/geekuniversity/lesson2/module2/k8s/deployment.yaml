@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: demoApp
+  name: demoApp
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: demoApp
+    spec:
+      containers:
+        - env:
+          image: some.harbor.com/xxx/demoApp:0.01
+          name: demoApp
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

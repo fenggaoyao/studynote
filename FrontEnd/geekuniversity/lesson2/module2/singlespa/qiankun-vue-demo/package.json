@@ -1,0 +1,33 @@
+{
+  "name": "demobyqiankun",
+  "version": "1.0.0",
+  "description": "微前端qiankun Demo",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm run install:portal && npm run install:sub-app1 && npm run install:sub-app2 && npm run install:sub-app3",
+    "start:all": "concurrently \"npm run start:portal\" \"npm run start:sub-app1\" \"npm run start:sub-app2\" \"npm run start:sub-app3\"",
+    "build:all": "concurrently \"npm run build:portal\" \"npm run build:sub-app1\" \"npm run build:sub-app2\" \"npm run build:sub-app3\"",
+    "install:portal": "cd portal && npm i",
+    "install:sub-app1": "cd sub-app1 && npm i",
+    "install:sub-app2": "cd sub-app2 && npm i",
+    "install:sub-app3": "cd sub-app3 && npm i",
+    "start:portal": "cd portal && npm run start",
+    "start:sub-app1": "cd sub-app1 && npm run start",
+    "start:sub-app2": "cd sub-app2 && npm run start",
+    "start:sub-app3": "cd sub-app3 && npm run start",
+    "build:portal": "cd portal && npm run build",
+    "build:sub-app1": "cd sub-app1 && npm run build",
+    "build:sub-app2": "cd sub-app2 && npm run build",
+    "build:sub-app3": "cd sub-app3 && npm run build"
+  },
+  "keywords": [
+    "qiankun",
+    "vue",
+    "single-spa"
+  ],
+  "devDependencies": {
+    "concurrently": "^5.0.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
