@@ -1,35 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Study\\netcore\\Hosting\\Hosting\\Hosting\\Hosting.csproj": {}
+    "F:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj": {}
   },
   "projects": {
-    "F:\\Study\\netcore\\Hosting\\Hosting\\Hosting\\Hosting.csproj": {
+    "F:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Study\\netcore\\Hosting\\Hosting\\Hosting\\Hosting.csproj",
+        "projectUniqueName": "F:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj",
         "projectName": "Hosting",
-        "projectPath": "F:\\Study\\netcore\\Hosting\\Hosting\\Hosting\\Hosting.csproj",
-        "packagesPath": "C:\\Users\\fengg\\.nuget\\packages\\",
-        "outputPath": "F:\\Study\\netcore\\Hosting\\Hosting\\Hosting\\obj\\",
+        "projectPath": "F:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj",
+        "packagesPath": "C:\\Users\\fenggaoyao\\.nuget\\packages\\",
+        "outputPath": "F:\\studynote\\design\\Hosting\\Hosting\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\fengg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\fenggaoyao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.abp.io/91002087-fab1-4a8c-acf4-41a70c7a92a6/v3/index.json": {},
-          "https://www.myget.org/F/abp-nightly/api/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.0": {
@@ -93,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-preview.5.21302.13\\RuntimeIdentifierGraph.json"
         }
       }
     }
