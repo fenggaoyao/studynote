@@ -6,7 +6,7 @@ namespace Hosting
 {
     public interface IModuleContainer
     {
-        [NotNull]
-        IReadOnlyList<IAbpModuleDescriptor> Modules { get; }
+        //[NotNull]
+        //IReadOnlyList<IAbpModuleDescriptor> Modules { get; }
     }
 }

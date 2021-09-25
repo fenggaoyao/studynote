@@ -1,0 +1,24 @@
+{
+  "name": "studynote",
+  "version": "1.0.0",
+  "description": "- [极客训练营](FrontEnd/geekuniversity/README.md)\r - 浏览器原理\r - 组件化\r - 工具链\r - 发布系统\r - MVVM框架\r   - vue\r   - react\r - 基础练习\r  - MVVM\r  - parse\r  - promise\r  - typescript\r  - weppack 及热更新\r  - vite\r  - injector",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fenggaoyao/geekUniversity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fenggaoyao/geekUniversity/issues"
+  },
+  "homepage": "https://github.com/fenggaoyao/geekUniversity#readme",
+  "dependencies": {
+    "vue": "^3.2.2",
+    "ws": "^8.1.0"
+  }
+}

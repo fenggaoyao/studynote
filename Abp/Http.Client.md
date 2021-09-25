@@ -1,6 +1,11 @@
 # Volo.Abp.HttpClient
-  在Authentication里定义了一个接口IRemoteServiceHttpClientAuthenticator，它的上下文RemoteServiceHttpClientAuthenticateContext包括 Client Request RemoteServiceConfiguration
-   RemoteServiceName,它的接口实现是在参数Request 添加了请求参数
+ 一个常见的情况，在appsettings 文件 配置RemoteServices的地址
+然后对一个公开接口，设置代理，指定这个接口使用远程服务地址的使用（http api服务调用）
+在访问地址需要用到
+1、 认证、获取bear token
+2、 缓存
+3、
+
 
 ```C#
   public interface IRemoteServiceHttpClientAuthenticator
@@ -8,6 +13,9 @@
         Task Authenticate(RemoteServiceHttpClientAuthenticateContext context); //TODO: Rename to AuthenticateAsync
     }
 ```
+ 在Authentication里定义了一个接口IRemoteServiceHttpClientAuthenticator，它的上下文RemoteServiceHttpClientAuthenticateContext包括 Client Request RemoteServiceConfiguration
+   RemoteServiceName,它的接口实现是在参数Request 添加了请求参数
+
 
   ## Volo.Abp.IdentityModel
   IIdentityModelAuthenticationService  TryAuthenticateAsync() 获取得token就返回true,否则是false

@@ -15,7 +15,7 @@ namespace Hosting
         {
             new WebHostBuilder()
     .UseHttpListener()  //注册服务器，针对HTTP请求的监听、接收和最终的响应
-    .UseUrls("http://localhost:3721/images") //监听地址
+   // .UseUrls("http://localhost:3721/images") //监听地址
     .Configure(app => {
         app.UseTest(@"D:\Downloads").UseImages(@"D:\Downloads");
     }) //调用中间件
@@ -73,6 +73,7 @@ namespace Hosting
                         if (mediaTypeMappings.TryGetValue(extension, out mediaType))
                         {
                             await context.Response.WriteFileAsync(filePath, "image/jpg");
+                            return;
                         }
                     }
                     await next(context);
@@ -95,7 +96,8 @@ namespace Hosting
                         context.Response.ContentType = "text/html";
                         byte[] content= File.ReadAllBytes(filePath);
                         await context.Response.OutputStream.WriteAsync(content, 0, content.Length);
-                        context.Response.StatusCode = 200;                        
+                        context.Response.StatusCode = 200;
+                        return;
                         
                     }
 

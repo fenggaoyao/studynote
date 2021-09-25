@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "F:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj": {}
   },
   "projects": {
@@ -12,12 +13,29 @@
         "projectPath": "F:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj",
         "packagesPath": "C:\\Users\\fenggaoyao\\.nuget\\packages\\",
         "outputPath": "F:\\studynote\\design\\Hosting\\Hosting\\obj\\",
+=======
+    "E:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj": {}
+  },
+  "projects": {
+    "E:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj",
+        "projectName": "Hosting",
+        "projectPath": "E:\\studynote\\design\\Hosting\\Hosting\\Hosting.csproj",
+        "packagesPath": "C:\\Users\\dollymi\\.nuget\\packages\\",
+        "outputPath": "E:\\studynote\\design\\Hosting\\Hosting\\obj\\",
+>>>>>>> bcd49c546abf904bf5676a1f47f0291caf7276f1
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\fenggaoyao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\dollymi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> bcd49c546abf904bf5676a1f47f0291caf7276f1
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,7 +107,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-preview.5.21302.13\\RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+>>>>>>> bcd49c546abf904bf5676a1f47f0291caf7276f1
         }
       }
     }

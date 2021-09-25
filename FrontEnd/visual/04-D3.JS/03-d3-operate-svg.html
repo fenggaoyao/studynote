@@ -27,12 +27,12 @@
     console.log(d3.selectAll('div'))
 
     // 02 获取元素属性
-    console.log(+d3.select('rect').attr('width') === 300)
+    console.log(+d3.select('rect').attr('width') === 200)
 
     // 03 设置属性
-    // d3.select('rect')
-    //   .attr('fill', 'seagreen')
-    //   .attr('transform', 'translate(100, 100)')
+    d3.select('rect')
+      .attr('fill', 'seagreen')
+      .attr('transform', 'translate(100, 100)')
 
     // 04 添加删除元素
     d3.select('svg').append('rect')
@@ -51,7 +51,7 @@
       .text('拉勾教育')
 
     // 05 删除元素
-    d3.selectAll('rect').remove()
+    //d3.selectAll('rect').remove()
   </script>
 </body>
 

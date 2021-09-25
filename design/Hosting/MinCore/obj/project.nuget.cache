@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "P2Z+7Yr6pO0V01Vk6qi62h2SLvjnyU6CQ/W/FGaYQap6ng48V3YGESBJ0EThP1drDsMYSObSKnSqpjxC4be94A==",
   "success": true,
   "projectFilePath": "F:\\studynote\\design\\Hosting\\MinCore\\MinCore.csproj",
@@ -13,6 +14,21 @@
     "C:\\Users\\fenggaoyao\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.0.1\\microsoft.aspnetcore.app.ref.3.0.1.nupkg.sha512",
     "C:\\Users\\fenggaoyao\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.0.0\\microsoft.windowsdesktop.app.ref.3.0.0.nupkg.sha512",
     "C:\\Users\\fenggaoyao\\.nuget\\packages\\microsoft.netcore.app.ref\\3.0.0\\microsoft.netcore.app.ref.3.0.0.nupkg.sha512"
+=======
+  "dgSpecHash": "Rz+O1G/9OKjWd8oo0+V+4sO6JIHtbukuHVIvCS8H80jsXmCtxIv/rbxT7nioxN5pFv9kPEJhj1Mk19udxKIxsw==",
+  "success": true,
+  "projectFilePath": "E:\\studynote\\design\\Hosting\\MinCore\\MinCore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.extensions.configuration\\3.0.0\\microsoft.extensions.configuration.3.0.0.nupkg.sha512",
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.0.0\\microsoft.extensions.configuration.abstractions.3.0.0.nupkg.sha512",
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.0.0\\microsoft.extensions.dependencyinjection.3.0.0.nupkg.sha512",
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.0.1\\microsoft.aspnetcore.app.ref.3.0.1.nupkg.sha512",
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.netcore.app.ref\\3.0.0\\microsoft.netcore.app.ref.3.0.0.nupkg.sha512",
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.0.3\\microsoft.netcore.app.host.win-x64.3.0.3.nupkg.sha512",
+    "C:\\Users\\dollymi\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.0.0\\microsoft.windowsdesktop.app.ref.3.0.0.nupkg.sha512"
+>>>>>>> bcd49c546abf904bf5676a1f47f0291caf7276f1
   ],
   "logs": []
 }

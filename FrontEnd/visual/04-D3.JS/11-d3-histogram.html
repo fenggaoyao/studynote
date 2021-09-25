@@ -62,7 +62,8 @@
       .attr('transform', `translate(0, ${margin.top})`)
 
     // 提供二个状态
-    rects.attr('y', () => yScale(0)).attr('height', 0)
+    rects.attr('y', () => yScale(0))
+        .attr('height', 0)
     rects.transition()
       .duration(1000)
       .delay((d, i) => i * 200)
